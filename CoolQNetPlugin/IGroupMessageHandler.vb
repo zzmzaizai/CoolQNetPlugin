@@ -68,7 +68,7 @@ Public Enum PrivateMessageConsoleType
     ''' <summary>
     ''' 来自在线状态的临时会话。
     ''' </summary>
-    Online = 1
+    OnlineStatus = 1
     ''' <summary>
     ''' 来自群的临时会话。
     ''' </summary>
