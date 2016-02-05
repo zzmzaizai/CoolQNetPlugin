@@ -5,7 +5,7 @@ CoolQ Unofficial VB.NET SDK<br>
 * Air 支持特性
 
 ## SDK 特性
-* 插件支持（采用MEF）
+* 插件支持
 * 插件隔离运行（建设中）
 * 消息接口（未完成）
 
