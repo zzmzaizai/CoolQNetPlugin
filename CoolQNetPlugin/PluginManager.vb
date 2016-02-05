@@ -61,6 +61,7 @@ Public Class PluginRelayStation
         Try
             If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
             If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
+            'MEF DLL ShadowCopy
 
         Catch ex As Exception
             Return ShowErrorMessage(ex.ToString)

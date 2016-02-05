@@ -127,7 +127,7 @@ Public Module CoolQApplication
     ''' </summary>
     ''' <returns><see cref="String"/></returns>
     Public Function InterceptMessage() As String
-        Return "拦截|source=CQ.NET 插件管理器" + vbCrLf
+        Return "拦截|source=CQ.NET 插件管理器" '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取显示致命错误代码字符串。
