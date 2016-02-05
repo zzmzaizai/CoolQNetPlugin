@@ -56,19 +56,32 @@ Public Class PluginRelayStation
     ''' <param name="font">消息使用字体。</param>
     ''' <param name="sendtime">消息发送时间。</param>
     ''' <returns><see cref="String"/></returns>
+    <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")>
     Public Function ProcessPrivateMessage(qq As Long, type As Integer, msg As String, font As Integer, sendtime As Date) As String
         Dim pmh As New PrivateMessageHandler(qq, type, msg, font, sendtime)
         Try
-            If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
-            If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
-            'MEF DLL ShadowCopy
-
+            CheckDirectory()
+            Isolated(Of PrivateMessageHandler)("PrivateMessagePluginDomain")
+            pmh.Compose()
+            pmh.DoWork()
+            Return pmh.Command
         Catch ex As Exception
             Return ShowErrorMessage(ex.ToString)
         End Try
     End Function
 
+    Private Shared Sub CheckDirectory()
+        If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
+        If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
+    End Sub
+    Private Sub Isolated(Of T)(ByVal domainname As String)
+        If String.IsNullOrWhiteSpace(domainname) Then domainname = Path.GetRandomFileName
+        Dim setup As New AppDomainSetup With {.CachePath = ShadowCopyPath,
+            .ShadowCopyDirectories = PluginPath, .ShadowCopyFiles = "true"}
+        Dim domain As AppDomain = AppDomain.CreateDomain(domainname, Nothing, setup)
+        Dim handler As T = domain.CreateInstanceAndUnwrap(GetType(T).Assembly.FullName, GetType(T).FullName)
 
+    End Sub
 End Class
 
 

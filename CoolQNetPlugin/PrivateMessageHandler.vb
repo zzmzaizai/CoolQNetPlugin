@@ -6,14 +6,12 @@ Imports System.Text
 ''' <summary>
 ''' 私聊信息处理器。
 ''' </summary>
-Public Class PrivateMessageHandler
+Friend Class PrivateMessageHandler
     Inherits MarshalByRefObject
     Private qq As Long, font As Integer, msgdate As Date
     Private type As PrivateMessageConsoleType
     Private msg As String
     Private cmdbuilder As StringBuilder
-    'MEF
-    'Private dircatalog As DirectoryCatalog, container As CompositionContainer
     Private plugins As IEnumerable(Of IPrivateMessageHandler)
     Friend Sub New(qq As Long, type As PrivateMessageConsoleType, msg As String, font As Integer, sendtime As Date)
         Me.qq = qq
@@ -24,11 +22,11 @@ Public Class PrivateMessageHandler
         cmdbuilder = New StringBuilder
     End Sub
     ''' <summary>
-    ''' 在独立的 <see cref="AppDomain"/> 里初始化插件。
+    ''' 在独立的 <see cref="AppDomain"/> 里组合插件。
     ''' </summary>
     ''' <remarks>本部分代码参照
     ''' http://www.codeproject.com/Articles/633140/MEF-and-AppDomain-Remove-Assemblies-On-The-Fly </remarks>
-    Public Sub DoWork()
+    Public Sub Compose()
         Dim regbuilder As New RegistrationBuilder
         regbuilder.ForTypesDerivedFrom(Of IPrivateMessageHandler).Export(Of IPrivateMessageHandler)()
         Dim catalog As New AggregateCatalog
@@ -52,4 +50,13 @@ Public Class PrivateMessageHandler
             Return cmdbuilder.ToString
         End Get
     End Property
+    ''' <summary>
+    ''' 执行插件代码。
+    ''' </summary>
+    Public Sub DoWork()
+        Dim res As String
+        For Each p As IPrivateMessageHandler In plugins
+
+        Next
+    End Sub
 End Class

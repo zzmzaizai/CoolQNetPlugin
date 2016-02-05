@@ -55,7 +55,7 @@ Public Interface IPrivateMessageHandler
     ''' <param name="font">消息使用字体。</param>
     ''' <param name="sendtime">消息发送时间。</param>
     ''' <returns><see cref="String"/></returns>
-    Function Result(sender As Long, consoletype As PrivateMessageConsoleType, msg As String, font As Integer, sendtime As Long)
+    Function Result(sender As Long, consoletype As PrivateMessageConsoleType, msg As String, font As Integer, sendtime As Date)
 End Interface
 ''' <summary>
 ''' 指示私聊会话形式。
