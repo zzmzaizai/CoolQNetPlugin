@@ -56,6 +56,7 @@ Friend Class PrivateMessageHandler
     Public Sub DoWork()
         Dim res As String
         For Each p As IPrivateMessageHandler In plugins
+
             res = p.Result(qq, type, msg, font, msgdate)
             If Not String.IsNullOrWhiteSpace(res) Then
                 cmdbuilder.AppendLine(res)

@@ -46,6 +46,7 @@ End Interface
 ''' </summary>
 <InheritedExport(GetType(IPrivateMessageHandler))>
 Public Interface IPrivateMessageHandler
+    Inherits ICoolQPlugin
     ''' <summary>
     ''' 处理私聊消息，然后返回结果。
     ''' </summary>
