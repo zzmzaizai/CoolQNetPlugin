@@ -6,7 +6,7 @@ Imports System.IO
 ''' CoolQ .NET 插件中继站。
 ''' </summary>
 <ComClass(PluginRelayStation.ClassId, PluginRelayStation.InterfaceId, PluginRelayStation.EventsId)>
-<ComVisible(True)> <ProgId("CoolQ.NetPluginRelayStation")>
+<ComVisible(True)>
 Public Class PluginRelayStation
     'Private container As CompositionContainer 
     ' Private dircatalog As DirectoryCatalog
@@ -82,6 +82,7 @@ Public Class PluginRelayStation
         Dim handler As T = domain.CreateInstanceAndUnwrap(GetType(T).Assembly.FullName, GetType(T).FullName)
 
     End Sub
+
 End Class
 
 
