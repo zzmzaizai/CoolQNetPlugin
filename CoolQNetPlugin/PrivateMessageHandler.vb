@@ -29,7 +29,7 @@ Friend Class PrivateMessageHandler
         msgdate = sendtime
         'finalcmd = String.Empty
         cmdbuilder = New StringBuilder
-        plugins = New List(Of IPrivateMessageHandler)
+        'plugins = New List(Of IPrivateMessageHandler)
     End Sub
     ''' <summary>
     ''' 默认构造函数。
@@ -44,22 +44,9 @@ Friend Class PrivateMessageHandler
     ''' <remarks>本部分代码参照
     ''' http://www.codeproject.com/Articles/633140/MEF-and-AppDomain-Remove-Assemblies-On-The-Fly </remarks>
     Public Sub Compose()
-        Dim regbuilder As New RegistrationBuilder
-        regbuilder.ForTypesDerivedFrom(Of IPrivateMessageHandler).Export(Of IPrivateMessageHandler)()
-        Dim catalog As New AggregateCatalog
-        Dim asscatalog As New AssemblyCatalog(GetType(PrivateMessageHandler).Assembly, regbuilder)
-        Dim dircatalog As New DirectoryCatalog(PluginPath, regbuilder)
-        catalog.Catalogs.Add(asscatalog)
-        catalog.Catalogs.Add(dircatalog)
-        Using container As New CompositionContainer(catalog)
-            container.ComposeExportedValue(container)
-            Try
-                plugins = container.GetExportedValues(Of IPrivateMessageHandler)
-            Catch ex As Exception
-                container.ComposeParts(Me)
-            End Try
-
-            'container.ComposeExportedValue(Of IPrivateMessageHandler)
+        Dim dircatalog As New DirectoryCatalog(PluginPath)
+        Using container As New CompositionContainer(dircatalog)
+            container.ComposeParts(Me)
         End Using
         cmdbuilder.AppendLine(LogInfo("插件加载", String.Format("已在{0}上加载了{1}个插件", AppDomain.CurrentDomain.FriendlyName, plugins.Count.ToString)))
     End Sub
@@ -81,7 +68,7 @@ Friend Class PrivateMessageHandler
             If Not p.Permissions.HasFlag(PluginPermissions.PrivateMessage) Then
                 Continue For
             End If
-            res = p.Result(qq, type, msg, font, msgdate)
+            res = p.Result(qq, type, msg, font, msgdate).ToString
             If Not String.IsNullOrWhiteSpace(res) Then
                 'cmdbuilder.AppendLine(LogInfo(p.Name, ""))
                 cmdbuilder.AppendLine(res)
@@ -93,6 +80,5 @@ Friend Class PrivateMessageHandler
     ''' </summary>
     ''' <returns><see cref="IEnumerable(Of IPrivateMessageHandler)"/></returns>
     <ImportMany(GetType(IPrivateMessageHandler))>
-    <Obsolete("该方法仅供 .NET 内部调用，外部方法不要调用此方法。")>
     Public Property Plugin As IEnumerable(Of IPrivateMessageHandler) = plugins
 End Class

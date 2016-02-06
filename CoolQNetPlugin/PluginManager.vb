@@ -36,16 +36,11 @@ Public Class PluginRelayStation
     ''' </summary>
     ''' <param name="path">数据存储目录路径。</param>
     Public Sub SetDataPath(path As String)
-        If Not My.Computer.FileSystem.DirectoryExists(path) Then Return
-        PluginSetting.Default.DataPath = path
-        Dim sdd As String = My.Computer.FileSystem.CombinePath(path, "DisabledPlugin.txt")
-        If Not My.Computer.FileSystem.FileExists(sdd) Then
-            Using sw As New StreamWriter(sdd)
-                sw.Write(String.Empty)
-            End Using
-        End If
-        PluginSetting.Default.DisabledPlugin = sdd
-        PluginSetting.Default.Save()
+        If Not My.Computer.FileSystem.DirectoryExists(path) Then path = AppDomain.CurrentDomain.BaseDirectory
+        My.Settings.DataPath = path
+        My.Settings.DisablePlugin = My.Computer.FileSystem.CombinePath(path, "DisabledPlugin.xml")
+        My.Settings.Save()
+        My.Settings.Upgrade()
     End Sub
     ''' <summary>
     ''' 处理私聊消息，然后返回结果。
@@ -58,31 +53,34 @@ Public Class PluginRelayStation
     ''' <returns><see cref="String"/></returns>
     <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")>
     Public Function ProcessPrivateMessage(qq As Long, type As Integer, msg As String, font As Integer, sendtime As Date) As String
-        Dim pmh As New PrivateMessageHandler(qq, type, msg, font, sendtime)
+        'Dim pmh As New PrivateMessageHandler(qq, type, msg, font, sendtime)
         Try
             CheckDirectory()
-            Isolated(Of PrivateMessageHandler)("PrivateMessagePluginDomain")
-            pmh.Compose()
-            pmh.DoWork()
-            Return pmh.Command
+            Dim setup As New AppDomainSetup With {.CachePath = ShadowCopyPath,
+            .ShadowCopyDirectories = PluginPath, .ShadowCopyFiles = "true"}
+            Dim domain As AppDomain = AppDomain.CreateDomain("PM_Domain", Nothing, setup)
+            Dim handler As PrivateMessageHandler = domain.CreateInstanceAndUnwrap(GetType(PrivateMessageHandler).Assembly.FullName, GetType(PrivateMessageHandler).FullName)
+            handler.Compose()
+            handler.DoWork()
+            Return handler.Command.ToString
         Catch ex As Exception
             Return ShowErrorMessage(ex.ToString)
         End Try
     End Function
-
+    ''' <summary>
+    ''' 返回程序是否需要初始化的值。
+    ''' </summary>
+    ''' <returns><see cref="Boolean"/></returns>
+    Public ReadOnly Property NeedInitalize As Boolean
+        Get
+            Return String.IsNullOrWhiteSpace(My.Settings.DataPath) OrElse
+                Not My.Computer.FileSystem.DirectoryExists(My.Settings.DataPath)
+        End Get
+    End Property
     Private Shared Sub CheckDirectory()
         If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
         If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
     End Sub
-    Private Sub Isolated(Of T)(ByVal domainname As String)
-        If String.IsNullOrWhiteSpace(domainname) Then domainname = Path.GetRandomFileName
-        Dim setup As New AppDomainSetup With {.CachePath = ShadowCopyPath,
-            .ShadowCopyDirectories = PluginPath, .ShadowCopyFiles = "true"}
-        Dim domain As AppDomain = AppDomain.CreateDomain(domainname, Nothing, setup)
-        Dim handler As T = domain.CreateInstanceAndUnwrap(GetType(T).Assembly.FullName, GetType(T).FullName)
-
-    End Sub
-
 End Class
 
 

@@ -22,7 +22,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>CoolQNetPlugin.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <RegisterForComInterop>false</RegisterForComInterop>
     <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,7 +33,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>CoolQNetPlugin.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -96,12 +96,8 @@
     </Compile>
     <Compile Include="PluginHelper.vb" />
     <Compile Include="PluginManager.vb" />
-    <Compile Include="PluginSetting.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>PluginSetting.settings</DependentUpon>
-    </Compile>
     <Compile Include="PrivateMessageHandler.vb" />
+    <Compile Include="ReturnCommand.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -122,10 +118,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="PluginSetting.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>PluginSetting.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

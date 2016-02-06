@@ -79,7 +79,13 @@ Public Enum PluginPermissions
     ''' </summary>
     GroupMemberInfo = 32
     ''' <summary>
+    ''' 获取账号 Cookies 和 CrfsToken 的权限。
+    ''' </summary>
+    Cookies = 64
+    ''' <summary>
     ''' 获取所有权限。
     ''' </summary>
-    All = PrivateMessage Or DiscussGroupMessage Or GroupAdmin Or GroupMember Or GroupMemberInfo Or GroupMessage
+    All = PrivateMessage Or DiscussGroupMessage Or
+        GroupAdmin Or GroupMember Or
+        GroupMemberInfo Or GroupMessage Or Cookies
 End Enum
