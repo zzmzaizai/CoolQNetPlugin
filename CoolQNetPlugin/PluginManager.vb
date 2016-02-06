@@ -27,6 +27,7 @@ Public Class PluginRelayStation
     ''' <remarks>该方法仅用于 .NET 端 Debug 使用。</remarks>
     Public Sub New()
         MyBase.New()
+        CheckInIFile()
         'pp = AppDomain.CurrentDomain.BaseDirectory + "Extensions"
     End Sub
     ''' <summary>
@@ -36,28 +37,30 @@ Public Class PluginRelayStation
     ''' <param name="type">私聊会话类型。</param>
     ''' <param name="msg">消息内容。</param>
     ''' <param name="font">消息使用字体。</param>
-    ''' <param name="sendtime">消息发送时间。</param>
     ''' <returns><see cref="String"/></returns>
     <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")>
-    Public Function ProcessPrivateMessage(qq As Long, type As Integer, msg As String, font As Integer, sendtime As Date) As String
-        'Dim pmh As New PrivateMessageHandler(qq, type, msg, font, sendtime)
+    Public Function ProcessPrivateMessage(qq As Long, type As Integer, msg As String, font As Integer) As String
+        Dim res As String = ""
         Try
             CheckDirectory()
-            Dim setup As New AppDomainSetup With {.CachePath = ShadowCopyPath,
-            .ShadowCopyDirectories = PluginPath, .ShadowCopyFiles = "true"}
-            Dim domain As AppDomain = AppDomain.CreateDomain("PM_Domain", Nothing, setup)
-            Dim handler As PrivateMessageHandler = domain.CreateInstanceAndUnwrap(GetType(PrivateMessageHandler).Assembly.FullName, GetType(PrivateMessageHandler).FullName)
-            handler.CopyData(qq, type, msg, font, sendtime)
-            handler.Compose()
-            handler.DoWork()
-            Return handler.Command.ToString
+            Dim ads As New AppDomainSetup() With {.CachePath = ShadowCopyPath, .ShadowCopyDirectories = PluginPath,
+                .ShadowCopyFiles = "true"}
+            Dim d As AppDomain = AppDomain.CreateDomain("PM_Domain", Nothing, ads)
+            Dim ints As PrivateMessageHandler = d.CreateInstanceAndUnwrap(GetType(PrivateMessageHandler).Assembly.FullName, GetType(PrivateMessageHandler).FullName)
+            ints.CopyData(qq, type, msg, font)
         Catch ex As Exception
             Return ShowErrorMessage(ex.ToString)
         End Try
+        Return res
     End Function
     Private Shared Sub CheckDirectory()
         If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
         If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
+    End Sub
+    Private Shared Sub CheckInIFile()
+        Dim inifile As String = Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini")
+        If My.Computer.FileSystem.FileExists(inifile) Then Return
+        NativeMethods.WritePrivateProfileString("CoolQNetPluginConfig", "DataPath", My.Application.Info.DirectoryPath, inifile)
     End Sub
 End Class
 

@@ -53,30 +53,6 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property DataPath() As String
-            Get
-                Return CType(Me("DataPath"),String)
-            End Get
-            Set
-                Me("DataPath") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property DisablePlugin() As String
-            Get
-                Return CType(Me("DisablePlugin"),String)
-            End Get
-            Set
-                Me("DisablePlugin") = value
-            End Set
-        End Property
     End Class
 End Namespace
 

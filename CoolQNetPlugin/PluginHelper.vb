@@ -1,6 +1,6 @@
 ﻿Imports System.IO
-Imports System.Runtime.InteropServices
 Imports System.Text
+
 ''' <summary>
 ''' 提供插件辅助方法。
 ''' </summary>
@@ -11,7 +11,7 @@ Public Module PluginHelper
     ''' <returns><see cref="String"/></returns>
     Public ReadOnly Property DataPath As String
         Get
-            Return My.Settings.DataPath
+            Return ContentValue("CoolQNetPluginConfig", "DataPath")
         End Get
     End Property
     Friend ReadOnly Property ShadowCopyPath As String
@@ -24,5 +24,10 @@ Public Module PluginHelper
             Return Path.Combine(DataPath, "Plugins")
         End Get
     End Property
-
+    Private Function ContentValue(section As String, key As String) As String
+        Dim inifile As String = Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini")
+        Dim sb As New StringBuilder(1024)
+        NativeMethods.GetPrivateProfileString(section, key, String.Empty, sb, 1024, inifile)
+        Return sb.ToString
+    End Function
 End Module

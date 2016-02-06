@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 '查看程序集特性的值
 
-<Assembly: AssemblyTitle("CoolQNetPlugin")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("CoolQNetPlugin")> 
-<Assembly: AssemblyCopyright("Copyright ©  2016")> 
+<Assembly: AssemblyTitle("CoolQNetPlugin")>
+<Assembly: AssemblyDescription("酷Q托管代码 SDK")>
+<Assembly: AssemblyCompany("135ty")>
+<Assembly: AssemblyProduct("CoolQNetPlugin")>
+<Assembly: AssemblyCopyright("Copyright © 135ty 2016")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
 
 '如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-<Assembly: Guid("ac21b427-0bb9-498f-910a-ee6c8bbe3cdf")> 
+<Assembly: Guid("ac21b427-0bb9-498f-910a-ee6c8bbe3cdf")>
 
 ' 程序集的版本信息由下列四个值组成: 
 '
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' 方法是按如下所示使用“*”: :
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("1.0.0.5")>
 <Assembly: AssemblyFileVersion("1.0.0.0")> 
