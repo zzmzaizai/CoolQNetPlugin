@@ -15,7 +15,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyCopyright("Copyright ©  2016")> 
 <Assembly: AssemblyTrademark("")>
 
-<Assembly: ComVisible(True)>
+<Assembly: ComVisible(False)>
 
 '如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
 <Assembly: Guid("ac21b427-0bb9-498f-910a-ee6c8bbe3cdf")> 

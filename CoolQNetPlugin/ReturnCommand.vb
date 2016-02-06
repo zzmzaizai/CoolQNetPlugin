@@ -20,6 +20,12 @@ Public Class ReturnCommand
         sb.AppendLine(SendPrivateMessage(qq, msg))
     End Sub
     ''' <summary>
+    ''' 追加拦截消息命令。
+    ''' </summary>
+    Public Sub AppendInterceptCmd()
+        sb.AppendLine(InterceptMessage)
+    End Sub
+    ''' <summary>
     ''' 返回此存储器的存储结果。
     ''' </summary>
     ''' <returns><see cref="String"/></returns>

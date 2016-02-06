@@ -8,8 +8,6 @@ Imports System.IO
 <ComClass(PluginRelayStation.ClassId, PluginRelayStation.InterfaceId, PluginRelayStation.EventsId)>
 <ComVisible(True)>
 Public Class PluginRelayStation
-    'Private container As CompositionContainer 
-    ' Private dircatalog As DirectoryCatalog
 #Region "COM GUID"
     ' 这些 GUID 提供此类的 COM 标识 
     ' 及其 COM 接口。若更改它们，则现有的
@@ -24,23 +22,12 @@ Public Class PluginRelayStation
     ' COM 注册表中注册此类，且无法通过
     ' CreateObject 创建此类。
     ''' <summary>
-    ''' 默认构造函数。
+    ''' 构造 <see cref="PluginRelayStation"/> 的新实例。
     ''' </summary>
-    <Obsolete("该方法是 COM 类的支持方法，.NET 类不应该使用该方法。")>
+    ''' <remarks>该方法仅用于 .NET 端 Debug 使用。</remarks>
     Public Sub New()
         MyBase.New()
         'pp = AppDomain.CurrentDomain.BaseDirectory + "Extensions"
-    End Sub
-    ''' <summary>
-    ''' 设置数据存储目录。
-    ''' </summary>
-    ''' <param name="path">数据存储目录路径。</param>
-    Public Sub SetDataPath(path As String)
-        If Not My.Computer.FileSystem.DirectoryExists(path) Then path = AppDomain.CurrentDomain.BaseDirectory
-        My.Settings.DataPath = path
-        My.Settings.DisablePlugin = My.Computer.FileSystem.CombinePath(path, "DisabledPlugin.xml")
-        My.Settings.Save()
-        My.Settings.Upgrade()
     End Sub
     ''' <summary>
     ''' 处理私聊消息，然后返回结果。
@@ -60,6 +47,7 @@ Public Class PluginRelayStation
             .ShadowCopyDirectories = PluginPath, .ShadowCopyFiles = "true"}
             Dim domain As AppDomain = AppDomain.CreateDomain("PM_Domain", Nothing, setup)
             Dim handler As PrivateMessageHandler = domain.CreateInstanceAndUnwrap(GetType(PrivateMessageHandler).Assembly.FullName, GetType(PrivateMessageHandler).FullName)
+            handler.CopyData(qq, type, msg, font, sendtime)
             handler.Compose()
             handler.DoWork()
             Return handler.Command.ToString
@@ -67,16 +55,6 @@ Public Class PluginRelayStation
             Return ShowErrorMessage(ex.ToString)
         End Try
     End Function
-    ''' <summary>
-    ''' 返回程序是否需要初始化的值。
-    ''' </summary>
-    ''' <returns><see cref="Boolean"/></returns>
-    Public ReadOnly Property NeedInitalize As Boolean
-        Get
-            Return String.IsNullOrWhiteSpace(My.Settings.DataPath) OrElse
-                Not My.Computer.FileSystem.DirectoryExists(My.Settings.DataPath)
-        End Get
-    End Property
     Private Shared Sub CheckDirectory()
         If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
         If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
