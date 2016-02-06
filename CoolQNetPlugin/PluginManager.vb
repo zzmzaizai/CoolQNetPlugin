@@ -48,6 +48,8 @@ Public Class PluginRelayStation
             Dim d As AppDomain = AppDomain.CreateDomain("PM_Domain", Nothing, ads)
             Dim ints As PrivateMessageHandler = d.CreateInstanceAndUnwrap(GetType(PrivateMessageHandler).Assembly.FullName, GetType(PrivateMessageHandler).FullName)
             ints.CopyData(qq, type, msg, font)
+            ints.Compose()
+            res = ints.Command
         Catch ex As Exception
             Return ShowErrorMessage(ex.ToString)
         End Try

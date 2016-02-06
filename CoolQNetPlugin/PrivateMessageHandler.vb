@@ -6,6 +6,7 @@ Imports System.Text
 ''' 私聊信息处理器。
 ''' </summary>
 Friend Class PrivateMessageHandler
+    Inherits MarshalByRefObject
     Private qq As Long, font As Integer ', msgdate As Date
     Private type As PrivateMessageConsoleType
     Private msg As String
@@ -29,9 +30,9 @@ Friend Class PrivateMessageHandler
             container.ComposeParts(Me)
         End Using
         If plugins Is Nothing Then
-            cmdbuilder.AppendLine(LogInfo("插件加载", "没有找到可用的插件。"))
+            cmdbuilder.AppendLine(LogInfo(AppDomain.CurrentDomain.FriendlyName, "没有找到可用的插件。"))
         Else
-            cmdbuilder.AppendLine(LogInfo("插件加载", String.Format("已加载{0}个插件", plugins.Count.ToString)))
+            cmdbuilder.AppendLine(LogInfo(AppDomain.CurrentDomain.FriendlyName, String.Format("已加载{0}个插件", plugins.Count.ToString)))
         End If
     End Sub
     ''' <summary>

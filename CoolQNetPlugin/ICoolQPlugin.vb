@@ -24,22 +24,6 @@ Public Interface ICoolQPlugin
     ''' </summary>
     Sub Setting()
     ''' <summary>
-    ''' 插件被禁用时发生的事件。
-    ''' </summary>
-    Sub OnDisabled()
-    ''' <summary>
-    ''' 插件被启用后发生的事件。
-    ''' </summary>
-    Sub OnEnabled()
-    ''' <summary>
-    ''' 插件加载时事件。
-    ''' </summary>
-    Sub OnLoaded()
-    ''' <summary>
-    ''' 插件退出时的事件。
-    ''' </summary>
-    Sub OnExited()
-    ''' <summary>
     ''' 获取该插件的描述。
     ''' </summary>
     ''' <returns></returns>
