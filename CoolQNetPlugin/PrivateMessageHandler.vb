@@ -62,11 +62,11 @@ Friend Class PrivateMessageHandler
     ''' <returns><see cref="IEnumerable(Of IPrivateMessageHandler)"/></returns>
     <ImportMany(GetType(IPrivateMessageHandler))>
     Public Property Plugin As IEnumerable(Of IPrivateMessageHandler) = plugins
-    Friend Sub CopyData(qq As Long, consoletype As PrivateMessageConsoleType, msg As String, font As Integer, sendtime As Date)
-        Me.qq = qq
+    Friend Sub CopyData(senderqq As Long, consoletype As PrivateMessageConsoleType, message As String, msgfont As Integer, sendtime As Date)
+        qq = senderqq
         type = consoletype
-        Me.msg = msg
-        Me.font = font
+        msg = message
+        font = msgfont
         msgdate = sendtime
     End Sub
 End Class
