@@ -69,7 +69,23 @@ Public Class PluginRelayStation
     ''' <param name="font">消息使用字体。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function ProcessDiscussGroupMessage(discussgroup As Long, senderqq As Long, msg As String, font As Integer, sendtime As Integer) As String
-
+        Try
+            Dim res As String = ""
+            CheckDirectory()
+            Dim h As New DiscussGroupHandler(discussgroup, senderqq, msg, font, sendtime)
+            h.Compose()
+            h.DoWork()
+            res = h.Command
+            Return res
+        Catch ex As Exception
+            Try
+                ReportError(ex)
+                'ReportError(ex, p)
+            Catch exc As Exception
+                MsgBox(exc.ToString)
+            End Try
+            Return ShowErrorMessage("处理消息时发生了错误，详见错误报告文件。")
+        End Try
     End Function
     Private Shared Sub CheckDirectory()
         If Not Directory.Exists(ErrorReportPath) Then Directory.CreateDirectory(ErrorReportPath)
