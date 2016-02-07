@@ -6,7 +6,6 @@ Imports System.Text
 ''' 私聊信息处理器。
 ''' </summary>
 Friend Class PrivateMessageHandler
-    Inherits MarshalByRefObject
     Private qq As Long, font As Integer ', msgdate As Date
     Private type As PrivateMessageConsoleType
     Private msg As String
@@ -23,10 +22,16 @@ Friend Class PrivateMessageHandler
     ''' 组合插件。
     ''' </summary>
     Public Sub Compose()
-        Dim dircatalog As New DirectoryCatalog(PluginPath)
-        Using container As New CompositionContainer(dircatalog)
-            container.ComposeParts(Me)
+        Dim dircatalog As New DirectoryCatalog(PluginPath, "*.exe")
+        Dim dirc As New DirectoryCatalog(PluginPath, "*.dll")
+        Using ag As New AggregateCatalog
+            ag.Catalogs.Add(dircatalog)
+            ag.Catalogs.Add(dirc)
+            Using container As New CompositionContainer(ag)
+                container.ComposeParts(Me)
+            End Using
         End Using
+
         If plugins Is Nothing Then
             cmdbuilder.AppendLine(LogInfo("CQ.NET", "没有找到可用的插件。"))
         Else
