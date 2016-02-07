@@ -5,12 +5,14 @@ Imports System.Text
 ''' 私聊信息处理器。
 ''' </summary>
 Friend Class PrivateMessageHandler
+    'Implements IDisposable
+
     Private qq As Long, font As Integer ', msgdate As Date
     Private type As PrivateMessageConsoleType
     Private msg As String, st As Integer
     Private cmdbuilder As StringBuilder
-    Private detectedplugins As IEnumerable(Of Lazy(Of IPrivateMessageHandler))
-    'Private container As CompositionContainer
+    Private detectedplugins As IEnumerable(Of IPrivateMessageHandler)
+    ' Private container As CompositionContainer
     ''' <summary>
     ''' 默认构造函数。
     ''' </summary>
@@ -26,8 +28,9 @@ Friend Class PrivateMessageHandler
         Using container As New CompositionContainer(dircatalog)
             container.ComposeParts(Me)
             'plugins = container.GetExportedValues(Of IPrivateMessageHandler)
-            detectedplugins = container.GetExports(Of IPrivateMessageHandler)
+            detectedplugins = container.GetExportedValues(Of IPrivateMessageHandler)
         End Using
+
         If detectedplugins Is Nothing Then
             cmdbuilder.AppendLine(LogInfo("CQ.NET", "没有找到可用的插件。") + Separator)
         Else
@@ -48,28 +51,25 @@ Friend Class PrivateMessageHandler
     ''' </summary>
     Public Sub DoWork()
         If detectedplugins Is Nothing Then Return '没有可用插件，返回
-        Dim lzytarget As IPrivateMessageHandler = Nothing, res As String, resc As CommandStorage
-        For Each la As Lazy(Of IPrivateMessageHandler) In detectedplugins
+        Dim res As String, resc As CommandStorage
+        For Each la As IPrivateMessageHandler In detectedplugins
             Try
-                lzytarget = la.Value
+
                 'If lzytarget Is Nothing Then Continue For
-                If Not HasPermission(lzytarget) Then Continue For
-                resc = lzytarget.Result(qq, type, msg, font, st) '.ToString
+                If Not HasPermission(la) Then Continue For
+                resc = la.Result(qq, type, msg, font, st) '.ToString
                 If resc Is Nothing Then Continue For
                 res = resc.ToString
                 'res 
                 If Not String.IsNullOrWhiteSpace(res) Then
                     cmdbuilder.Append(res)
                 End If
-                If lzytarget.IsIntercept Then
-                    cmdbuilder.Append(LogInfo("CQ.NET", "消息已被 " + lzytarget.Name + " 拦截。"))
+                If la.IsIntercept Then
+                    cmdbuilder.Append(LogInfo("CQ.NET", "消息已被 " + la.Name + " 拦截。"))
                     Exit For
                 End If
             Catch ex As Exception
-                If lzytarget Is Nothing Then
-                    lzytarget = New PluginRelayStation.DefaultPlugin
-                End If
-                ReportError(ex, lzytarget)
+                ReportError(ex, la)
                 cmdbuilder.Append(ShowErrorMessage("执行插件代码时遭遇异常，详见错误报告文件。"))
                 'Exit For
             End Try

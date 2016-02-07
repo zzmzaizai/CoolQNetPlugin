@@ -47,11 +47,12 @@ Public Class PluginRelayStation
             Dim h As New PrivateMessageHandler(qq, type, msg, font, sendtime)
             h.Compose()
                 h.DoWork()
-            res = h.Command
+                res = h.Command
+            'End Using
         Catch ex As Exception
-            Dim p As New DefaultPlugin
             Try
-                ReportError(ex, p)
+                ReportError(ex)
+                'ReportError(ex, p)
             Catch exc As Exception
                 MsgBox(exc.ToString)
             End Try
@@ -79,43 +80,7 @@ Public Class PluginRelayStation
         If My.Computer.FileSystem.FileExists(inifile) Then Return
         NativeMethods.WritePrivateProfileString("CoolQNetPluginConfig", "DataPath", My.Application.Info.DirectoryPath, inifile)
     End Sub
-    Friend Class DefaultPlugin
-        Implements ICoolQPlugin
 
-        Public ReadOnly Property Description As String Implements ICoolQPlugin.Description
-            Get
-                Return "CQ.NET"
-            End Get
-        End Property
-
-        Public ReadOnly Property Id As Guid Implements ICoolQPlugin.Id
-            Get
-                Return New Guid
-            End Get
-        End Property
-
-        Public ReadOnly Property IsIntercept As Boolean Implements ICoolQPlugin.IsIntercept
-            Get
-                Return False
-            End Get
-        End Property
-
-        Public ReadOnly Property Name As String Implements ICoolQPlugin.Name
-            Get
-                Return "CQ.NET 插件中继器"
-            End Get
-        End Property
-
-        Public ReadOnly Property Permissions As PluginPermissions Implements ICoolQPlugin.Permissions
-            Get
-                Return PluginPermissions.All
-            End Get
-        End Property
-
-        Public Sub Setting() Implements ICoolQPlugin.Setting
-
-        End Sub
-    End Class
 End Class
 
 

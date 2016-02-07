@@ -41,4 +41,15 @@ Public Module PluginHelper
             sw.WriteLine(ex.ToString)
         End Using
     End Sub
+    Friend Sub ReportError(ex As Exception)
+        If ex Is Nothing Then Return
+        Dim ns As String = Now.ToLongDateString + Now.ToLongTimeString.Replace(":", ".")
+        Dim ep As String = Path.Combine(ErrorReportPath, ns + ".txt")
+        Using sw As New StreamWriter(ep)
+            sw.WriteLine("错误发生时间：" + Now.ToString)
+            'sw.WriteLine("错误发生组件：" + plugin.Name + "（" + plugin.Id.ToString + "）")
+            sw.WriteLine("错误信息：")
+            sw.WriteLine(ex.ToString)
+        End Using
+    End Sub
 End Module
