@@ -31,8 +31,26 @@ Friend Class DiscussGroupHandler
     Public Sub DoWork()
         If plugins Is Nothing Then Return
         'Dim dghplugin As IDiscussGroupMessageHandler
+        Dim sto As CommandStorage, s As String ' s
         For Each la As IDiscussGroupMessageHandler In plugins
-
+            Try
+                If Not la.Permissions.HasFlag(PluginPermissions.DiscussGroupMessage) Then
+                    Continue For
+                End If
+                sto = la.Result(dis, qq, msg, msgfont, time)
+                If sto Is Nothing Then Continue For
+                s = sto.ToString
+                If Not String.IsNullOrWhiteSpace(s) Then
+                    dgh.Append(s)
+                End If
+                If la.IsIntercept Then
+                    dgh.Append(LogInfo("CQ.NET", "讨论组消息已被 " + la.Name + " 拦截。"))
+                    Exit For
+                End If
+            Catch ex As Exception
+                ReportError(ex, la)
+                dgh.Append(ShowErrorMessage("执行插件代码时遭遇异常，详见错误报告文件。"))
+            End Try
         Next
     End Sub
     Public ReadOnly Property Command As String

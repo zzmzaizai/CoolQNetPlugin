@@ -63,7 +63,7 @@ Friend Class PrivateMessageHandler
                     cmdbuilder.Append(res)
                 End If
                 If la.IsIntercept Then
-                    cmdbuilder.Append(LogInfo("CQ.NET", "消息已被 " + la.Name + " 拦截。"))
+                    cmdbuilder.Append(LogInfo("CQ.NET", "私聊消息已被 " + la.Name + " 拦截。"))
                     Exit For
                 End If
             Catch ex As Exception
