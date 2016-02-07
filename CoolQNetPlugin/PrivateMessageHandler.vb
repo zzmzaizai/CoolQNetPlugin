@@ -22,16 +22,11 @@ Friend Class PrivateMessageHandler
     ''' 组合插件。
     ''' </summary>
     Public Sub Compose()
-        Dim dircatalog As New DirectoryCatalog(PluginPath, "*.exe")
-        Dim dirc As New DirectoryCatalog(PluginPath, "*.dll")
-        Using ag As New AggregateCatalog
-            ag.Catalogs.Add(dircatalog)
-            ag.Catalogs.Add(dirc)
-            Using container As New CompositionContainer(ag)
-                container.ComposeParts(Me)
-            End Using
+        Dim dircatalog As New DirectoryCatalog(PluginPath)
+        Using container As New CompositionContainer(dircatalog)
+            container.ComposeParts(Me)
+            plugins = container.GetExportedValues(Of IPrivateMessageHandler)
         End Using
-
         If plugins Is Nothing Then
             cmdbuilder.AppendLine(LogInfo("CQ.NET", "没有找到可用的插件。"))
         Else
@@ -61,6 +56,9 @@ Friend Class PrivateMessageHandler
             End If
             Try
                 res = p.Result(qq, type, Turn(msg), font).ToString
+#If DEBUG Then
+
+#End If
                 If Not String.IsNullOrWhiteSpace(res) Then
                     If res.Contains(Separator) Then Continue For '如包含分隔符无条件跳过
                     If p.IsIntercept Then
