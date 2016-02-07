@@ -16,7 +16,7 @@ Public Class ReturnCommand
     ''' </summary>
     ''' <param name="qq">私聊消息发送目标QQ。</param>
     ''' <param name="msg">消息内容。</param>
-    Public Sub AppendSendMessageCmd(qq As Long, msg As String)
+    Public Sub AppendSendPrivateMessageCmd(qq As Long, msg As String)
         ' If nolo Then Return
         sb.AppendLine(SendPrivateMessage(qq, msg))
     End Sub

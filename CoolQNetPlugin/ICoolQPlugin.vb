@@ -26,7 +26,7 @@ Public Interface ICoolQPlugin
     ''' <summary>
     ''' 获取该插件的描述。
     ''' </summary>
-    ''' <returns></returns>
+    ''' <returns><see cref="String"/></returns>
     ReadOnly Property Description As String
     ''' <summary>
     ''' 获取是否拦截消息的值。
@@ -78,3 +78,21 @@ Public Enum PluginPermissions
         GroupAdmin Or GroupMember Or
         GroupMemberInfo Or GroupMessage Or Cookies
 End Enum
+''' <summary>
+''' 提供处理加载插件时的事件。
+''' </summary>
+Public Interface ILoadPlugin
+    ''' <summary>
+    ''' 处理加载插件事件。
+    ''' </summary>
+    Sub OnLoad()
+End Interface
+''' <summary>
+''' 提供处理退出 CoolQ 时的事件。
+''' </summary>
+Public Interface ICoolQExiting
+    ''' <summary>
+    ''' 处理 CoolQ 退出事件。
+    ''' </summary>
+    Sub OnExiting()
+End Interface
