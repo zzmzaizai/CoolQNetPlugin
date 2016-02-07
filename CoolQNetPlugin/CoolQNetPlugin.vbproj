@@ -97,7 +97,7 @@
     <Compile Include="PluginHelper.vb" />
     <Compile Include="PluginManager.vb" />
     <Compile Include="PrivateMessageHandler.vb" />
-    <Compile Include="ReturnCommand.vb" />
+    <Compile Include="CommandStorage.vb" />
     <Compile Include="UnsafeNativeMethod.vb" />
   </ItemGroup>
   <ItemGroup>

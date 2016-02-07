@@ -7,7 +7,6 @@ Imports System.Text
 ''' </summary>
 Friend Class PrivateMessageHandler
     Implements IDisposable
-
     Private qq As Long, font As Integer ', msgdate As Date
     Private type As PrivateMessageConsoleType
     Private msg As String
@@ -48,28 +47,7 @@ Friend Class PrivateMessageHandler
     ''' 执行插件代码。
     ''' </summary>
     Public Sub DoWork()
-        Dim res As String
-        If plugins Is Nothing Then
-            Return
-        End If
-        For Each p As IPrivateMessageHandler In plugins
-            If Not p.Permissions.HasFlag(PluginPermissions.PrivateMessage) Then
-                Continue For
-            End If
-            Try
-                res = p.Result(qq, type, Turn(msg), font).ToString
-                If Not String.IsNullOrWhiteSpace(res) Then
-                    If res.Contains(Separator) Then Continue For '如包含分隔符无条件跳过
-                    If p.IsIntercept Then
-                        cmdbuilder.Append(LogInfo("CQ.NET", "消息已被 " + p.Name + " 拦截。") + Separator)
-                    End If
-                    cmdbuilder.Append(res + Separator)
-                End If
-            Catch ex As Exception
-                cmdbuilder.Append(ShowErrorMessage(ex.ToString))
-            End Try
-        Next
-        container.Dispose()
+
     End Sub
 
     Friend Sub New(senderqq As Long, consoletype As PrivateMessageConsoleType, message As String, msgfont As Integer)

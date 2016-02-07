@@ -12,16 +12,16 @@ Public Interface IGroupMessageHandler
     ''' <param name="sender">消息发送者QQ。</param>
     ''' <param name="msg">消息内容。</param>
     ''' <param name="font">消息所用字体。</param>
-    ''' <returns><see cref="ReturnCommand"/> 返回处理结果。</returns>
-    Function NotAnonymous(group As Long, sender As Long, msg As Long, font As Integer) As ReturnCommand
+    ''' <returns><see cref="CommandStorage"/> 返回处理结果。</returns>
+    Function NotAnonymous(group As Long, sender As Long, msg As Long, font As Integer) As CommandStorage
     ''' <summary>
     ''' 处理群内匿名消息。
     ''' </summary>
     ''' <param name="group">匿名消息来源群号。</param>
     ''' <param name="sender">匿名消息发送者代号。</param>
     ''' <param name="aid">匿名用户标识。</param>
-    ''' <returns><see cref="ReturnCommand"/> 返回处理结果。</returns>
-    Function Anonymous(group As Long, sender As String, aid As Long) As ReturnCommand
+    ''' <returns><see cref="CommandStorage"/> 返回处理结果。</returns>
+    Function Anonymous(group As Long, sender As String, aid As Long) As CommandStorage
     'Function Result(group As Long, sender As Long, msg As Long, anoymous As String)
 End Interface
 ''' <summary>
@@ -38,7 +38,7 @@ Public Interface IDiscussGroupMessageHandler
     ''' <param name="font">消息使用字体。</param>
     ''' <param name="sendtime">消息发送时间。</param>
     ''' <returns><see cref="String"/></returns>
-    Function Result(discuss As Long, sender As Long, msg As String, font As Integer, sendtime As Date) As ReturnCommand
+    Function Result(discuss As Long, sender As Long, msg As String, font As Integer, sendtime As Date) As CommandStorage
 End Interface
 ''' <summary>
 ''' 提供处理私聊消息的接口。
@@ -53,8 +53,8 @@ Public Interface IPrivateMessageHandler
     ''' <param name="consoletype">私聊会话类型。</param>
     ''' <param name="msg">消息内容。</param>
     ''' <param name="font">消息使用字体。</param>
-    ''' <returns><see cref="ReturnCommand"/></returns>
-    Function Result(sender As Long, consoletype As PrivateMessageConsoleType, msg As String, font As Integer) As ReturnCommand
+    ''' <returns><see cref="CommandStorage"/></returns>
+    Function Result(sender As Long, consoletype As PrivateMessageConsoleType, msg As String, font As Integer) As CommandStorage
 End Interface
 ''' <summary>
 ''' 指示私聊会话形式。
@@ -93,8 +93,8 @@ Public Interface IGroupAdminChangeHandler
     ''' <param name="becomeadmin">一个指示是否成为管理员的值。
     ''' 该值若为 True，则是成为管理员；若为 False，则是取消管理员。</param>
     ''' <param name="target">被操作QQ。</param>
-    ''' <returns><see cref="ReturnCommand"/> 返回处理结果。</returns>
-    Function Result(group As Long, becomeadmin As Boolean, target As Long) As ReturnCommand
+    ''' <returns><see cref="CommandStorage"/> 返回处理结果。</returns>
+    Function Result(group As Long, becomeadmin As Boolean, target As Long) As CommandStorage
 End Interface
 ''' <summary>
 ''' 提供处理群成员数量变动事件的接口。
@@ -108,8 +108,8 @@ Public Interface IGroupMemberChangeHandler
     ''' <param name="isinvite">指示该成员是否被管理员邀请的值。若为 False，则该群成员的入群申请被管理员同意。</param>
     ''' <param name="qq">新成员QQ。</param>
     ''' <param name="target">处理入群申请的管理员QQ。</param>
-    ''' <returns><see cref="ReturnCommand"/> 返回处理结果。</returns>
-    Function MemberIncrease(group As Long, isinvite As Boolean, qq As Long, target As Long) As ReturnCommand
+    ''' <returns><see cref="CommandStorage"/> 返回处理结果。</returns>
+    Function MemberIncrease(group As Long, isinvite As Boolean, qq As Long, target As Long) As CommandStorage
     ''' <summary>
     ''' 处理群成员减少事件，后返回结果。
     ''' </summary>
@@ -118,7 +118,7 @@ Public Interface IGroupMemberChangeHandler
     ''' <param name="qq">被操作成员QQ。</param>
     ''' <param name="target">处理的管理员QQ。</param>
     ''' <returns><see cref="String"/></returns>
-    Function MemberDecrease(group As Long, eventtype As GroupMemberDecreaseType, qq As Long, target As Long) As ReturnCommand
+    Function MemberDecrease(group As Long, eventtype As GroupMemberDecreaseType, qq As Long, target As Long) As CommandStorage
 End Interface
 ''' <summary>
 ''' 指示群成员数量减少事件类型。
