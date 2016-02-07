@@ -9,9 +9,9 @@ Friend Class PrivateMessageHandler
     Implements IDisposable
     Private qq As Long, font As Integer ', msgdate As Date
     Private type As PrivateMessageConsoleType
-    Private msg As String
+    Private msg As String, st As Integer
     Private cmdbuilder As StringBuilder
-    Private plugins As IEnumerable(Of IPrivateMessageHandler)
+    Private detectedplugins As IEnumerable(Of Lazy(Of IPrivateMessageHandler))
     Private container As CompositionContainer
     ''' <summary>
     ''' 默认构造函数。
@@ -27,11 +27,12 @@ Friend Class PrivateMessageHandler
         Dim dircatalog As New DirectoryCatalog(PluginPath)
         container = New CompositionContainer(dircatalog)
         container.ComposeParts(Me)
-        plugins = container.GetExportedValues(Of IPrivateMessageHandler)
-        If plugins Is Nothing Then
+        'plugins = container.GetExportedValues(Of IPrivateMessageHandler)
+        detectedplugins = container.GetExports(Of IPrivateMessageHandler)
+        If detectedplugins Is Nothing Then
             cmdbuilder.AppendLine(LogInfo("CQ.NET", "没有找到可用的插件。") + Separator)
         Else
-            cmdbuilder.AppendLine(LogInfo("CQ.NET", String.Format("已加载{0}个插件", plugins.Count.ToString)) + Separator)
+            cmdbuilder.AppendLine(LogInfo("CQ.NET", String.Format("已加载{0}个插件", detectedplugins.Count.ToString)) + Separator)
         End If
     End Sub
     ''' <summary>
@@ -47,18 +48,44 @@ Friend Class PrivateMessageHandler
     ''' 执行插件代码。
     ''' </summary>
     Public Sub DoWork()
-
+        If detectedplugins Is Nothing Then Return '没有可用插件，返回
+        Dim lzytarget As IPrivateMessageHandler = Nothing, res As String
+        For Each la As Lazy(Of IPrivateMessageHandler) In detectedplugins
+            Try
+                lzytarget = la.Value
+                'If lzytarget Is Nothing Then Continue For
+                If Not HasPermission(lzytarget) Then Continue For
+                res = lzytarget.Result(qq, type, msg, font, st).ToString
+                If Not String.IsNullOrWhiteSpace(res) Then
+                    cmdbuilder.Append(res)
+                End If
+                If lzytarget.IsIntercept Then
+                    cmdbuilder.Append(LogInfo("CQ.NET", "消息已被 " + lzytarget.Name + " 拦截。"))
+                    Exit For
+                End If
+            Catch ex As Exception
+                If lzytarget Is Nothing Then
+                    lzytarget = New PluginRelayStation.DefaultPlugin
+                End If
+                ReportError(ex, lzytarget)
+                cmdbuilder.Append(ShowErrorMessage("执行插件代码时遭遇异常，详见错误报告文件。"))
+                'Exit For
+            End Try
+        Next
+        container.Dispose() '释放资源
     End Sub
 
-    Friend Sub New(senderqq As Long, consoletype As PrivateMessageConsoleType, message As String, msgfont As Integer)
+    Friend Sub New(senderqq As Long, consoletype As PrivateMessageConsoleType, message As String, msgfont As Integer, sendtime As Integer)
         Me.New
         qq = senderqq
         type = consoletype
         msg = Unturn(message)
         font = msgfont
-        'msgdate = sendtime
+        st = sendtime
     End Sub
-
+    Private Shared Function HasPermission(plu As IPrivateMessageHandler) As Boolean
+        Return plu.Permissions.HasFlag(PluginPermissions.PrivateMessage)
+    End Function
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' 要检测冗余调用
 
@@ -68,7 +95,7 @@ Friend Class PrivateMessageHandler
             If disposing Then
                 ' TODO: 释放托管状态(托管对象)。
                 container.Dispose()
-                plugins = Nothing
+                detectedplugins = Nothing
             End If
 
             ' TODO: 释放未托管资源(未托管对象)并在以下内容中替代 Finalize()。

@@ -26,6 +26,10 @@ Public Class CommandStorage
     ''' <param name="qq">目标QQ。</param>
     ''' <param name="msg">消息内容。</param>
     Public Sub AppendSendPrivateMessageCommand(qq As Long, msg As String)
+        If Not tar.Permissions.HasFlag(PluginPermissions.PrivateMessage) Then
+            AppendLEC("CQ.NET", "已拒绝" + tar.Name + "发送私聊消息的请求，该插件并未请求此权限。")
+            Return
+        End If
         sb.Append(SendPrivateMessage(qq, Turn(msg)))
     End Sub
     ''' <summary>
@@ -34,6 +38,10 @@ Public Class CommandStorage
     ''' <param name="group">目标群号。</param>
     ''' <param name="msg">消息内容。</param>
     Public Sub AppendSendGroupMessageCommand(group As Long, msg As String)
+        If Not tar.Permissions.HasFlag(PluginPermissions.GroupMessage) Then
+            AppendLEC("CQ.NET", "已拒绝" + tar.Name + "发送群聊消息的请求，该插件并未请求此权限。")
+            Return
+        End If
         sb.Append(SendGroupMessage(group, Turn(msg)))
     End Sub
     ''' <summary>
@@ -42,6 +50,41 @@ Public Class CommandStorage
     ''' <param name="discussgroup">目标讨论组。</param>
     ''' <param name="msg">消息内容。</param>
     Public Sub AppendSendDiscussGroupMessageCommand(discussgroup As Long, msg As String)
+        If Not tar.Permissions.HasFlag(PluginPermissions.DiscussGroupMessage) Then
+            AppendLEC("CQ.NET", "已拒绝" + tar.Name + "发送讨论组消息的请求，该插件并未请求此权限。")
+            Return
+        End If
         sb.Append(SendDiscussGroupMessage(discussgroup, msg))
+    End Sub
+    ''' <summary>
+    ''' 追加信息日志消息的命令。
+    ''' </summary>
+    ''' <param name="msg">消息内容。</param>
+    Public Sub AppendLogInfoCommand(msg As String)
+        sb.Append(LogInfo(tar.Name, msg))
+    End Sub
+    ''' <summary>
+    ''' 追加错误日志消息的命令。
+    ''' </summary>
+    ''' <param name="msg">消息内容。</param>
+    Public Sub AppendLogErrorCommand(msg As String)
+        sb.Append(LogError(tar.Name, msg))
+    End Sub
+    Private Sub AppendLEC(source As String, msg As String)
+        sb.Append(LogError(source, msg))
+    End Sub
+    ''' <summary>
+    ''' 追加调试日志消息的命令。
+    ''' </summary>
+    ''' <param name="msg">消息内容。</param>
+    Public Sub AppendLogDebugCommand(msg As String)
+        sb.Append(LogDebug(tar.Name, msg))
+    End Sub
+    ''' <summary>
+    ''' 追加警告日志消息的命令。
+    ''' </summary>
+    ''' <param name="msg">消息内容。</param>
+    Public Sub AppendLogWarningCommand(msg As String)
+        sb.Append(LogWarn(tar.Name, msg))
     End Sub
 End Class

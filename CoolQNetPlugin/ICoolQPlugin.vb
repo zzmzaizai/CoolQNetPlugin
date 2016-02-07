@@ -62,7 +62,7 @@ Public Enum PluginPermissions
     ''' <summary>
     ''' 处理群成员变动事件。
     ''' </summary>
-    GroupMember = 16
+    GroupMemberChange = 16
     ''' <summary>
     ''' 获取群成员信息的权限。
     ''' </summary>
@@ -75,7 +75,7 @@ Public Enum PluginPermissions
     ''' 获取所有权限。
     ''' </summary>
     All = PrivateMessage Or DiscussGroupMessage Or
-        GroupAdmin Or GroupMember Or
+        GroupAdmin Or GroupMemberChange Or
         GroupMemberInfo Or GroupMessage Or Cookies
 End Enum
 ''' <summary>

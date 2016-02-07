@@ -1,5 +1,6 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.IO
+Imports CoolQNetPlugin
 
 <Assembly: CLSCompliant(True)>
 ''' <summary>
@@ -39,24 +40,27 @@ Public Class PluginRelayStation
     ''' <param name="font">消息使用字体。</param>
     ''' <returns><see cref="String"/></returns>
     <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")>
-    Public Function ProcessPrivateMessage(qq As Long, type As Integer, msg As String, font As Integer) As String
+    Public Function ProcessPrivateMessage(qq As Long, type As Integer, msg As String, font As Integer, sendtime As Integer) As String
         Dim res As String = ""
         Try
             CheckDirectory()
-            Dim h As New PrivateMessageHandler(qq, type, msg, font)
+            Dim h As New PrivateMessageHandler(qq, type, msg, font, sendtime)
             h.Compose()
             h.DoWork()
             res = h.Command
         Catch ex As Exception
-            NativeMethods.WritePrivateProfileString("错误报告", Nothing, Nothing, Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini"))
-            NativeMethods.WritePrivateProfileString("错误报告", "报告时间", Now.ToString, Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini"))
-            NativeMethods.WritePrivateProfileString("错误报告", "信息", ex.ToString, Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini"))
-            Return ShowErrorMessage("处理消息时发生了错误，详细信息详见和 CoolQNetPlugin.dll 处于同一目录的 NetPlugin.ini")
+            Dim p As New DefaultPlugin
+            Try
+                ReportError(ex, p)
+            Catch exc As Exception
+                MsgBox(exc.ToString)
+            End Try
+            Return ShowErrorMessage("处理消息时发生了错误，详见错误报告文件。")
         End Try
         Return res
     End Function
     Private Shared Sub CheckDirectory()
-        'If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
+        If Not Directory.Exists(ErrorReportPath) Then Directory.CreateDirectory(ErrorReportPath)
         If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
     End Sub
     Private Shared Sub CheckInIFile()
@@ -64,6 +68,43 @@ Public Class PluginRelayStation
         If My.Computer.FileSystem.FileExists(inifile) Then Return
         NativeMethods.WritePrivateProfileString("CoolQNetPluginConfig", "DataPath", My.Application.Info.DirectoryPath, inifile)
     End Sub
+    Friend Class DefaultPlugin
+        Implements ICoolQPlugin
+
+        Public ReadOnly Property Description As String Implements ICoolQPlugin.Description
+            Get
+                Return "CQ.NET"
+            End Get
+        End Property
+
+        Public ReadOnly Property Id As Guid Implements ICoolQPlugin.Id
+            Get
+                Return New Guid
+            End Get
+        End Property
+
+        Public ReadOnly Property IsIntercept As Boolean Implements ICoolQPlugin.IsIntercept
+            Get
+                Return False
+            End Get
+        End Property
+
+        Public ReadOnly Property Name As String Implements ICoolQPlugin.Name
+            Get
+                Return "CQ.NET 插件中继器"
+            End Get
+        End Property
+
+        Public ReadOnly Property Permissions As PluginPermissions Implements ICoolQPlugin.Permissions
+            Get
+                Return PluginPermissions.All
+            End Get
+        End Property
+
+        Public Sub Setting() Implements ICoolQPlugin.Setting
+
+        End Sub
+    End Class
 End Class
 
 
