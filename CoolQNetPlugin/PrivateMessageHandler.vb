@@ -30,11 +30,10 @@ Friend Class PrivateMessageHandler
             'plugins = container.GetExportedValues(Of IPrivateMessageHandler)
             detectedplugins = container.GetExportedValues(Of IPrivateMessageHandler)
         End Using
-
         If detectedplugins Is Nothing Then
-            cmdbuilder.AppendLine(LogInfo("CQ.NET", "没有找到可用的插件。") + Separator)
+            cmdbuilder.Append(LogInfo("CQ.NET", "没有找到可用的插件。") + Separator)
         Else
-            cmdbuilder.AppendLine(LogInfo("CQ.NET", String.Format("已加载{0}个插件", detectedplugins.Count.ToString)) + Separator)
+            cmdbuilder.Append(LogInfo("CQ.NET", String.Format("已加载{0}个插件", detectedplugins.Count.ToString)))
         End If
     End Sub
     ''' <summary>
@@ -54,7 +53,6 @@ Friend Class PrivateMessageHandler
         Dim res As String, resc As CommandStorage
         For Each la As IPrivateMessageHandler In detectedplugins
             Try
-
                 'If lzytarget Is Nothing Then Continue For
                 If Not HasPermission(la) Then Continue For
                 resc = la.Result(qq, type, msg, font, st) '.ToString

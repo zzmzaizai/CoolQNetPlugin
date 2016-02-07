@@ -46,8 +46,8 @@ Public Class PluginRelayStation
             CheckDirectory()
             Dim h As New PrivateMessageHandler(qq, type, msg, font, sendtime)
             h.Compose()
-                h.DoWork()
-                res = h.Command
+            h.DoWork()
+            res = h.Command
             'End Using
         Catch ex As Exception
             Try

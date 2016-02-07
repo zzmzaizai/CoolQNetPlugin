@@ -2,7 +2,7 @@
 Imports System.ComponentModel.Composition.Hosting
 Imports System.Text
 Friend Class DiscussGroupHandler
-    Private dgh As StringBuilder, qq As Long, plugins As IEnumerable(Of Lazy(Of IDiscussGroupMessageHandler))
+    Private dgh As StringBuilder, qq As Long, plugins As IEnumerable(Of IDiscussGroupMessageHandler)
     Private dis As Long, msg As String, msgfont As Integer, time As Integer
 
     Friend Sub New(discussgroup As Long, senderqq As Long, message As String, font As Integer, sendtime As Integer)
@@ -20,7 +20,7 @@ Friend Class DiscussGroupHandler
         Dim plur As New DirectoryCatalog(PluginPath)
         Using cont As New CompositionContainer(plur)
             cont.ComposeParts(Me)
-            plugins = cont.GetExports(Of IDiscussGroupMessageHandler)
+            plugins = cont.GetExportedValues(Of IDiscussGroupMessageHandler)
         End Using
         If plugins Is Nothing Then
             dgh.Append(LogInfo("CQ.NET", "没有找到可用的插件。"))
@@ -30,14 +30,9 @@ Friend Class DiscussGroupHandler
     End Sub
     Public Sub DoWork()
         If plugins Is Nothing Then Return
-        Dim dghplugin As IDiscussGroupMessageHandler
-        For Each la As Lazy(Of IDiscussGroupMessageHandler) In plugins
-            dghplugin = la.Value
-            Try
-                dghplugin.Result(dis, qq, msg, msgfont, time)
-            Catch ex As Exception
+        'Dim dghplugin As IDiscussGroupMessageHandler
+        For Each la As IDiscussGroupMessageHandler In plugins
 
-            End Try
         Next
     End Sub
     Public ReadOnly Property Command As String
