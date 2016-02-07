@@ -23,9 +23,9 @@ Friend Class DiscussGroupHandler
             plugins = cont.GetExportedValues(Of IDiscussGroupMessageHandler)
         End Using
         If plugins Is Nothing Then
-            dgh.Append(LogInfo("CQ.NET", "没有找到可用的插件。"))
+            dgh.Append(LogInfo("CQ.NET 讨论组", "没有找到可用的插件。"))
         Else
-            dgh.Append(LogInfo("CQ.NET", "已加载" + plugins.Count.ToString + "个插件。"))
+            dgh.Append(LogInfo("CQ.NET 讨论组", "已加载" + plugins.Count.ToString + "个插件。"))
         End If
     End Sub
     Public Sub DoWork()
@@ -44,7 +44,7 @@ Friend Class DiscussGroupHandler
                     dgh.Append(s)
                 End If
                 If la.IsIntercept Then
-                    dgh.Append(LogInfo("CQ.NET", "讨论组消息已被 " + la.Name + " 拦截。"))
+                    dgh.Append(LogInfo("CQ.NET 讨论组", "讨论组消息已被 " + la.Name + " 拦截。"))
                     Exit For
                 End If
             Catch ex As Exception

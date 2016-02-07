@@ -98,7 +98,47 @@ Public Class PluginRelayStation
     ''' <param name="sendtime">消息发送时间戳。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function ProcessNotAnoymousMessage(group As Long, qq As Long, msg As String, font As Integer, sendtime As Integer) As String
+        Try
+            Dim gh As New GroupMessageHandler(group, qq, msg, font, sendtime)
+            gh.Compose()
+            gh.DoWorkforNonAnoymous()
+            Return gh.ToString
+        Catch ex As Exception
+            Try
+                ReportError(ex)
+                'ReportError(ex, p)
+            Catch exc As Exception
+                MsgBox(exc.ToString)
+            End Try
+            Return ShowErrorMessage("处理消息时发生了错误，详见错误报告文件。")
+        End Try
 
+    End Function
+    ''' <summary>
+    ''' 处理群聊非匿名消息，然后返回结果。
+    ''' </summary>
+    ''' <param name="group">消息来源群号。</param>
+    ''' <param name="sender">匿名消息发送者代号。</param>
+    ''' <param name="aid">匿名消息发送者标识。</param>
+    ''' <param name="msg">消息内容。</param>
+    ''' <param name="font">消息使用字体。</param>
+    ''' <param name="sendtime">消息发送时间戳。</param>
+    ''' <returns><see cref="String"/></returns>
+    Public Function ProcessAnoymousMessage(group As Long, sender As String, aid As Long, msg As String, font As Integer, sendtime As Integer) As String
+        Try
+            Dim pam As New GroupMessageHandler(sender, aid, group, msg, font, sendtime)
+            pam.Compose()
+            pam.DoWorkforAnoymous()
+            Return pam.ToString
+        Catch ex As Exception
+            Try
+                ReportError(ex)
+                'ReportError(ex, p)
+            Catch exc As Exception
+                MsgBox(exc.ToString)
+            End Try
+            Return ShowErrorMessage("处理消息时发生了错误，详见错误报告文件。")
+        End Try
     End Function
     Private Shared Sub CheckDirectory()
         If Not Directory.Exists(ErrorReportPath) Then Directory.CreateDirectory(ErrorReportPath)

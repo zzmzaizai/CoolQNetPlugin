@@ -30,9 +30,9 @@ Friend Class PrivateMessageHandler
             detectedplugins = container.GetExportedValues(Of IPrivateMessageHandler)
         End Using
         If detectedplugins Is Nothing Then
-            cmdbuilder.Append(LogInfo("CQ.NET", "没有找到可用的插件。") + Separator)
+            cmdbuilder.Append(LogInfo("CQ.NET 私聊", "没有找到可用的插件。") + Separator)
         Else
-            cmdbuilder.Append(LogInfo("CQ.NET", String.Format("已加载{0}个插件", detectedplugins.Count.ToString)))
+            cmdbuilder.Append(LogInfo("CQ.NET 私聊", String.Format("已加载{0}个插件", detectedplugins.Count.ToString)))
         End If
     End Sub
     ''' <summary>
@@ -62,7 +62,7 @@ Friend Class PrivateMessageHandler
                     cmdbuilder.Append(res)
                 End If
                 If la.IsIntercept Then
-                    cmdbuilder.Append(LogInfo("CQ.NET", "私聊消息已被 " + la.Name + " 拦截。"))
+                    cmdbuilder.Append(LogInfo("CQ.NET 私聊", "私聊消息已被 " + la.Name + " 拦截。"))
                     Exit For
                 End If
             Catch ex As Exception

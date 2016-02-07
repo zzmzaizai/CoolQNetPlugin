@@ -23,7 +23,7 @@ Public Interface IGroupMessageHandler
     ''' <param name="aid">匿名用户标识。</param>
     '''<param name="sendtime">消息发送时间戳。</param>
     ''' <returns><see cref="CommandStorage"/> 返回处理结果。</returns>
-    Function Anonymous(group As Long, sender As String, aid As Long, sendtime As Integer) As CommandStorage
+    Function Anonymous(group As Long, sender As String, aid As Long, msg As String, font As Integer, sendtime As Integer) As CommandStorage
     'Function Result(group As Long, sender As Long, msg As Long, anoymous As String)
 End Interface
 ''' <summary>
@@ -90,6 +90,7 @@ End Enum
 ''' </summary>
 <InheritedExport(GetType(IGroupAdminChangeHandler))>
 Public Interface IGroupAdminChangeHandler
+    Inherits ICoolQPlugin
     ''' <summary>
     ''' 处理事件，然后返回结果。
     ''' </summary>
