@@ -20,7 +20,6 @@ Public Class ReturnCommand
         ' If nolo Then Return
         sb.AppendLine(SendPrivateMessage(qq, msg))
     End Sub
-
     ''' <summary>
     ''' 返回此存储器的存储结果。
     ''' </summary>

@@ -14,11 +14,6 @@ Public Module PluginHelper
             Return ContentValue("CoolQNetPluginConfig", "DataPath")
         End Get
     End Property
-    Friend ReadOnly Property ShadowCopyPath As String
-        Get
-            Return Path.Combine(DataPath, "ShadowCopyCache")
-        End Get
-    End Property
     Friend ReadOnly Property PluginPath As String
         Get
             Return Path.Combine(DataPath, "Plugins")

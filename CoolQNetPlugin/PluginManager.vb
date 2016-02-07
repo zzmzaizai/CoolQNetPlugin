@@ -56,7 +56,7 @@ Public Class PluginRelayStation
         Return res
     End Function
     Private Shared Sub CheckDirectory()
-        If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
+        'If Not Directory.Exists(ShadowCopyPath) Then Directory.CreateDirectory(ShadowCopyPath)
         If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
     End Sub
     Private Shared Sub CheckInIFile()
