@@ -40,7 +40,7 @@ Public Module CoolQApplication
     ''' <param name="msg">消息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function SendGroupMessage(group As Long, msg As String) As String
-        Return "群|group=" + group.ToString + "|msg=" + msg + Separator '+ vbCrLf
+        Return "群|group=" + group.ToString + "|msg=" + Turn(msg) + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取发送私聊消息的代码字符串。
@@ -49,7 +49,7 @@ Public Module CoolQApplication
     ''' <param name="msg">要发送的消息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function SendPrivateMessage(qq As Long, msg As String) As String
-        Return "私聊|qq=" + qq.ToString + "|msg=" + msg + Separator  '+ vbCrLf
+        Return "私聊|qq=" + qq.ToString + "|msg=" + Turn(msg) + Separator  '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取发送讨论组消息的代码字符串。
@@ -58,7 +58,7 @@ Public Module CoolQApplication
     ''' <param name="msg">要发送的消息。</param>
     ''' <returns></returns>
     Public Function SendDiscussGroupMessage(group As Long, msg As String) As String
-        Return "讨论组|discuss=" + group.ToString + "|msg=" + msg + Separator '+ vbCrLf
+        Return "讨论组|discuss=" + group.ToString + "|msg=" + Turn(msg) + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 对消息含有的特殊字符进行转义。

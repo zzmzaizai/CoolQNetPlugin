@@ -44,7 +44,7 @@ Public Class PluginRelayStation
         Dim res As String = ""
         Try
             CheckDirectory()
-            Dim h As New PrivateMessageHandler(qq, type, msg, font, sendtime)
+            Dim h As New PrivateMessageHandler(qq, type, Unturn(msg), font, sendtime)
             h.Compose()
             h.DoWork()
             res = h.Command
@@ -72,7 +72,7 @@ Public Class PluginRelayStation
         Try
             Dim res As String = ""
             CheckDirectory()
-            Dim h As New DiscussGroupHandler(discussgroup, senderqq, msg, font, sendtime)
+            Dim h As New DiscussGroupHandler(discussgroup, senderqq, Unturn(msg), font, sendtime)
             h.Compose()
             h.DoWork()
             res = h.Command
