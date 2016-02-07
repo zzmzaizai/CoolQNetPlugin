@@ -4,7 +4,8 @@ Imports System.Text
 Friend Class DiscussGroupHandler
     Private dgh As StringBuilder, qq As Long, plugins As IEnumerable(Of Lazy(Of IDiscussGroupMessageHandler))
     Private dis As Long, msg As String, msgfont As Integer, time As Integer
-    Public Sub New(discussgroup As Long, senderqq As Long, message As String, font As Integer, sendtime As Integer)
+
+    Friend Sub New(discussgroup As Long, senderqq As Long, message As String, font As Integer, sendtime As Integer)
         dis = discussgroup
         qq = senderqq
         msg = message
@@ -33,10 +34,15 @@ Friend Class DiscussGroupHandler
         For Each la As Lazy(Of IDiscussGroupMessageHandler) In plugins
             dghplugin = la.Value
             Try
-
+                dghplugin.Result(dis, qq, msg, msgfont, time)
             Catch ex As Exception
 
             End Try
         Next
     End Sub
+    Public ReadOnly Property Command As String
+        Get
+            Return dgh.ToString
+        End Get
+    End Property
 End Class

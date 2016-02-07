@@ -44,12 +44,10 @@ Public Class PluginRelayStation
         Dim res As String = ""
         Try
             CheckDirectory()
-            Using h As New PrivateMessageHandler(qq, type, msg, font, sendtime)
-                h.Compose()
+            Dim h As New PrivateMessageHandler(qq, type, msg, font, sendtime)
+            h.Compose()
                 h.DoWork()
-                res = h.Command
-            End Using
-            'Using
+            res = h.Command
         Catch ex As Exception
             Dim p As New DefaultPlugin
             Try
