@@ -6,7 +6,6 @@ CoolQ Unofficial VB.NET SDK<br>
 
 ## SDK 特性
 * 插件支持
-* 插件隔离运行（Bug!）
 * 消息接口（未完成）
 
 ## Upcoming
