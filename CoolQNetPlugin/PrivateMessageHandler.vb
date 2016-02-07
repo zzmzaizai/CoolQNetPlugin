@@ -20,19 +20,17 @@ Friend Class PrivateMessageHandler
         'plugins = New List(Of IPrivateMessageHandler)
     End Sub
     ''' <summary>
-    ''' 在独立的 <see cref="AppDomain"/> 里组合插件。
+    ''' 组合插件。
     ''' </summary>
-    ''' <remarks>本部分代码参照
-    ''' http://www.codeproject.com/Articles/633140/MEF-and-AppDomain-Remove-Assemblies-On-The-Fly </remarks>
     Public Sub Compose()
         Dim dircatalog As New DirectoryCatalog(PluginPath)
         Using container As New CompositionContainer(dircatalog)
             container.ComposeParts(Me)
         End Using
         If plugins Is Nothing Then
-            cmdbuilder.AppendLine(LogInfo(AppDomain.CurrentDomain.FriendlyName, "没有找到可用的插件。"))
+            cmdbuilder.AppendLine(LogInfo("CQ.NET", "没有找到可用的插件。"))
         Else
-            cmdbuilder.AppendLine(LogInfo(AppDomain.CurrentDomain.FriendlyName, String.Format("已加载{0}个插件", plugins.Count.ToString)))
+            cmdbuilder.AppendLine(LogInfo("CQ.NET", String.Format("已加载{0}个插件", plugins.Count.ToString)))
         End If
     End Sub
     ''' <summary>
@@ -49,21 +47,26 @@ Friend Class PrivateMessageHandler
     ''' </summary>
     Public Sub DoWork()
         Dim res As String
+        If plugins Is Nothing Then
+            Return
+        End If
         For Each p As IPrivateMessageHandler In plugins
             If Not p.Permissions.HasFlag(PluginPermissions.PrivateMessage) Then
                 Continue For
             End If
             Try
-                res = p.Result(qq, type, Unturn(msg), font).ToString
+                res = p.Result(qq, type, Turn(msg), font).ToString
                 If Not String.IsNullOrWhiteSpace(res) Then
+                    If res.Contains(Separator) Then Continue For '如包含分隔符无条件跳过
                     'cmdbuilder.AppendLine(LogInfo(p.Name, ""))
                     If res = InterceptMessage() Then
+                        cmdbuilder.Append(InterceptMessage() + Separator)
                         Return
                     End If
-                    cmdbuilder.AppendLine(res)
+                    cmdbuilder.Append(res + Separator)
                 End If
             Catch ex As Exception
-                cmdbuilder.AppendLine(ShowErrorMessage(ex.ToString))
+                cmdbuilder.Append(ShowErrorMessage(ex.ToString))
             End Try
         Next
     End Sub
@@ -73,10 +76,11 @@ Friend Class PrivateMessageHandler
     ''' <returns><see cref="IEnumerable(Of IPrivateMessageHandler)"/></returns>
     <ImportMany(GetType(IPrivateMessageHandler))>
     Public Property Plugin As IEnumerable(Of IPrivateMessageHandler) = plugins
-    Friend Sub CopyData(senderqq As Long, consoletype As PrivateMessageConsoleType, message As String, msgfont As Integer)
+    Friend Sub New(senderqq As Long, consoletype As PrivateMessageConsoleType, message As String, msgfont As Integer)
+        Me.New
         qq = senderqq
         type = consoletype
-        msg = message
+        msg = Unturn(message)
         font = msgfont
         'msgdate = sendtime
     End Sub

@@ -137,4 +137,6 @@ Public Module CoolQApplication
     Public Function ShowErrorMessage(msg As String) As String
         Return "显示致命错误|msg=" + msg
     End Function
+    Friend Const Separator As String = "；"
+
 End Module

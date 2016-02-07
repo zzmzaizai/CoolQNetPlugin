@@ -43,15 +43,15 @@ Public Class PluginRelayStation
         Dim res As String = ""
         Try
             CheckDirectory()
-            Dim ads As New AppDomainSetup() With {.CachePath = ShadowCopyPath, .ShadowCopyDirectories = PluginPath,
-                .ShadowCopyFiles = "true"}
-            Dim d As AppDomain = AppDomain.CreateDomain("PM_Domain", Nothing, ads)
-            Dim ints As PrivateMessageHandler = d.CreateInstanceAndUnwrap(GetType(PrivateMessageHandler).Assembly.FullName, GetType(PrivateMessageHandler).FullName)
-            ints.CopyData(qq, type, msg, font)
-            ints.Compose()
-            res = ints.Command
+            Dim h As New PrivateMessageHandler(qq, type, msg, font)
+            h.Compose()
+            h.DoWork()
+            res = h.Command
         Catch ex As Exception
-            Return ShowErrorMessage(ex.ToString)
+            NativeMethods.WritePrivateProfileString("错误报告", Nothing, Nothing, Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini"))
+            NativeMethods.WritePrivateProfileString("错误报告", "报告时间", Now.ToString, Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini"))
+            NativeMethods.WritePrivateProfileString("错误报告", "信息", ex.ToString, Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini"))
+            Return ShowErrorMessage("处理消息时发生了错误，详细信息详见和 CoolQNetPlugin.dll 处于同一目录的 NetPlugin.ini")
         End Try
         Return res
     End Function
@@ -60,7 +60,7 @@ Public Class PluginRelayStation
         If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
     End Sub
     Private Shared Sub CheckInIFile()
-        Dim inifile As String = Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini")
+        Dim inifile As String = Path.Combine(DataPath, "NetConfig.ini")
         If My.Computer.FileSystem.FileExists(inifile) Then Return
         NativeMethods.WritePrivateProfileString("CoolQNetPluginConfig", "DataPath", My.Application.Info.DirectoryPath, inifile)
     End Sub
