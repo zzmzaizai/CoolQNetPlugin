@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoolQApplication.vb" />
+    <Compile Include="DiscussGroupHandler.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ICoolQPlugin.vb" />
     <Compile Include="IGroupMessageHandler.vb" />

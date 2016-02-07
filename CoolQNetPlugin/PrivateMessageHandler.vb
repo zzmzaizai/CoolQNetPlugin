@@ -1,7 +1,6 @@
 ﻿Imports System.ComponentModel.Composition
 Imports System.ComponentModel.Composition.Hosting
 Imports System.Text
-
 ''' <summary>
 ''' 私聊信息处理器。
 ''' </summary>
@@ -49,13 +48,16 @@ Friend Class PrivateMessageHandler
     ''' </summary>
     Public Sub DoWork()
         If detectedplugins Is Nothing Then Return '没有可用插件，返回
-        Dim lzytarget As IPrivateMessageHandler = Nothing, res As String
+        Dim lzytarget As IPrivateMessageHandler = Nothing, res As String, resc As CommandStorage
         For Each la As Lazy(Of IPrivateMessageHandler) In detectedplugins
             Try
                 lzytarget = la.Value
                 'If lzytarget Is Nothing Then Continue For
                 If Not HasPermission(lzytarget) Then Continue For
-                res = lzytarget.Result(qq, type, msg, font, st).ToString
+                resc = lzytarget.Result(qq, type, msg, font, st) '.ToString
+                If resc Is Nothing Then Continue For
+                res = resc.ToString
+                'res 
                 If Not String.IsNullOrWhiteSpace(res) Then
                     cmdbuilder.Append(res)
                 End If

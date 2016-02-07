@@ -44,10 +44,12 @@ Public Class PluginRelayStation
         Dim res As String = ""
         Try
             CheckDirectory()
-            Dim h As New PrivateMessageHandler(qq, type, msg, font, sendtime)
-            h.Compose()
-            h.DoWork()
-            res = h.Command
+            Using h As New PrivateMessageHandler(qq, type, msg, font, sendtime)
+                h.Compose()
+                h.DoWork()
+                res = h.Command
+            End Using
+            'Using
         Catch ex As Exception
             Dim p As New DefaultPlugin
             Try
@@ -58,6 +60,17 @@ Public Class PluginRelayStation
             Return ShowErrorMessage("处理消息时发生了错误，详见错误报告文件。")
         End Try
         Return res
+    End Function
+    ''' <summary>
+    ''' 处理讨论组消息，然后返回结果。
+    ''' </summary>
+    ''' <param name="senderqq">消息发送者。</param>
+    ''' <param name="discussgroup">讨论组号码。</param>
+    ''' <param name="msg">消息内容。</param>
+    ''' <param name="font">消息使用字体。</param>
+    ''' <returns><see cref="String"/></returns>
+    Public Function ProcessDiscussGroupMessage(discussgroup As Long, senderqq As Long, msg As String, font As Integer, sendtime As Integer) As String
+
     End Function
     Private Shared Sub CheckDirectory()
         If Not Directory.Exists(ErrorReportPath) Then Directory.CreateDirectory(ErrorReportPath)

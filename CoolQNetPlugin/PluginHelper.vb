@@ -32,7 +32,7 @@ Public Module PluginHelper
     End Function
     Friend Sub ReportError(ex As Exception, plugin As ICoolQPlugin)
         If ex Is Nothing Then Return
-        Dim ns As String = Now.ToString
+        Dim ns As String = Now.ToLongDateString + Now.ToLongTimeString.Replace(":", ".")
         Dim ep As String = Path.Combine(ErrorReportPath, ns + ".txt")
         Using sw As New StreamWriter(ep)
             sw.WriteLine("错误发生时间：" + Now.ToString)
