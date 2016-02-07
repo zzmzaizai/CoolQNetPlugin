@@ -60,7 +60,7 @@ Public Class PluginRelayStation
         If Not Directory.Exists(PluginPath) Then Directory.CreateDirectory(PluginPath)
     End Sub
     Private Shared Sub CheckInIFile()
-        Dim inifile As String = Path.Combine(DataPath, "NetConfig.ini")
+        Dim inifile As String = Path.Combine(My.Application.Info.DirectoryPath, "NetConfig.ini")
         If My.Computer.FileSystem.FileExists(inifile) Then Return
         NativeMethods.WritePrivateProfileString("CoolQNetPluginConfig", "DataPath", My.Application.Info.DirectoryPath, inifile)
     End Sub
