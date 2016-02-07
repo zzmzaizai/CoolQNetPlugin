@@ -40,7 +40,7 @@ Public Module CoolQApplication
     ''' <param name="msg">消息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function SendGroupMessage(group As Long, msg As String) As String
-        Return "群|group=" + group.ToString + "|msg=" + msg + "" '+ vbCrLf
+        Return "群|group=" + group.ToString + "|msg=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取发送私聊消息的代码字符串。
@@ -49,7 +49,7 @@ Public Module CoolQApplication
     ''' <param name="msg">要发送的消息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function SendPrivateMessage(qq As Long, msg As String) As String
-        Return "私聊|qq=" + qq.ToString + "|msg=" + msg + "" '+ vbCrLf
+        Return "私聊|qq=" + qq.ToString + "|msg=" + msg + Separator  '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取发送讨论组消息的代码字符串。
@@ -58,7 +58,7 @@ Public Module CoolQApplication
     ''' <param name="msg">要发送的消息。</param>
     ''' <returns></returns>
     Public Function SendDiscussGroupMessage(group As Long, msg As String) As String
-        Return "讨论组|discuss=" + group.ToString + "|msg=" + msg + "" '+ vbCrLf
+        Return "讨论组|discuss=" + group.ToString + "|msg=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 对消息含有的特殊字符进行转义。
@@ -93,7 +93,7 @@ Public Module CoolQApplication
     ''' <param name="msg">信息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function LogInfo(name As String, msg As String) As String
-        Return "信息|插件=" + name + "|内容=" + msg + "" '+ vbCrLf
+        Return "信息|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取将警告日志写入 CoolQ 日志的代码字符串。
@@ -102,7 +102,7 @@ Public Module CoolQApplication
     ''' <param name="msg">信息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function LogWarn(name As String, msg As String) As String
-        Return "警告|插件=" + name + "|内容=" + msg + "" '+ vbCrLf
+        Return "警告|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取将信息日志写入 CoolQ 日志的代码字符串。
@@ -111,7 +111,7 @@ Public Module CoolQApplication
     ''' <param name="msg">信息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function LogError(name As String, msg As String) As String
-        Return "错误|插件=" + name + "|内容=" + msg + "" '+ vbCrLf
+        Return "错误|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取将信息日志写入 CoolQ 日志的代码字符串。
@@ -120,14 +120,14 @@ Public Module CoolQApplication
     ''' <param name="msg">信息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function LogDebug(name As String, msg As String) As String
-        Return "调试|插件=" + name + "|内容=" + msg + "" '+ vbCrLf
+        Return "调试|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取将消息拦截的代码字符串。
     ''' </summary>
     ''' <returns><see cref="String"/></returns>
     Public Function InterceptMessage() As String
-        Return "拦截" '+ vbCrLf
+        Return "拦截" + Separator '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取显示致命错误代码字符串。
@@ -135,7 +135,7 @@ Public Module CoolQApplication
     ''' <param name="msg">错误描述内容。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function ShowErrorMessage(msg As String) As String
-        Return "显示致命错误|msg=" + msg
+        Return "显示致命错误|msg=" + msg + Separator
     End Function
     Friend Const Separator As String = "；"
 
