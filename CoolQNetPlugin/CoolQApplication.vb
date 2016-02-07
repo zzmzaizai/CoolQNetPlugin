@@ -40,7 +40,7 @@ Public Module CoolQApplication
     ''' <param name="msg">消息。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function SendGroupMessage(group As Long, msg As String) As String
-        Return "群|group=" + group.ToString + "|" + msg + "" '+ vbCrLf
+        Return "群|group=" + group.ToString + "|msg=" + msg + "" '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取发送私聊消息的代码字符串。
@@ -127,7 +127,7 @@ Public Module CoolQApplication
     ''' </summary>
     ''' <returns><see cref="String"/></returns>
     Public Function InterceptMessage() As String
-        Return "拦截|source=CQ.NET 插件管理器" '+ vbCrLf
+        Return "拦截" '+ vbCrLf
     End Function
     ''' <summary>
     ''' 获取显示致命错误代码字符串。

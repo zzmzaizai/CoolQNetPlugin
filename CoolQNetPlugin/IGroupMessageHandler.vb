@@ -38,7 +38,7 @@ Public Interface IDiscussGroupMessageHandler
     ''' <param name="font">消息使用字体。</param>
     ''' <param name="sendtime">消息发送时间。</param>
     ''' <returns><see cref="String"/></returns>
-    Function Result(discuss As Long, sender As Long, msg As String, font As Integer, sendtime As Date) As String
+    Function Result(discuss As Long, sender As Long, msg As String, font As Integer, sendtime As Date) As ReturnCommand
 End Interface
 ''' <summary>
 ''' 提供处理私聊消息的接口。

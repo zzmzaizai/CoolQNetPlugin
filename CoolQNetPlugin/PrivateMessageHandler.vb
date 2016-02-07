@@ -58,10 +58,8 @@ Friend Class PrivateMessageHandler
                 res = p.Result(qq, type, Turn(msg), font).ToString
                 If Not String.IsNullOrWhiteSpace(res) Then
                     If res.Contains(Separator) Then Continue For '如包含分隔符无条件跳过
-                    'cmdbuilder.AppendLine(LogInfo(p.Name, ""))
-                    If res = InterceptMessage() Then
-                        cmdbuilder.Append(InterceptMessage() + Separator)
-                        Return
+                    If p.IsIntercept Then
+                        cmdbuilder.Append(LogInfo("CQ.NET", "消息已被" + p.Name + "拦截。"))
                     End If
                     cmdbuilder.Append(res + Separator)
                 End If
