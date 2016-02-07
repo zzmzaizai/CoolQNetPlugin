@@ -6,7 +6,6 @@ Imports System.Text
 ''' </summary>
 Friend Class PrivateMessageHandler
     'Implements IDisposable
-
     Private qq As Long, font As Integer ', msgdate As Date
     Private type As PrivateMessageConsoleType
     Private msg As String, st As Integer

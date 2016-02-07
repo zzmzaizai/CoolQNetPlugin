@@ -67,6 +67,7 @@ Public Class PluginRelayStation
     ''' <param name="discussgroup">讨论组号码。</param>
     ''' <param name="msg">消息内容。</param>
     ''' <param name="font">消息使用字体。</param>
+    ''' <param name="sendtime">消息发送时间戳。</param>
     ''' <returns><see cref="String"/></returns>
     Public Function ProcessDiscussGroupMessage(discussgroup As Long, senderqq As Long, msg As String, font As Integer, sendtime As Integer) As String
         Try
@@ -86,6 +87,18 @@ Public Class PluginRelayStation
             End Try
             Return ShowErrorMessage("处理消息时发生了错误，详见错误报告文件。")
         End Try
+    End Function
+    ''' <summary>
+    ''' 处理群聊非匿名消息，然后返回结果。
+    ''' </summary>
+    ''' <param name="group">消息来源群号。</param>
+    ''' <param name="qq">消息发送QQ。</param>
+    ''' <param name="msg">消息内容。</param>
+    ''' <param name="font">消息使用字体。</param>
+    ''' <param name="sendtime">消息发送时间戳。</param>
+    ''' <returns><see cref="String"/></returns>
+    Public Function ProcessNotAnoymousMessage(group As Long, qq As Long, msg As String, font As Integer, sendtime As Integer) As String
+
     End Function
     Private Shared Sub CheckDirectory()
         If Not Directory.Exists(ErrorReportPath) Then Directory.CreateDirectory(ErrorReportPath)
