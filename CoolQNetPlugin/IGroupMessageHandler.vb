@@ -14,17 +14,25 @@ Public Interface IGroupMessageHandler
     ''' <param name="font">消息所用字体。</param>
     ''' <param name="sendtime">消息发送时间戳。</param>
     ''' <returns><see cref="CommandStorage"/> 返回处理结果。</returns>
-    Function NotAnonymous(group As Long, sender As Long, msg As Long, font As Integer, sendtime As Integer) As CommandStorage
+    Function Result(group As Long, sender As Long, msg As String, font As Integer, sendtime As Integer) As CommandStorage
+End Interface
+''' <summary>
+''' 提供处理群聊匿名消息的接口。
+''' </summary>
+<InheritedExport(GetType(IAnonymousMessageHandler))>
+Public Interface IAnonymousMessageHandler
+    Inherits ICoolQPlugin
     ''' <summary>
-    ''' 处理群内匿名消息。
+    ''' 处理群内匿名消息，并返回结果。
     ''' </summary>
     ''' <param name="group">匿名消息来源群号。</param>
     ''' <param name="sender">匿名消息发送者代号。</param>
-    ''' <param name="aid">匿名用户标识。</param>
-    '''<param name="sendtime">消息发送时间戳。</param>
-    ''' <returns><see cref="CommandStorage"/> 返回处理结果。</returns>
-    Function Anonymous(group As Long, sender As String, aid As Long, msg As String, font As Integer, sendtime As Integer) As CommandStorage
-    'Function Result(group As Long, sender As Long, msg As Long, anoymous As String)
+    ''' <param name="aid">匿名消息发送者标识。</param>
+    ''' <param name="msg">消息内容。</param>
+    ''' <param name="font">消息使用字体。</param>
+    ''' <param name="sendtime">消息发送时间戳。</param>
+    ''' <returns><see cref="CommandStorage"/></returns>
+    Function Result(group As Long, sender As String, aid As Long, msg As String, font As Integer, sendtime As Integer) As CommandStorage
 End Interface
 ''' <summary>
 ''' 提供处理讨论组消息的接口。

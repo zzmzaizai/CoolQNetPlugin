@@ -22,7 +22,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>CoolQNetPlugin.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <RegisterForComInterop>false</RegisterForComInterop>
     <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,7 +33,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>CoolQNetPlugin.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -79,7 +79,6 @@
     <Compile Include="CoolQApplication.vb" />
     <Compile Include="DiscussGroupHandler.vb" />
     <Compile Include="GlobalSuppressions.vb" />
-    <Compile Include="GroupMessageHandler.vb" />
     <Compile Include="ICoolQPlugin.vb" />
     <Compile Include="IGroupMessageHandler.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

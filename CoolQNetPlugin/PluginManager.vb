@@ -1,12 +1,11 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.IO
-Imports CoolQNetPlugin
 
 <Assembly: CLSCompliant(True)>
 ''' <summary>
 ''' CoolQ .NET 插件中继站。
 ''' </summary>
-<ComClass(PluginRelayStation.ClassId, PluginRelayStation.InterfaceId, PluginRelayStation.EventsId)>
+<ComClass(PluginRelayStation.InterfaceId, PluginRelayStation.ClassId, PluginRelayStation.EventsId)>
 <ComVisible(True)>
 Public Class PluginRelayStation
 #Region "COM GUID"
