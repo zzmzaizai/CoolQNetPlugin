@@ -98,10 +98,7 @@ Public Class PluginRelayStation
     ''' <returns><see cref="String"/></returns>
     Public Function ProcessNotAnoymousMessage(group As Long, qq As Long, msg As String, font As Integer, sendtime As Integer) As String
         Try
-            Dim gh As New GroupMessageHandler(group, qq, msg, font, sendtime)
-            gh.Compose()
-            gh.DoWorkforNonAnoymous()
-            Return gh.ToString
+
         Catch ex As Exception
             Try
                 ReportError(ex)
@@ -125,10 +122,7 @@ Public Class PluginRelayStation
     ''' <returns><see cref="String"/></returns>
     Public Function ProcessAnoymousMessage(group As Long, sender As String, aid As Long, msg As String, font As Integer, sendtime As Integer) As String
         Try
-            Dim pam As New GroupMessageHandler(sender, aid, group, msg, font, sendtime)
-            pam.Compose()
-            pam.DoWorkforAnoymous()
-            Return pam.ToString
+
         Catch ex As Exception
             Try
                 ReportError(ex)
