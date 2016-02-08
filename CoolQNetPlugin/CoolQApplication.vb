@@ -39,7 +39,7 @@ Public Module CoolQApplication
     ''' <param name="group">要发送消息的群号。</param>
     ''' <param name="msg">消息。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function SendGroupMessage(group As Long, msg As String) As String
+    Friend Function SendGroupMessage(group As Long, msg As String) As String
         Return "群|group=" + group.ToString + "|msg=" + Turn(msg) + Separator '+ vbCrLf
     End Function
     ''' <summary>
@@ -48,7 +48,7 @@ Public Module CoolQApplication
     ''' <param name="qq">要发送私聊消息的QQ。</param>
     ''' <param name="msg">要发送的消息。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function SendPrivateMessage(qq As Long, msg As String) As String
+    Friend Function SendPrivateMessage(qq As Long, msg As String) As String
         Return "私聊|qq=" + qq.ToString + "|msg=" + Turn(msg) + Separator  '+ vbCrLf
     End Function
     ''' <summary>
@@ -57,7 +57,7 @@ Public Module CoolQApplication
     ''' <param name="group">要发送消息的讨论组号码。</param>
     ''' <param name="msg">要发送的消息。</param>
     ''' <returns></returns>
-    Public Function SendDiscussGroupMessage(group As Long, msg As String) As String
+    Friend Function SendDiscussGroupMessage(group As Long, msg As String) As String
         Return "讨论组|discuss=" + group.ToString + "|msg=" + Turn(msg) + Separator '+ vbCrLf
     End Function
     ''' <summary>
@@ -92,7 +92,7 @@ Public Module CoolQApplication
     ''' <param name="name">来源插件。</param>
     ''' <param name="msg">信息。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function LogInfo(name As String, msg As String) As String
+    Friend Function LogInfo(name As String, msg As String) As String
         Return "信息|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
@@ -101,7 +101,7 @@ Public Module CoolQApplication
     ''' <param name="name">来源插件。</param>
     ''' <param name="msg">信息。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function LogWarn(name As String, msg As String) As String
+    Friend Function LogWarn(name As String, msg As String) As String
         Return "警告|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
@@ -110,7 +110,7 @@ Public Module CoolQApplication
     ''' <param name="name">来源插件。</param>
     ''' <param name="msg">信息。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function LogError(name As String, msg As String) As String
+    Friend Function LogError(name As String, msg As String) As String
         Return "错误|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
     ''' <summary>
@@ -119,22 +119,16 @@ Public Module CoolQApplication
     ''' <param name="name">来源插件。</param>
     ''' <param name="msg">信息。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function LogDebug(name As String, msg As String) As String
+    Friend Function LogDebug(name As String, msg As String) As String
         Return "调试|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
-    ''' <summary>
-    ''' 获取将消息拦截的代码字符串。
-    ''' </summary>
-    ''' <returns><see cref="String"/></returns>
-    Public Function InterceptMessage() As String
-        Return "拦截" + Separator '+ vbCrLf
-    End Function
+
     ''' <summary>
     ''' 获取显示致命错误代码字符串。
     ''' </summary>
     ''' <param name="msg">错误描述内容。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function ShowErrorMessage(msg As String) As String
+    Friend Function ShowErrorMessage(msg As String) As String
         Return "显示致命错误|msg=" + msg + Separator
     End Function
     Friend Const Separator As String = "；"
