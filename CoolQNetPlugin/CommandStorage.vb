@@ -110,8 +110,8 @@ Public Class CommandStorage
     ''' </summary>
     ''' <param name="filename">音频文件名。</param>
     ''' <param name="format">音频格式。</param>
-    Public Sub AppendReceiveRecordCommand(ByVal filename As String, ByVal format As String)
-        sb.Append("接收语音|文件名=" + filename + "|文件格式=" + Separator)
+    Public Sub AppendReceiveRecordCommand(ByVal fileName As String, ByVal format As String)
+        sb.Append("接收语音|文件名=" + fileName + "|文件格式=" + format + Separator)
     End Sub
     ''' <summary>
     ''' 追加禁言的命令。

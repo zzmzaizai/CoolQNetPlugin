@@ -32,9 +32,11 @@ Friend Class GroupMessageHandler
         End If
     End Sub
     Public Sub DoWork()
-        Dim com As CommandStorage
+        Dim com As CommandStorage, stl As New EnabledPluginsList
+        stl.ImportList()
         For Each igmh As IGroupMessageHandler In plugins
             Try
+                If Not stl.IsEnable(igmh.Id) Then Continue For
                 If Not igmh.Permissions.HasFlag(PluginPermissions.GroupMessage) Then Continue For
                 com = igmh.NotAnonymousResult(groupnumber, senderqq, msg, msgfont, timestamp)
                 If com Is Nothing Then Continue For
@@ -67,9 +69,11 @@ Friend Class GroupMessageHandler
 
     End Sub
     Public Sub DoWorkforAnoymous()
-        Dim com As CommandStorage
+        Dim com As CommandStorage, stl As New EnabledPluginsList
+        stl.ImportList()
         For Each igmh As IGroupMessageHandler In plugins
             Try
+                If Not stl.IsEnable(igmh.Id) Then Continue For
                 If Not igmh.Permissions.HasFlag(PluginPermissions.GroupMessage) Then Continue For
                 com = igmh.AnonymousResult(groupnumber, anno_sender, anno_aid, msg, msgfont, timestamp)
                 If com Is Nothing Then Continue For

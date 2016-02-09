@@ -50,8 +50,11 @@ Friend Class PrivateMessageHandler
     Public Sub DoWork()
         If detectedplugins Is Nothing Then Return '没有可用插件，返回
         Dim res As String, resc As CommandStorage
+        Dim epl As New EnabledPluginsList
+        epl.ImportList()
         For Each la As IPrivateMessageHandler In detectedplugins
             Try
+                If Not epl.IsEnable(la.Id) Then Continue For
                 'If lzytarget Is Nothing Then Continue For
                 If Not HasPermission(la) Then Continue For
                 resc = la.Result(qq, type, msg, font, st) '.ToString

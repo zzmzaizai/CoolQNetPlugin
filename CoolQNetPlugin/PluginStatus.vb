@@ -53,6 +53,7 @@ Public Class EnabledPluginsList
     ''' </summary>
     Public Sub ImportList()
         Dim enalist As String = Path.Combine(DataPath, "EnablePlugin.txt")
+        If Not My.Computer.FileSystem.FileExists(enalist) Then Return
         Dim targuid As Guid
         Using ea As New StreamReader(enalist)
             Do Until ea.EndOfStream

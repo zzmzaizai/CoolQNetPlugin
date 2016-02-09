@@ -145,16 +145,16 @@ Public Module CoolQApplication
     ''' </summary>
     ''' <param name="filename">图片路径。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function Image(filename As String) As String
-        Return "[CQ:image,file=" + filename + "]"
+    Public Function Image(fileName As String) As String
+        Return "[CQ:image,file=" + fileName + "]"
     End Function
     ''' <summary>
     ''' 获取发送语音代码字符串。
     ''' </summary>
     ''' <param name="filename">音频文件路径。</param>
     ''' <returns><see cref="String"/></returns>
-    Public Function Record(filename As String) As String
-        Return "[CQ:record,file=" + filename + "]"
+    Public Function Record(fileName As String) As String
+        Return "[CQ:record,file=" + fileName + "]"
     End Function
     ''' <summary>
     ''' 获取抖动窗口代码字符串。

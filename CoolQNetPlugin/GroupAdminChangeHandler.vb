@@ -1,46 +1,44 @@
 ﻿Imports System.ComponentModel.Composition
 Imports System.ComponentModel.Composition.Hosting
 Imports System.Text
-Friend Class DiscussGroupHandler
-    Private dgh As StringBuilder, qq As Long, plugins As IEnumerable(Of IDiscussGroupMessageHandler)
-    Private dis As Long, msg As String, msgfont As Integer, time As Integer
 
-    Friend Sub New(discussgroup As Long, senderqq As Long, message As String, font As Integer, sendtime As Integer)
-        dis = discussgroup
-        qq = senderqq
-        msg = message
-        msgfont = font
-        time = sendtime
+Friend Class GroupAdminChangeHandler
+    Private gach As IEnumerable(Of IGroupAdminChangeHandler)
+    Private groupnumber As Long, bc As Boolean
+    Private targetqq As Long, eventime As Integer
+    Private dgh As StringBuilder
+    Public Sub New(group As Long, becomeadmin As Boolean, target As Long, sendtime As Integer)
+        groupnumber = group
+        bc = becomeadmin
+        targetqq = target
+        eventime = sendtime
         dgh = New StringBuilder
     End Sub
-    Public Overrides Function ToString() As String
-        Return dgh.ToString
-    End Function
     Public Sub Compose()
         Dim plur As New DirectoryCatalog(PluginPath)
         Using cont As New CompositionContainer(plur)
             cont.ComposeParts(Me)
-            plugins = cont.GetExportedValues(Of IDiscussGroupMessageHandler)
+            gach = cont.GetExportedValues(Of IGroupAdminChangeHandler)
         End Using
-        If plugins Is Nothing Then
-            dgh.Append(LogInfo("CQ.NET 讨论组", "没有找到可用的插件。"))
+        If gach Is Nothing Then
+            dgh.Append(LogInfo("CQ.NET 群管理变动", "没有找到可用的插件。"))
         Else
-            dgh.Append(LogInfo("CQ.NET 讨论组", "已加载" + plugins.Count.ToString + "个插件。"))
+            dgh.Append(LogInfo("CQ.NET 群管理变动", "已加载" + gach.Count.ToString + "个插件。"))
         End If
     End Sub
     Public Sub DoWork()
-        If plugins Is Nothing Then Return
+        If gach Is Nothing Then Return
         'Dim dghplugin As IDiscussGroupMessageHandler
         Dim sto As CommandStorage, s As String ' s
         Dim etl As New EnabledPluginsList
         etl.ImportList()
-        For Each la As IDiscussGroupMessageHandler In plugins
+        For Each la As IGroupAdminChangeHandler In gach
             Try
                 If Not etl.IsEnable(la.Id) Then Continue For
-                If Not la.Permissions.HasFlag(PluginPermissions.DiscussGroupMessage) Then
+                If Not la.Permissions.HasFlag(PluginPermissions.GroupAdmin) Then
                     Continue For
                 End If
-                sto = la.Result(dis, qq, msg, msgfont, time)
+                sto = la.Result(groupnumber, bc, targetqq, eventime)
                 If sto Is Nothing Then Continue For
 
                 s = sto.ToString
@@ -48,7 +46,7 @@ Friend Class DiscussGroupHandler
                     dgh.Append(s)
                 End If
                 If sto.Intercept Then
-                    dgh.Append(LogInfo("CQ.NET 讨论组", "讨论组消息已被 " + la.Name + " 拦截。"))
+                    dgh.Append(LogInfo("CQ.NET 群", "群管理变动事件已被 " + la.Name + " 处理。"))
                     Exit Sub
                 End If
             Catch ex As Exception

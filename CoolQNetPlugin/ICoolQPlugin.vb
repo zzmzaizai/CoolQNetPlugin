@@ -28,7 +28,6 @@ Public Interface ICoolQPlugin
     ''' </summary>
     ''' <returns><see cref="String"/></returns>
     ReadOnly Property Description As String
-
 End Interface
 ''' <summary>
 ''' 代表插件请求的权限。

@@ -149,7 +149,30 @@ Public Class PluginRelayStation
         If My.Computer.FileSystem.FileExists(inifile) Then Return
         NativeMethods.WritePrivateProfileString("CoolQNetPluginConfig", "DataPath", My.Application.Info.DirectoryPath, inifile)
     End Sub
-
+    ''' <summary>
+    ''' 处理群管理员变动事件，然后返回结果。
+    ''' </summary>
+    ''' <param name="group">事件发生群号。</param>
+    ''' <param name="type">事件类型。</param>
+    ''' <param name="target">目标QQ。</param>
+    ''' <param name="sendtime">事件发生时间戳。</param>
+    ''' <returns><see cref="CommandStorage"/></returns>
+    Public Function ProcessAdminChange(group As Long, type As Integer, target As Long, sendtime As Integer)
+        Try
+            Dim gach As New GroupAdminChangeHandler(group, If(type = 1, False, True), target, sendtime)
+            gach.Compose()
+            gach.DoWork()
+            Return gach.Command
+        Catch ex As Exception
+            Try
+                ReportError(ex)
+                'ReportError(ex, p)
+            Catch exc As Exception
+                MsgBox(exc.ToString)
+            End Try
+            Return ShowErrorMessage("处理消息时发生了错误，详见错误报告文件。")
+        End Try
+    End Function
 End Class
 
 
