@@ -34,6 +34,15 @@ Public Module CoolQApplication
         Return "[CQ:anonymous]"
     End Function
     ''' <summary>
+    ''' 获取匿名代码字符串。
+    ''' </summary>
+    ''' <param name="force">指定是否必须要以匿名消息发送。如需要在匿名消息发送失败后
+    ''' 转为普通消息发送，请将该值置 True。</param>
+    ''' <returns><see cref="String"/></returns>
+    Public Function Anonymous(force As Boolean) As String
+        Return "[CQ:anonymous" + If(force, ",ignore=true", "") + "]"
+    End Function
+    ''' <summary>
     ''' 获取发送群消息的代码字符串。
     ''' </summary>
     ''' <param name="group">要发送消息的群号。</param>
@@ -132,5 +141,12 @@ Public Module CoolQApplication
         Return "显示致命错误|msg=" + msg + Separator
     End Function
     Friend Const Separator As String = "；"
-
+    ''' <summary>
+    ''' 获取发送图片代码字符串。
+    ''' </summary>
+    ''' <param name="filename">图片路径。</param>
+    ''' <returns><see cref="String"/></returns>
+    Public Function Image(filename As String) As String
+        Return "[CQ:image,file=" + filename + "]"
+    End Function
 End Module

@@ -31,7 +31,7 @@ Public Interface ICoolQPlugin
 
 End Interface
 ''' <summary>
-''' 表明插件要获取的权限。
+''' 代表插件请求的权限。
 ''' </summary>
 <Flags>
 Public Enum PluginPermissions
@@ -40,39 +40,53 @@ Public Enum PluginPermissions
     ''' </summary>
     None = 0
     ''' <summary>
-    ''' 处理私聊消息的权限。
+    ''' 插件需要获取处理私聊消息的权限。
     ''' </summary>
     PrivateMessage = 1
     ''' <summary>
-    ''' 处理讨论组消息的权限。
+    ''' 插件需要获取处理讨论组消息的权限。
     ''' </summary>
     DiscussGroupMessage = 2
     ''' <summary>
-    ''' 处理群消息的权限。
+    ''' 插件需要获取处理群消息的权限。
     ''' </summary>
     GroupMessage = 4
     ''' <summary>
-    ''' 处理群管理员变动事件。
+    ''' 插件需要获取处理群管理员变动事件的权限。
     ''' </summary>
     GroupAdmin = 8
     ''' <summary>
-    ''' 处理群成员变动事件。
+    ''' 插件需要获取处理群成员变动事件的权限。
     ''' </summary>
     GroupMemberChange = 16
     ''' <summary>
-    ''' 获取群成员信息的权限。
+    ''' 插件需要获取更改群成员名片的权限。
     ''' </summary>
-    GroupMemberInfo = 32
+    GroupMemberName = 32
     ''' <summary>
-    ''' 获取账号 Cookies 和 CrfsToken 的权限。
+    ''' 插件需要获取账号 Cookies 和 CrfsToken 的权限。
     ''' </summary>
     Cookies = 64
     ''' <summary>
-    ''' 获取所有权限。
+    ''' 插件需要获取群成员信息的权限。
+    ''' </summary>
+    GroupMemberInfo = 128
+    ''' <summary>
+    ''' 插件需要获取禁言群成员的权限。
+    ''' </summary>
+    DisabledSendMsg = 256
+    ''' <summary>
+    ''' 插件需要获取踢出群成员的权限。
+    ''' </summary>
+    KickMemberOut = 512
+    ''' <summary>
+    ''' 插件需要获取所有可以获取的权限。
     ''' </summary>
     All = PrivateMessage Or DiscussGroupMessage Or
         GroupAdmin Or GroupMemberChange Or
-        GroupMemberInfo Or GroupMessage Or Cookies
+        GroupMemberName Or GroupMessage Or Cookies Or
+        DisabledSendMsg Or GroupMemberInfo Or
+        KickMemberOut
 End Enum
 ''' <summary>
 ''' 提供处理加载插件时的事件。

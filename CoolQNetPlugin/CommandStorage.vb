@@ -1,6 +1,6 @@
 ﻿Imports System.Text
 ''' <summary>
-''' 返回命令存储器。
+''' 返回一个存储着命令的存储器。
 ''' </summary>
 Public Class CommandStorage
     Private sb As StringBuilder
