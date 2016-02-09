@@ -224,6 +224,30 @@ Public Class PluginRelayStation
             Return ShowErrorMessage("处理消息时发生了错误，详见错误报告文件。")
         End Try
     End Function
+    ''' <summary>
+    ''' 触发插件加载事件。
+    ''' </summary>
+    Public Sub LoadPlugin()
+        Try
+            Dim cqel As New CoolQLoadEvent
+            cqel.Compose()
+            cqel.DoWork()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+    ''' <summary>
+    ''' 触发插件退出事件。
+    ''' </summary>
+    Public Sub OnExiting()
+        Try
+            Dim cqel As New CoolQExitingEvent
+            cqel.Compose()
+            cqel.DoWork()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 End Class
 
 

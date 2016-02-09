@@ -90,7 +90,9 @@ End Enum
 ''' <summary>
 ''' 提供处理加载插件时的事件。
 ''' </summary>
+<InheritedExport(GetType(ILoadPlugin))>
 Public Interface ILoadPlugin
+    Inherits ICoolQPlugin
     ''' <summary>
     ''' 处理加载插件事件。
     ''' </summary>
@@ -99,9 +101,26 @@ End Interface
 ''' <summary>
 ''' 提供处理退出 CoolQ 时的事件。
 ''' </summary>
+<InheritedExport(GetType(ICoolQExiting))>
 Public Interface ICoolQExiting
+    Inherits ICoolQPlugin
     ''' <summary>
     ''' 处理 CoolQ 退出事件。
     ''' </summary>
     Sub OnExiting()
+End Interface
+''' <summary>
+''' 提供获取QQ Cookies 的接口。
+''' </summary>
+<InheritedExport(GetType(IGetCookies))>
+Public Interface IGetCookies
+    Inherits ICoolQPlugin
+    ''' <summary>
+    ''' 获取用户 Cookies。
+    ''' </summary>
+    Sub GetCookies()
+    ''' <summary>
+    ''' 获取用户 CstrfToken。
+    ''' </summary>
+    Sub GetCstrfToken()
 End Interface
