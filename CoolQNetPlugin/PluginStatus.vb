@@ -1,4 +1,6 @@
-﻿''' <summary>
+﻿Imports System.IO
+
+''' <summary>
 ''' 储存已启用插件的列表。
 ''' </summary>
 Public Class EnabledPluginsList
@@ -46,4 +48,32 @@ Public Class EnabledPluginsList
     Public Function IsEnable(plugin As Guid) As Boolean
         Return plu.Contains(plugin)
     End Function
+    ''' <summary>
+    ''' 导入已启用插件列表。
+    ''' </summary>
+    Public Sub ImportList()
+        Dim enalist As String = Path.Combine(DataPath, "EnablePlugin.txt")
+        Dim targuid As Guid
+        Using ea As New StreamReader(enalist)
+            Do Until ea.EndOfStream
+                Try
+                    targuid = New Guid(ea.ReadLine)
+                    plu.Add(targuid)
+                Catch ex As Exception
+
+                End Try
+            Loop
+        End Using
+    End Sub
+    ''' <summary>
+    ''' 导出已启用插件列表。
+    ''' </summary>
+    Public Sub ExportList()
+        Dim enalist As String = Path.Combine(DataPath, "EnablePlugin.txt")
+        Using sn As New StreamWriter(enalist, True)
+            For Each g As Guid In plu
+                sn.WriteLine(g.ToString)
+            Next
+        End Using
+    End Sub
 End Class
