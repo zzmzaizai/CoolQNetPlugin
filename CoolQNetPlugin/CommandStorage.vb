@@ -138,4 +138,16 @@ Public Class CommandStorage
         End If
         sb.Append(If(nolonger, "永久T", "T") + "|group=" + group.ToString + "|qq=" + qq.ToString + Separator)
     End Sub
+    ''' <summary>
+    ''' 追加更改群成员名片的命令。
+    ''' </summary>
+    ''' <param name="group">目标群号。</param>
+    ''' <param name="qq">目标QQ。</param>
+    ''' <param name="newname">新名片内容。</param>
+    Public Sub AppendChangeNameCommand(group As Long, qq As Long, newname As String)
+        If Not tar.Permissions.HasFlag(PluginPermissions.GroupMemberName) Then
+            AppendLEC("CQ.NET", "已拒绝" + tar.Name + "的改马甲请求，该插件并未请求此权限。")
+        End If
+        sb.Append("改名字|群=" + group.ToString + "|QQ=" + qq.ToString + "|新马甲=" + newname + Separator)
+    End Sub
 End Class
