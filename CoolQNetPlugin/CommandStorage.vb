@@ -72,7 +72,7 @@ Public Class CommandStorage
         sb.Append(LogError(tar.Name, msg))
     End Sub
     Private Sub AppendLEC(source As String, msg As String)
-        sb.Append(LogError(source, msg))
+        sb.Append(LogWarn(source, msg))
     End Sub
     ''' <summary>
     ''' 追加调试日志消息的命令。
@@ -105,4 +105,36 @@ Public Class CommandStorage
             End If
         End Set
     End Property
+    ''' <summary>
+    ''' 追加接收语音的命令。
+    ''' </summary>
+    ''' <param name="filename">音频文件名。</param>
+    ''' <param name="format">音频格式。</param>
+    Public Sub AppendReceiveRecordCommand(ByVal filename As String, ByVal format As String)
+        sb.Append("接收语音|文件名=" + filename + "|文件格式=" + Separator)
+    End Sub
+    ''' <summary>
+    ''' 追加禁言的命令。
+    ''' </summary>
+    ''' <param name="group">目标群。</param>
+    ''' <param name="qq">目标QQ。</param>
+    ''' <param name="time">禁言时间（单位：秒）。</param>
+    Public Sub AppendDisabledSendMsgCommand(group As Long, qq As Long, time As Integer)
+        If Not tar.Permissions.HasFlag(PluginPermissions.DisabledSendMsg) Then
+            AppendLEC("CQ.NET", "已拒绝" + tar.Name + "的群成员禁言请求，该插件并未请求此权限。")
+            Return
+        End If
+        sb.Append("禁言|群号=" + group.ToString + "|QQ=" + qq.ToString + "|时长=" + time.ToString + Separator)
+    End Sub
+    ''' <summary>
+    ''' 追加群成员移除的命令。
+    ''' </summary>
+    ''' <param name="group">目标群号。</param>
+    ''' <param name="qq">目标QQ。</param>
+    Public Sub AppendKickOutMemberCommand(group As Long, qq As Long)
+        If Not tar.Permissions.HasFlag(PluginPermissions.KickMemberOut) Then
+            AppendLEC("CQ.NET", "已拒绝" + tar.Name + "的群T人请求，该插件并未请求此权限。")
+            Return
+        End If
+    End Sub
 End Class

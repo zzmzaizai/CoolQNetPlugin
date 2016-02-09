@@ -131,7 +131,6 @@ Public Module CoolQApplication
     Friend Function LogDebug(name As String, msg As String) As String
         Return "调试|插件=" + name + "|内容=" + msg + Separator '+ vbCrLf
     End Function
-
     ''' <summary>
     ''' 获取显示致命错误代码字符串。
     ''' </summary>
@@ -148,5 +147,28 @@ Public Module CoolQApplication
     ''' <returns><see cref="String"/></returns>
     Public Function Image(filename As String) As String
         Return "[CQ:image,file=" + filename + "]"
+    End Function
+    ''' <summary>
+    ''' 获取发送语音代码字符串。
+    ''' </summary>
+    ''' <param name="filename">音频文件路径。</param>
+    ''' <returns><see cref="String"/></returns>
+    Public Function Record(filename As String) As String
+        Return "[CQ:record,file=" + filename + "]"
+    End Function
+    ''' <summary>
+    ''' 获取抖动窗口代码字符串。
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function Shake() As String
+        Return "[CQ:shake]"
+    End Function
+    ''' <summary>
+    ''' 获取原创表情字符串。
+    ''' </summary>
+    ''' <param name="id">原创表情id。</param>
+    ''' <returns><see cref="String"/></returns>
+    Public Function OriginalExpression(id As Integer) As String
+        Return "[CQ:bface,id" + id.ToString + "]"
     End Function
 End Module
