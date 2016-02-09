@@ -52,4 +52,5 @@ Public Module PluginHelper
             sw.WriteLine(ex.ToString)
         End Using
     End Sub
+
 End Module

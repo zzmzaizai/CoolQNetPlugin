@@ -131,10 +131,11 @@ Public Class CommandStorage
     ''' </summary>
     ''' <param name="group">目标群号。</param>
     ''' <param name="qq">目标QQ。</param>
-    Public Sub AppendKickOutMemberCommand(group As Long, qq As Long)
+    Public Sub AppendKickOutMemberCommand(group As Long, qq As Long, nolonger As Boolean)
         If Not tar.Permissions.HasFlag(PluginPermissions.KickMemberOut) Then
             AppendLEC("CQ.NET", "已拒绝" + tar.Name + "的群T人请求，该插件并未请求此权限。")
             Return
         End If
+        sb.Append(If(nolonger, "永久T", "T") + "|group=" + group.ToString + "|qq=" + qq.ToString + Separator)
     End Sub
 End Class

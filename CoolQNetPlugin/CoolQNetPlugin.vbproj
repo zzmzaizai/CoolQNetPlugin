@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="PluginHelper.vb" />
     <Compile Include="PluginManager.vb" />
+    <Compile Include="PluginStatus.vb" />
     <Compile Include="PrivateMessageHandler.vb" />
     <Compile Include="CommandStorage.vb" />
     <Compile Include="UnsafeNativeMethod.vb" />
