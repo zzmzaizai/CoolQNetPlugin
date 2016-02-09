@@ -109,6 +109,7 @@ End Interface
 ''' </summary>
 <InheritedExport(GetType(IGroupMemberChangeHandler))>
 Public Interface IGroupMemberChangeHandler
+    Inherits ICoolQPlugin
     ''' <summary>
     ''' 处理群成员入群事件，后返回结果。
     ''' </summary>
