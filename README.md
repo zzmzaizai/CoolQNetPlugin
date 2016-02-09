@@ -1,8 +1,6 @@
 # CoolQNetPlugin
 CoolQ Unofficial VB.NET SDK<br>
 酷Q Air 非官方 .NET SDK，使用 VB 编写。该SDK可让开发人员使用托管代码库对酷Q Air 进行开发。
-## 使用 SDK
-托管代码库文档以及如何使用SDK详见 Wiki。
 
 ## SDK 内容
 * 消息接口（当前仅讨论组以及私聊消息）
