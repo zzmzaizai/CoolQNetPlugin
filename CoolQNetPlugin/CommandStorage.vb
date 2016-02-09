@@ -4,6 +4,7 @@
 ''' </summary>
 Public Class CommandStorage
     Private sb As StringBuilder
+    Private inter As Boolean
     Private tar As ICoolQPlugin
     ''' <summary>
     ''' 使用指定插件初始化 <see cref="CommandStorage "/> 的新实例。
@@ -87,4 +88,21 @@ Public Class CommandStorage
     Public Sub AppendLogWarningCommand(msg As String)
         sb.Append(LogWarn(tar.Name, msg))
     End Sub
+    ''' <summary>
+    ''' 获取/设置是否拦截消息的值。
+    ''' </summary>
+    ''' <returns><see cref="Boolean"/></returns>
+    ''' <remarks>一旦该值设置为 True，就不能改变这个值。</remarks>
+    Public Property Intercept As Boolean
+        Get
+            Return inter
+        End Get
+        Set(value As Boolean)
+            If inter Then Return
+            If value Then
+                'sb.Append(LogInfo("CQ.NET", "消息已被" + tar.Name + "拦截。"))
+                inter = value
+            End If
+        End Set
+    End Property
 End Class

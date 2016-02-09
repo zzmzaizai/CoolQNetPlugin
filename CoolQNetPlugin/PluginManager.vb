@@ -27,6 +27,7 @@ Public Class PluginRelayStation
     ''' <remarks>该方法仅用于 .NET 端 Debug 使用。</remarks>
     Public Sub New()
         MyBase.New()
+        CheckDirectory()
         CheckInIFile()
         'pp = AppDomain.CurrentDomain.BaseDirectory + "Extensions"
     End Sub
@@ -42,7 +43,7 @@ Public Class PluginRelayStation
     Public Function ProcessPrivateMessage(qq As Long, type As Integer, msg As String, font As Integer, sendtime As Integer) As String
         Dim res As String = ""
         Try
-            CheckDirectory()
+            'CheckDirectory()
             Dim h As New PrivateMessageHandler(qq, type, Unturn(msg), font, sendtime)
             h.Compose()
             h.DoWork()
@@ -98,7 +99,10 @@ Public Class PluginRelayStation
     ''' <returns><see cref="String"/></returns>
     Public Function ProcessNotAnoymousMessage(group As Long, qq As Long, msg As String, font As Integer, sendtime As Integer) As String
         Try
-
+            Dim pnam As New GroupMessageHandler(group, qq, msg, font, sendtime)
+            pnam.Compose()
+            pnam.DoWork()
+            Return pnam.Command
         Catch ex As Exception
             Try
                 ReportError(ex)
@@ -122,7 +126,10 @@ Public Class PluginRelayStation
     ''' <returns><see cref="String"/></returns>
     Public Function ProcessAnoymousMessage(group As Long, sender As String, aid As Long, msg As String, font As Integer, sendtime As Integer) As String
         Try
-
+            Dim pam As New GroupMessageHandler(group, sender, aid, msg, font, sendtime)
+            pam.Compose()
+            pam.DoWorkforAnoymous()
+            Return pam.Command
         Catch ex As Exception
             Try
                 ReportError(ex)

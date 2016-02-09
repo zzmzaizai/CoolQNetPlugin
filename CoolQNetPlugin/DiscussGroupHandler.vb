@@ -39,13 +39,14 @@ Friend Class DiscussGroupHandler
                 End If
                 sto = la.Result(dis, qq, msg, msgfont, time)
                 If sto Is Nothing Then Continue For
+
                 s = sto.ToString
                 If Not String.IsNullOrWhiteSpace(s) Then
                     dgh.Append(s)
                 End If
-                If la.IsIntercept Then
+                If sto.Intercept Then
                     dgh.Append(LogInfo("CQ.NET 讨论组", "讨论组消息已被 " + la.Name + " 拦截。"))
-                    Exit For
+                    Exit Sub
                 End If
             Catch ex As Exception
                 ReportError(ex, la)

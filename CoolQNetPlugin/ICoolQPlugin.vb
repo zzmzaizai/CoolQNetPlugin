@@ -28,11 +28,7 @@ Public Interface ICoolQPlugin
     ''' </summary>
     ''' <returns><see cref="String"/></returns>
     ReadOnly Property Description As String
-    ''' <summary>
-    ''' 获取是否拦截消息的值。
-    ''' </summary>
-    ''' <returns><see cref="Boolean"/></returns>
-    ReadOnly Property IsIntercept As Boolean
+
 End Interface
 ''' <summary>
 ''' 表明插件要获取的权限。
