@@ -31,8 +31,18 @@ Public Class EnabledPluginsList
     ''' <param name="plugin">要启用的插件。</param>
     Public Sub Enable(plugin As ICoolQPlugin)
         If plugin.Id = Guid.Empty Then Return
-        Dim mb As New StringBuilder
-        mb.AppendLine("启用" + plugin.Name)
+        If plu.Contains(plugin.Id) Then Return
+        If plugin.Permissions.HasFlag(PluginPermissions.Cookies) Then
+            Dim mb As New StringBuilder, res As MsgBoxResult
+            mb.Append("插件" + plugin.Name + "（作者：" + plugin.Author + "）需要请求敏感权限。")
+            mb.AppendLine("启用该插件可能会带来安全问题，是否继续启用该插件？")
+            mb.AppendLine("插件请求的敏感权限：")
+            mb.AppendLine("获取用户 Cookies 和 CstrfToken")
+            res = MsgBox(mb.ToString, MsgBoxStyle.YesNo Or MsgBoxStyle.DefaultButton2 Or MsgBoxStyle.Exclamation, "警告")
+            If res = MsgBoxResult.Yes Then GoTo fin
+            Return
+            End If
+fin:        plu.Add(plugin.Id)
     End Sub
     ''' <summary>
     ''' 禁用一个插件。
