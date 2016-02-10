@@ -147,7 +147,33 @@ Public Class CommandStorage
     Public Sub AppendChangeNameCommand(group As Long, qq As Long, newname As String)
         If Not tar.Permissions.HasFlag(PluginPermissions.GroupMemberName) Then
             AppendLEC("CQ.NET", "已拒绝" + tar.Name + "的改马甲请求，该插件并未请求此权限。")
+            Return
         End If
         sb.Append("改名字|群=" + group.ToString + "|QQ=" + qq.ToString + "|新马甲=" + newname + Separator)
+    End Sub
+    ''' <summary>
+    ''' 追加发送名片赞的命令。
+    ''' </summary>
+    ''' <param name="qq">目标QQ。</param>
+    Public Sub AppendGoodCommand(qq As Long)
+        If Not tar.Permissions.HasFlag(PluginPermissions.SendGood) Then
+            AppendLEC("CQ.NET", tar.Name + "发送赞的请求已被拒绝，该插件并未请求此权限。")
+            Return
+        End If
+        sb.Append("赞|QQ=" + qq.ToString + Separator)
+    End Sub 'As String
+    ''' <summary>
+    ''' 追加授予专属头衔的命令。
+    ''' </summary>
+    ''' <param name="group">目标群。</param>
+    ''' <param name="qq">目标QQ。</param>
+    ''' <param name="name">专属头衔内容。</param>
+    ''' <param name="time">有效期。</param>
+    Public Sub AppendGiveNameCommand(group As Long, qq As Long, name As String, time As Integer)
+        If Not tar.Permissions.HasFlag(PluginPermissions.GiveMemberName) Then
+            AppendLEC("CQ.NET", tar.Name + "授予专属头衔的请求已被拒绝，该插件并未请求此权限。")
+            Return
+        End If
+        sb.Append("授予头衔|群=" + group.ToString + "|QQ=" + qq.ToString + "|头衔=" + name + "|有效期=" + time.ToString + Separator)
     End Sub
 End Class

@@ -79,13 +79,21 @@ Public Enum PluginPermissions
     ''' </summary>
     KickMemberOut = 512
     ''' <summary>
+    ''' 插件需要获取发送赞的权限。
+    ''' </summary>
+    SendGood = 1024
+    ''' <summary>
+    ''' 插件需要获取授予群成员专属头衔的权限。
+    ''' </summary>
+    GiveMemberName = 2048
+    ''' <summary>
     ''' 插件需要获取所有可以获取的权限。
     ''' </summary>
     All = PrivateMessage Or DiscussGroupMessage Or
         GroupAdmin Or GroupMemberChange Or
         GroupMemberName Or GroupMessage Or Cookies Or
         DisabledSendMsg Or GroupMemberInfo Or
-        KickMemberOut
+        KickMemberOut Or SendGood Or GiveMemberName
 End Enum
 ''' <summary>
 ''' 提供处理加载插件时的事件。

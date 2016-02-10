@@ -24,7 +24,7 @@ Public Class PluginRelayStation
     ''' <summary>
     ''' 构造 <see cref="PluginRelayStation"/> 的新实例。
     ''' </summary>
-    ''' <remarks>该方法仅用于 .NET 端 Debug 使用。</remarks>
+    ''' <remarks>该方法只在调试托管代码时使用。</remarks>
     Public Sub New()
         MyBase.New()
         CheckDirectory()
@@ -248,6 +248,13 @@ Public Class PluginRelayStation
             MsgBox(ex.Message)
         End Try
     End Sub
+    <Obsolete("该属性为 COM 对象支持方法，.NET 不应该调用此方法，而
+应直接调用 DataPath 方法。")>
+    Public ReadOnly Property PluginDataPath As String
+        Get
+            Return DataPath
+        End Get
+    End Property
 End Class
 
 
