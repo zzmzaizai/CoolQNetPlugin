@@ -2,7 +2,7 @@
 Imports System.ComponentModel.Composition.Hosting
 
 Friend Class CoolQLoadEvent 'Linker
-    'Private iqe As IEnumerable(Of ICoolQExiting)
+    'Private iqe As IEnumerable(Of IUnLoadPlugin)
     Private ile As IEnumerable(Of ILoadPlugin)
     Public Sub Compose()
         Dim dir As New DirectoryCatalog(PluginPath)
@@ -27,12 +27,12 @@ Friend Class CoolQLoadEvent 'Linker
     End Sub
 End Class
 Friend Class CoolQExitingEvent
-    Private ile As IEnumerable(Of ICoolQExiting)
+    Private ile As IEnumerable(Of IUnLoadPlugin)
     Public Sub Compose()
         Dim dir As New DirectoryCatalog(PluginPath)
         Using container As New CompositionContainer(dir)
             container.ComposeParts(Me)
-            ile = container.GetExportedValues(Of ICoolQExiting)
+            ile = container.GetExportedValues(Of IUnLoadPlugin)
         End Using
 
     End Sub
@@ -40,10 +40,10 @@ Friend Class CoolQExitingEvent
         Dim elp As New EnabledPluginsList
         elp.ImportList()
 
-        For Each ilp As ICoolQExiting In ile
+        For Each ilp As IUnLoadPlugin In ile
             If Not elp.IsEnable(ilp.Id) Then Continue For
             Try
-                ilp.OnExiting()
+                ilp.OnUnloaded()
             Catch ex As Exception
                 MsgBox(ex.Message)
             End Try

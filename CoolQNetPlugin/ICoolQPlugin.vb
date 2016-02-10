@@ -114,13 +114,13 @@ End Interface
 ''' <summary>
 ''' 提供处理退出 CoolQ 时的事件。
 ''' </summary>
-<InheritedExport(GetType(ICoolQExiting))>
-Public Interface ICoolQExiting
+<InheritedExport(GetType(IUnLoadPlugin))>
+Public Interface IUnLoadPlugin
     Inherits ICoolQPlugin
     ''' <summary>
-    ''' 处理 CoolQ 退出事件。
+    ''' 处理插件卸载事件。
     ''' </summary>
-    Sub OnExiting()
+    Sub OnUnloaded()
 End Interface
 ''' <summary>
 ''' 提供获取QQ Cookies 的接口。
