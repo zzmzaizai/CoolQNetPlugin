@@ -9,7 +9,7 @@ CoolQ Unofficial VB.NET SDK<br>
 使用 MSBuild.exe 或 Visual Studio 2015 生成解决方案。
 
 ## 漏洞
-任何漏洞可到 Issues 标签报告，这是对这SDK作出贡献的最好形式。
+任何漏洞可到 Issues 标签报告。
 
 ## 版权协议
 SDK遵守[MIT 协议](LICENSE)。
