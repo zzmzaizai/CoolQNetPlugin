@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Text
 
 ''' <summary>
 ''' 储存已启用插件的列表。
@@ -27,11 +28,11 @@ Public Class EnabledPluginsList
     ''' <summary>
     ''' 启用一个插件。
     ''' </summary>
-    ''' <param name="plugin">要启用插件的 <see cref="Guid"/>。</param>
-    Public Sub Enable(plugin As Guid)
-        If plugin = Guid.Empty Then Return
-        If plu.Contains(plugin) Then Return
-        plu.Add(plugin)
+    ''' <param name="plugin">要启用的插件。</param>
+    Public Sub Enable(plugin As ICoolQPlugin)
+        If plugin.Id = Guid.Empty Then Return
+        Dim mb As New StringBuilder
+        mb.AppendLine("启用" + plugin.Name)
     End Sub
     ''' <summary>
     ''' 禁用一个插件。
