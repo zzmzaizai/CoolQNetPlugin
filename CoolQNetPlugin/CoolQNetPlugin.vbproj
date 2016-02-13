@@ -101,7 +101,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="PluginHelper.vb" />
-    <Compile Include="PluginInformationProvider.vb" />
     <Compile Include="PluginManager.vb" />
     <Compile Include="PluginStatus.vb" />
     <Compile Include="PrivateMessageHandler.vb" />

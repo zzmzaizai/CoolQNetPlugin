@@ -255,18 +255,7 @@ Public Class PluginRelayStation
             Return DataPath
         End Get
     End Property
-    ''' <summary>
-    ''' 获取所有插件的信息，然后存储在一个文件里，并返回文件名。
-    ''' </summary>
-    ''' <returns><see cref="String"/></returns>
-    Public Function GetPluginInformation() As String
-        Dim rndfile As String = Path.GetTempFileName
-        Dim allpath As String = Path.Combine(DataPath, rndfile)
-        Dim pp As New PluginInformationProvider(allpath)
-        pp.Compose()
-        pp.ExportInformation()
-        Return allpath
-    End Function
+
 End Class
 
 
