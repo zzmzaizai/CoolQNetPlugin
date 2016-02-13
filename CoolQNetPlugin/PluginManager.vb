@@ -259,11 +259,13 @@ Public Class PluginRelayStation
     ''' 获取所有插件的信息，然后存储在一个文件里，并返回文件名。
     ''' </summary>
     ''' <returns><see cref="String"/></returns>
-    <Obsolete("方法尚未完成。")>
     Public Function GetPluginInformation() As String
-        Dim rndfile As String = Path.GetRandomFileName
+        Dim rndfile As String = Path.GetTempFileName
         Dim allpath As String = Path.Combine(DataPath, rndfile)
-
+        Dim pp As New PluginInformationProvider(allpath)
+        pp.Compose()
+        pp.ExportInformation()
+        Return rndfile
     End Function
 End Class
 
