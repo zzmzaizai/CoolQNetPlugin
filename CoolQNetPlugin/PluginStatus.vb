@@ -93,7 +93,6 @@ Public Class EnabledPluginsList
 #Region "Const"
     Private Const AllPermissions As PluginPermissions =
         PluginPermissions.PrivateMessage Or PluginPermissions.DiscussGroupMessage Or
-        PluginPermissions.GroupAdmin Or PluginPermissions.GroupMemberChange Or
         PluginPermissions.GroupMemberName Or PluginPermissions.GroupMessage Or
         PluginPermissions.Cookies Or
         PluginPermissions.DisabledSendMsg Or

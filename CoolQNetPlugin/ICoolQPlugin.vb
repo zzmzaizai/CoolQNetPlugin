@@ -87,7 +87,6 @@ Public Enum PluginPermissions
     ''' 插件请求获得所有可以获取的权限。
     ''' </summary>
     All = PrivateMessage Or DiscussGroupMessage Or
-        GroupAdmin Or GroupMemberChange Or
         GroupMemberName Or GroupMessage Or Cookies Or
         DisabledSendMsg Or GroupMemberInfo Or
         KickMemberOut Or SendGood Or GiveMemberName

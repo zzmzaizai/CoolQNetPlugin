@@ -35,9 +35,7 @@ Friend Class GroupAdminChangeHandler
         For Each la As IGroupAdminChangeHandler In gach
             Try
                 If Not etl.IsEnable(la.Id) Then Continue For
-                If Not la.Permissions.HasFlag(PluginPermissions.GroupAdmin) Then
-                    Continue For
-                End If
+
                 sto = la.Result(groupnumber, bc, targetqq, eventime)
                 If sto Is Nothing Then Continue For
 

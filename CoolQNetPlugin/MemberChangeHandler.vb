@@ -39,9 +39,7 @@ Friend Class MemberChangeHandler
         For Each la As IGroupMemberChangeHandler In plugins
             Try
                 If Not etl.IsEnable(la.Id) Then Continue For
-                If Not la.Permissions.HasFlag(PluginPermissions.GroupMemberChange) Then
-                    Continue For
-                End If
+
                 sto = la.MemberIncrease(targetgroup, isi, targetqq, handleadmin, timestamp)
                 If sto Is Nothing Then Continue For
 
@@ -76,9 +74,7 @@ Friend Class MemberChangeHandler
         For Each la As IGroupMemberChangeHandler In plugins
             Try
                 If Not etl.IsEnable(la.Id) Then Continue For
-                If Not la.Permissions.HasFlag(PluginPermissions.GroupMemberChange) Then
-                    Continue For
-                End If
+
                 sto = la.MemberDecrease(targetgroup, detype, targetqq, handleadmin, timestamp)
                 If sto Is Nothing Then Continue For
 
