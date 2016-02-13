@@ -44,15 +44,15 @@ Public Enum PluginPermissions
     ''' </summary>
     None = 0
     ''' <summary>
-    ''' 插件请求获得处理私聊消息的权限。
+    ''' 插件请求获得发送私聊消息的权限。
     ''' </summary>
     PrivateMessage = 1
     ''' <summary>
-    ''' 插件请求获得处理讨论组消息的权限。
+    ''' 插件请求获得发送讨论组消息的权限。
     ''' </summary>
     DiscussGroupMessage = 2
     ''' <summary>
-    ''' 插件请求获得处理群消息的权限。
+    ''' 插件请求获得发送群消息的权限。
     ''' </summary>
     GroupMessage = 4
     ''' <summary>
