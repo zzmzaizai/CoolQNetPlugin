@@ -248,14 +248,6 @@ Public Class PluginRelayStation
             MsgBox(ex.Message)
         End Try
     End Sub
-    <Obsolete("该属性为 COM 对象支持方法，.NET 不应该调用此方法，而
-应直接调用 DataPath 方法。")>
-    Public ReadOnly Property PluginDataPath As String
-        Get
-            Return DataPath
-        End Get
-    End Property
-
 End Class
 
 

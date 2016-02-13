@@ -44,55 +44,47 @@ Public Enum PluginPermissions
     ''' </summary>
     None = 0
     ''' <summary>
-    ''' 插件需要获取处理私聊消息的权限。
+    ''' 插件请求获得处理私聊消息的权限。
     ''' </summary>
     PrivateMessage = 1
     ''' <summary>
-    ''' 插件需要获取处理讨论组消息的权限。
+    ''' 插件请求获得处理讨论组消息的权限。
     ''' </summary>
     DiscussGroupMessage = 2
     ''' <summary>
-    ''' 插件需要获取处理群消息的权限。
+    ''' 插件请求获得处理群消息的权限。
     ''' </summary>
     GroupMessage = 4
     ''' <summary>
-    ''' 插件需要获取处理群管理员变动事件的权限。
-    ''' </summary>
-    GroupAdmin = 8
-    ''' <summary>
-    ''' 插件需要获取处理群成员变动事件的权限。
-    ''' </summary>
-    GroupMemberChange = 16
-    ''' <summary>
-    ''' 插件需要获取更改群成员名片的权限。
+    ''' 插件请求获得更改群成员名片的权限。
     ''' </summary>
     GroupMemberName = 32
     ''' <summary>
-    ''' 插件需要获取账号 Cookies 和 CrfsToken 的权限。
+    ''' 插件请求获得账号 Cookies 和 CrfsToken 的权限。
     ''' </summary>
     Cookies = 64
     ''' <summary>
-    ''' 插件需要获取群成员信息的权限。
+    ''' 插件请求获得群成员信息的权限。
     ''' </summary>
     GroupMemberInfo = 128
     ''' <summary>
-    ''' 插件需要获取禁言群成员的权限。
+    ''' 插件请求获得禁言群成员的权限。
     ''' </summary>
     DisabledSendMsg = 256
     ''' <summary>
-    ''' 插件需要获取踢出群成员的权限。
+    ''' 插件请求获得踢出群成员的权限。
     ''' </summary>
     KickMemberOut = 512
     ''' <summary>
-    ''' 插件需要获取发送赞的权限。
+    ''' 插件请求获得发送赞的权限。
     ''' </summary>
     SendGood = 1024
     ''' <summary>
-    ''' 插件需要获取授予群成员专属头衔的权限。
+    ''' 插件请求获得授予群成员专属头衔的权限。
     ''' </summary>
     GiveMemberName = 2048
     ''' <summary>
-    ''' 插件需要获取所有可以获取的权限。
+    ''' 插件请求获得所有可以获取的权限。
     ''' </summary>
     All = PrivateMessage Or DiscussGroupMessage Or
         GroupAdmin Or GroupMemberChange Or

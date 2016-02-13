@@ -1,5 +1,7 @@
 ﻿Imports System.IO
 Imports System.Text
+Imports [EnumClass] = System.Enum '防 IntelliSense 把类名改为 Enum 关键字。[懒]
+
 
 ''' <summary>
 ''' 储存已启用插件的列表。
@@ -32,17 +34,9 @@ Public Class EnabledPluginsList
     Public Sub Enable(plugin As ICoolQPlugin)
         If plugin.Id = Guid.Empty Then Return
         If plu.Contains(plugin.Id) Then Return
-        If plugin.Permissions.HasFlag(PluginPermissions.Cookies) Then
-            Dim mb As New StringBuilder, res As MsgBoxResult
-            mb.Append("插件" + plugin.Name + "（作者：" + plugin.Author + "）需要请求敏感权限。")
-            mb.AppendLine("启用该插件可能会带来安全问题，是否继续启用该插件？")
-            mb.AppendLine("插件请求的敏感权限：")
-            mb.AppendLine("获取用户 Cookies 和 CstrfToken")
-            res = MsgBox(mb.ToString, MsgBoxStyle.YesNo Or MsgBoxStyle.DefaultButton2 Or MsgBoxStyle.Exclamation, "警告")
-            If res = MsgBoxResult.Yes Then GoTo fin
-            Return
-            End If
-fin:        plu.Add(plugin.Id)
+        If Demand(plugin) Then
+            plu.Add(plugin.Id)
+        End If
     End Sub
     ''' <summary>
     ''' 禁用一个插件。
@@ -88,4 +82,23 @@ fin:        plu.Add(plugin.Id)
             Next
         End Using
     End Sub
+    Private Shared Function Demand(plugin As ICoolQPlugin) As Boolean
+        Dim sb As New StringBuilder
+        sb.AppendLine("由" + plugin.Author + "制作的插件" + plugin.Name + "请求获得下列权限：")
+        Dim value As PluginPermissions = plugin.Permissions
+        If value = PluginPermissions.All Then value = AllPermissions
+        Dim enfor As String = EnumClass.Format(GetType(PluginPermissions), value, "g")
+
+    End Function
+#Region "Const"
+    Private Const AllPermissions As PluginPermissions =
+        PluginPermissions.PrivateMessage Or PluginPermissions.DiscussGroupMessage Or
+        PluginPermissions.GroupAdmin Or PluginPermissions.GroupMemberChange Or
+        PluginPermissions.GroupMemberName Or PluginPermissions.GroupMessage Or
+        PluginPermissions.Cookies Or
+        PluginPermissions.DisabledSendMsg Or
+        PluginPermissions.GroupMemberInfo Or
+        PluginPermissions.KickMemberOut Or PluginPermissions.SendGood Or
+        PluginPermissions.GiveMemberName
+#End Region
 End Class
