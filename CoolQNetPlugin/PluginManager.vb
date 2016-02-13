@@ -265,7 +265,7 @@ Public Class PluginRelayStation
         Dim pp As New PluginInformationProvider(allpath)
         pp.Compose()
         pp.ExportInformation()
-        Return rndfile
+        Return allpath
     End Function
 End Class
 
