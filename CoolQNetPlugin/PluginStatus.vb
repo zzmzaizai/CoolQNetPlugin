@@ -1,7 +1,4 @@
 ﻿Imports System.IO
-Imports System.Text
-Imports [EnumClass] = System.Enum '防 IntelliSense 把类名改为 Enum 关键字。[懒]
-
 
 ''' <summary>
 ''' 储存已启用插件的列表。
@@ -31,12 +28,10 @@ Public Class EnabledPluginsList
     ''' 启用一个插件。
     ''' </summary>
     ''' <param name="plugin">要启用的插件。</param>
-    Public Sub Enable(plugin As ICoolQPlugin)
-        If plugin.Id = Guid.Empty Then Return
-        If plu.Contains(plugin.Id) Then Return
-        If Demand(plugin) Then
-            plu.Add(plugin.Id)
-        End If
+    Public Sub Enable(mark As Guid)
+        If mark = Guid.Empty Then Return
+        If plu.Contains(mark) Then Return
+        plu.Add(mark)
     End Sub
     ''' <summary>
     ''' 禁用一个插件。
@@ -82,10 +77,5 @@ Public Class EnabledPluginsList
             Next
         End Using
     End Sub
-    Private Shared Function Demand(plugin As ICoolQPlugin) As Boolean
-        Dim sb As New StringBuilder
-        sb.AppendLine("由" + plugin.Author + "制作的插件" + plugin.Name + "请求获得下列权限：")
-
-    End Function
 
 End Class
