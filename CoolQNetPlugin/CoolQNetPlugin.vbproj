@@ -58,7 +58,9 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.registration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Reflection.Context" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -101,7 +103,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="PluginHelper.vb" />
-    <Compile Include="PluginManager.vb" />
+    <Compile Include="PluginManager.Designer.vb">
+      <DependentUpon>PluginManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PluginManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PluginRelayStation.vb" />
     <Compile Include="PluginStatus.vb" />
     <Compile Include="PrivateMessageHandler.vb" />
     <Compile Include="CommandStorage.vb" />
@@ -113,6 +121,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PluginManager.resx">
+      <DependentUpon>PluginManager.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
