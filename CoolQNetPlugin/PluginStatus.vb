@@ -85,19 +85,7 @@ Public Class EnabledPluginsList
     Private Shared Function Demand(plugin As ICoolQPlugin) As Boolean
         Dim sb As New StringBuilder
         sb.AppendLine("由" + plugin.Author + "制作的插件" + plugin.Name + "请求获得下列权限：")
-        Dim value As PluginPermissions = plugin.Permissions
-        If value = PluginPermissions.All Then value = AllPermissions
-        Dim enfor As String = EnumClass.Format(GetType(PluginPermissions), value, "g")
 
     End Function
-#Region "Const"
-    Private Const AllPermissions As PluginPermissions =
-        PluginPermissions.PrivateMessage Or PluginPermissions.DiscussGroupMessage Or
-        PluginPermissions.GroupMemberName Or PluginPermissions.GroupMessage Or
-        PluginPermissions.Cookies Or
-        PluginPermissions.DisabledSendMsg Or
-        PluginPermissions.GroupMemberInfo Or
-        PluginPermissions.KickMemberOut Or PluginPermissions.SendGood Or
-        PluginPermissions.GiveMemberName
-#End Region
+
 End Class
