@@ -1,5 +1,7 @@
 # CoolQNetPlugin
 CoolQ Unofficial VB.NET SDK<br>
+**注意：本项目已被[MoeCraftFramework](https://github.com/septluna/MoecraftFramework)代替。**
+
 酷Q Air 非官方 .NET SDK，使用 VB 编写。该SDK可让开发人员使用托管代码库对酷Q Air 进行开发。
 
 ## SDK 内容
