@@ -13,9 +13,10 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <DllExportNamespace>System.Runtime.InteropServices</DllExportNamespace>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DllExportNamespace>CoolQNetPlugin</DllExportNamespace>
     <DllExportDDNSCecil>true</DllExportDDNSCecil>
-    <PlatformTarget>x86</PlatformTarget>
+    <DllExportSkipOnAnyCpu>false</DllExportSkipOnAnyCpu>
     <DllExportOrdinalsBase>1</DllExportOrdinalsBase>
     <DllExportGenExpLib>false</DllExportGenExpLib>
     <DllExportOurILAsm>true</DllExportOurILAsm>
