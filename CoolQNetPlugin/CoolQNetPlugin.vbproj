@@ -119,6 +119,7 @@
     <Compile Include="PluginStatus.vb" />
     <Compile Include="PrivateMessageHandler.vb" />
     <Compile Include="CommandStorage.vb" />
+    <Compile Include="TestPlugin.vb" />
     <Compile Include="UnsafeNativeMethod.vb" />
     <Compile Include="ValidPluginList.vb" />
   </ItemGroup>
