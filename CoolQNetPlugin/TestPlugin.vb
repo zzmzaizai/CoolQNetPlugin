@@ -57,6 +57,37 @@ Public Class TestPlugin
 
         Return 0 '固定返回0
     End Function
-    Public Shared Function ProcessPrivateMessage() As Integer
+    ''' <summary>
+    ''' 处理私聊消息。
+    ''' </summary>
+    ''' <param name="subType">私聊消息类型。11代表消息来自好友；1代表消息来自在线状态；2代表消息来自群；3代表消息来自讨论组。</param>
+    ''' <param name="sendTime">消息发送时间的时间戳。</param>
+    ''' <param name="fromQQ">发送此消息的QQ号码。</param>
+    ''' <param name="msg">消息的内容。</param>
+    ''' <param name="font">消息所使用的字体。</param>
+    ''' <returns><see cref="Integer"/> 是否拦截消息的值，1为拦截消息。</returns>
+    <DllExport("_eventPrivateMsg")>
+    Public Shared Function ProcessPrivateMessage(subType As Integer, sendTime As Integer, fromQQ As String, msg As String, font As Integer) As Integer
+        '0为忽略 1为拦截
+
+        Return 0
+    End Function
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="subType"></param>
+    ''' <param name="sendTime"></param>
+    ''' <param name="fromGroup"></param>
+    ''' <param name="fromQQ"></param>
+    ''' <param name="fromAnonymous"></param>
+    ''' <param name="msg"></param>
+    ''' <param name="font"></param>
+    ''' <returns></returns>
+    <DllExport("_eventGroupMsg")>
+    Public Shared Function ProcessGroupMessage(subType As Integer, sendTime As Integer, fromGroup As Integer, fromQQ As Integer, fromAnonymous As Integer,
+                                               msg As String, font As Integer) As Integer
+        '0为忽略 1为拦截
+
+        Return 0
     End Function
 End Class
