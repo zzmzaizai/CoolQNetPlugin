@@ -20,8 +20,6 @@ Public Class TestPlugin
     ''' <returns><see cref="Integer"/> 返回处理过程是否成功的值。</returns>
     <DllExport("_eventEnable")>
     Public Shared Function Enabled() As Integer
-
-        MsgBox("测试插件已开启")
         Return 0
     End Function
     ''' <summary>
@@ -30,7 +28,6 @@ Public Class TestPlugin
     ''' <returns><see cref="Integer"/> 返回处理过程是否成功的值。</returns>
     <DllExport("_eventDisable")>
     Public Shared Function Disabled() As Integer
-        MsgBox("测试插件已关闭")
         Return 0
     End Function
     ''' <summary>
@@ -43,13 +40,15 @@ Public Class TestPlugin
         Return (ApiVersion.ToString + "," + AppId)
     End Function
     ''' <summary>
-    ''' 向酷Q提供此插件的AuthCode。
+    ''' 获取此插件的AuthCode。
     ''' </summary>
     ''' <param name="authcode">由酷Q提供的AuthCode。</param>
     ''' <returns><see cref="Integer"/> </returns>
     <DllExport("Initialize")>
     Public Shared Function Initialize(authcode As Integer) As Integer
         '请勿更改此函数
-
+        PluginAuthCode = authcode
+        Return 0 '固定返回0
     End Function
+
 End Class

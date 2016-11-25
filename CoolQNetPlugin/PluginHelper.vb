@@ -52,5 +52,5 @@ Public Module PluginHelper
             sw.WriteLine(ex.ToString)
         End Using
     End Sub
-
+    Friend PluginAuthCode As Integer '插件授权码
 End Module
