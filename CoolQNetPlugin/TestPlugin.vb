@@ -1,7 +1,6 @@
 ﻿''' <summary>
 ''' 酷Q.NET测试插件。
 ''' </summary>
-''' 类名可改变
 Public Class TestPlugin
 
     Private Const ApiVersion As Integer = 9 'Api版本号，若酷Q官方SDK没有更新此版本号，请勿改动此值
@@ -15,7 +14,7 @@ Public Class TestPlugin
         '在这里写插件的加载代码。
     End Sub
     ''' <summary>
-    ''' 插件被开启时发生。
+    ''' 此函数会在插件被开启时发生。
     ''' </summary>
     ''' <returns><see cref="Integer"/> 返回处理过程是否成功的值。</returns>
     <DllExport("_eventEnable")>
@@ -23,7 +22,7 @@ Public Class TestPlugin
         Return 0
     End Function
     ''' <summary>
-    ''' 插件被禁用时发生。
+    ''' 此函数会在插件被禁用时发生。
     ''' </summary>
     ''' <returns><see cref="Integer"/> 返回处理过程是否成功的值。</returns>
     <DllExport("_eventDisable")>
@@ -50,5 +49,15 @@ Public Class TestPlugin
         PluginAuthCode = authcode
         Return 0 '固定返回0
     End Function
+    ''' <summary>
+    ''' 此函数会在酷Q退出时被调用。
+    ''' </summary>
+    ''' <returns><see cref="Integer"/> </returns>
+    Public Shared Function CoolQExited() As Integer
 
+        Return 0 '固定返回0
+    End Function
+    Public Shared Function ProcessPrivateMessage() As Integer
+
+    End Function
 End Class
