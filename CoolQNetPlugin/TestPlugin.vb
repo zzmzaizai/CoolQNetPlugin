@@ -28,9 +28,10 @@ Public Class TestPlugin
     ''' <summary>
     ''' 向酷Q提供插件信息。
     ''' </summary>
-    ''' <returns></returns>
+    ''' <returns><see cref="String"/> 一个固定格式字符串。</returns>
     <DllExport("AppInfo")>
     Public Shared Function AppInfo() As String
+        '请勿修改此函数
         Return (ApiVersion.ToString + ", " + AppId)
     End Function
 End Class
