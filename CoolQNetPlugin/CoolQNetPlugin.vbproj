@@ -129,6 +129,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="docs\Plugin_Test.png" />
+    <None Include="docs\Plugin_Test_1.png" />
+    <None Include="docs\Plugin_Test_2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Import Project="../packages/DllExport.1.5.1/tools/net.r_eg.DllExport.targets" Condition="Exists('../packages/DllExport.1.5.1/tools/net.r_eg.DllExport.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
