@@ -58,6 +58,5 @@ Public Class TestPlugin
         Return 0 '固定返回0
     End Function
     Public Shared Function ProcessPrivateMessage() As Integer
-
     End Function
 End Class
