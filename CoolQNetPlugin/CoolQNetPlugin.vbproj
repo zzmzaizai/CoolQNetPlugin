@@ -90,15 +90,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoolQApplication.vb" />
-    <Compile Include="CoolQEventLinker.vb" />
-    <Compile Include="DiscussGroupHandler.vb" />
-    <Compile Include="GlobalSuppressions.vb" />
-    <Compile Include="GroupAdminChangeHandler.vb" />
-    <Compile Include="GroupMessageHandler.vb" />
-    <Compile Include="ICoolQPlugin.vb" />
-    <Compile Include="IGroupMessageHandler.vb" />
-    <Compile Include="MemberChangeHandler.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -115,13 +106,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="PluginHelper.vb" />
-    <Compile Include="PluginRelayStation.vb" />
-    <Compile Include="PluginStatus.vb" />
-    <Compile Include="PrivateMessageHandler.vb" />
-    <Compile Include="CommandStorage.vb" />
     <Compile Include="TestPlugin.vb" />
     <Compile Include="UnsafeNativeMethod.vb" />
-    <Compile Include="ValidPluginList.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
