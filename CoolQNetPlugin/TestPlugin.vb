@@ -2,6 +2,7 @@
 ''' 酷Q.NET测试插件。
 ''' </summary>
 Public Class TestPlugin
+
     Private Const ApiVersion As Integer = 9 'Api版本号，若酷Q官方SDK没有更新此版本号，请勿改动此值
     'AppID 
     Private Const AppId As String = "com.net.hotplug.test"
@@ -32,6 +33,7 @@ Public Class TestPlugin
     <DllExport("AppInfo")>
     Public Shared Function AppInfo() As String
         '请勿修改此函数
-        Return (ApiVersion.ToString + ", " + AppId)
+        Return (ApiVersion.ToString + "," + AppId)
     End Function
+
 End Class
