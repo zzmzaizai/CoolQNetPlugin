@@ -107,7 +107,6 @@
     </Compile>
     <Compile Include="PluginHelper.vb" />
     <Compile Include="TestPlugin.vb" />
-    <Compile Include="UnsafeNativeMethod.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
