@@ -7,10 +7,6 @@ Module PluginHelper
     ''' </summary>
     Public Const Event_Ignore As Integer = 0
     ''' <summary>
-    ''' 插件权限代码。
-    ''' </summary>
-    Friend PluginAuthCode As Integer
-    ''' <summary>
     ''' 表示拦截消息的值。
     ''' </summary>
     Public Const Event_Block As Integer = 1
@@ -62,4 +58,8 @@ Module PluginHelper
     ''' 表示酷Q日志等级为致命错误。
     ''' </summary>
     Public Const Log_Fatal As Integer = 40
+    ''' <summary>
+    ''' 酷Q Api实例。
+    ''' </summary>
+    Friend CQ As New CoolQApi
 End Module

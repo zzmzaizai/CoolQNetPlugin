@@ -1,17 +1,13 @@
 ﻿''' <summary>
 ''' 酷Q.NET测试插件。
 ''' </summary>
-Public Class TestPlugin
+Public NotInheritable Class TestPlugin
 
     Private Const ApiVersion As Integer = 9 'Api版本号，若酷Q官方SDK没有更新此版本号，请勿改动此值
     'AppID 
     Private Const AppId As String = "com.net.hotplug.test"
+    Private Sub New()
 
-    ''' <summary>
-    ''' 初始化<see cref="TestPlugin"/>的新实例。 
-    ''' </summary>
-    Public Sub New()
-        '在这里写插件的加载代码。
     End Sub
     ''' <summary>
     ''' 此函数会在插件被开启时发生。
@@ -46,7 +42,7 @@ Public Class TestPlugin
     <DllExport("Initialize")>
     Public Shared Function Initialize(authcode As Integer) As Integer
         '请勿更改此函数
-        PluginAuthCode = authcode
+        CQ.SetAuthCode(authcode)
         Return 0 '固定返回0
     End Function
     ''' <summary>
@@ -190,9 +186,9 @@ Public Class TestPlugin
     ''' <param name="fromGroup">要加入的群的群号。</param>
     ''' <param name="fromQQ">发送此请求的QQ号码。</param>
     ''' <param name="msg">附言内容。</param>
-    ''' <param name="responseFlag">用于处理请求的标识。</param>
+    ''' <param name="responseMark">用于处理请求的标识。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    Public Shared Function ProcessJoinGroupRequest(subType As Integer, sendTime As Integer, fromGroup As Long, fromQQ As Long, msg As String, responseFlag As String) As Integer
+    Public Shared Function ProcessJoinGroupRequest(subType As Integer, sendTime As Integer, fromGroup As Long, fromQQ As Long, msg As String, responseMark As String) As Integer
         Return 0
     End Function
     '菜单示例
