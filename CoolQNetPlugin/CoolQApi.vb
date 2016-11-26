@@ -1,5 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Runtime.InteropServices
+Imports System.Security
+
 <Assembly: CLSCompliant(True)>
 ''' <summary>
 ''' 向酷Q.NET插件提供酷Q Api
@@ -129,5 +131,59 @@ Public Class CoolQApi
     Public Sub SendGroupMessage(groupId As Long, message As String)
         NativeMethods.CQ_sendGroupMsg(cqauthcode, groupId, message)
     End Sub
+    ''' <summary>
+    ''' 向指定的讨论组发送讨论组消息。
+    ''' </summary>
+    ''' <param name="dicussGroupId">接收此消息的讨论组号。</param>
+    ''' <param name="message">消息内容。</param>
+    Public Sub SendDiscussGroupMessage(dicussGroupId As Long, message As String)
+        NativeMethods.CQ_sendGroupMsg(cqauthcode, dicussGroupId, message)
+    End Sub
+    ''' <summary>
+    ''' 获取酷Q当前登录用户的Cookies。
+    ''' </summary>
+    ''' <returns><see cref="String"/> </returns>
+    Public ReadOnly Property Cookies As String
+        Get
+            Return NativeMethods.CQ_getCookies(cqauthcode)
+        End Get
+    End Property
+    ''' <summary>
+    ''' 获取加密后的Cookies。
+    ''' </summary>
+    ''' <returns><see cref="SecureString"/> 保存了Cookies的<see cref="SecureString"/>对象。</returns>
+    ''' <remarks>
+    ''' 使用方法详见：
+    ''' https://msdn.microsoft.com/zh-cn/library/system.security.securestring.aspx
+    ''' 此Api是酷Q非官方Api。
+    ''' </remarks>
+    Public ReadOnly Property SafelyCookies As SecureString
+        Get
+            Dim sc As New SecureString
+            For Each c As Char In NativeMethods.CQ_getCookies(cqauthcode)
+                sc.AppendChar(c)
+            Next
+            sc.MakeReadOnly()
+            Return sc
+        End Get
+    End Property
+    ''' <summary>
+    ''' 获取酷Q当前登录用户的CsrfToken。
+    ''' </summary>
+    ''' <returns><see cref="Integer"/> </returns>
+    Public ReadOnly Property CsrfToken As Integer
+        Get
+            Return NativeMethods.CQ_getCsrfToken(cqauthcode)
+        End Get
+    End Property
+    ''' <summary>
+    ''' 获取当前插件的数据存储目录。
+    ''' </summary>
+    ''' <returns><See cref="String"/></returns>
+    Public ReadOnly Property AppDirectory As String
+        Get
+            Return NativeMethods.CQ_getAppDirectory(cqauthcode)
+        End Get
+    End Property
 
 End Class
