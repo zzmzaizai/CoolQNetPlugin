@@ -112,5 +112,21 @@ Public Class CoolQApi
 
         End Function
     End Class
+    ''' <summary>
+    ''' 向指定的QQ发送私聊消息。
+    ''' </summary>
+    ''' <param name="QQ">接收此消息的QQ。</param>
+    ''' <param name="message">私聊消息内容。</param>
+    Public Sub SendPrivateMessage(QQ As Long, message As String)
+        NativeMethods.CQ_sendPrivateMsg(cqauthcode, QQ, message)
+    End Sub
+    ''' <summary>
+    ''' 向指定的群发送群消息。
+    ''' </summary>
+    ''' <param name="groupId">接收此消息的群号。</param>
+    ''' <param name="message">消息内容。</param>
+    Public Sub SendGroupMessage(groupId As Long, message As String)
+        NativeMethods.CQ_sendGroupMsg(cqauthcode, groupId, message)
+    End Sub
 
 End Class
