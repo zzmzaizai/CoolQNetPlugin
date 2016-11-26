@@ -117,6 +117,7 @@ Public Class CoolQApi
     ''' </summary>
     ''' <param name="QQ">接收此消息的QQ。</param>
     ''' <param name="message">私聊消息内容。</param>
+    <CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId:="QQ")>
     Public Sub SendPrivateMessage(QQ As Long, message As String)
         NativeMethods.CQ_sendPrivateMsg(cqauthcode, QQ, message)
     End Sub
