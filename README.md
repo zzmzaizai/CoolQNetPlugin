@@ -48,5 +48,3 @@
 
 ## 版权协议
 [MIT 协议](LICENSE)
-
-Copyright © 135ty 2016 135ty
