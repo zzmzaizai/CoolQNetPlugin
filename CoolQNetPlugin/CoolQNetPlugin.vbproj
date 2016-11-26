@@ -131,9 +131,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="docs\Plugin_Test.png" />
     <None Include="docs\Plugin_Test_1.png" />
     <None Include="docs\Plugin_Test_2.png" />
