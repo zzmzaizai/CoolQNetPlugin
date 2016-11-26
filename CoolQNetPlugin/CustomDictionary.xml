@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 此文件与SDK无关，仅用于控制代码分析规则-->
+ <Dictionary>
+   <Words>
+     <Unrecognized>
+       <Word>QQ</Word>
+     </Unrecognized>
+   </Words> 
+</Dictionary>
