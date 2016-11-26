@@ -26,6 +26,8 @@ Public NotInheritable Class GroupMemberInfo
         info_titleexpirationtime = titleexpirationtime
         info_joingroupdate = joingroupdate
         info_level = level
-
+        info_nickname = nickname
+        info_qqnumber = qqnumber
     End Sub
+
 End Class

@@ -117,11 +117,10 @@ Public Class CoolQApi
     ''' <summary>
     ''' 向指定的QQ发送私聊消息。
     ''' </summary>
-    ''' <param name="QQ">接收此消息的QQ。</param>
+    ''' <param name="qq">接收此消息的QQ。</param>
     ''' <param name="message">私聊消息内容。</param>
-    <CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId:="QQ")>
-    Public Sub SendPrivateMessage(QQ As Long, message As String)
-        NativeMethods.CQ_sendPrivateMsg(cqauthcode, QQ, message)
+    Public Sub SendPrivateMessage(qq As Long, message As String)
+        NativeMethods.CQ_sendPrivateMsg(cqauthcode, qq, message)
     End Sub
     ''' <summary>
     ''' 向指定的群发送群消息。
@@ -191,8 +190,9 @@ Public Class CoolQApi
     ''' <param name="level">日志等级。</param>
     ''' <param name="message">日志消息。</param>
     Public Sub Log(level As CoolQLogLevel, message As String)
+        If level = CoolQLogLevel.None Then Return
         Dim levelint As Integer = level
-        NativeMethods.CQ_addLog(levelint, level, level.ToString, message)
+        NativeMethods.CQ_addLog(cqauthcode, levelint, level.ToString, message)
     End Sub
     ''' <summary>
     ''' 把日志写入到酷Q运行日志。
@@ -201,7 +201,23 @@ Public Class CoolQApi
     ''' <param name="message">日志消息。</param>
     ''' <param name="category">日志分类。</param>
     Public Sub Log(level As CoolQLogLevel, message As String, category As String)
+        If level = CoolQLogLevel.None Then Return
         Dim levelint As Integer = level
-        NativeMethods.CQ_addLog(levelint, level, category, message)
+        NativeMethods.CQ_addLog(cqauthcode, levelint, category, message)
     End Sub
+    ''' <summary>
+    ''' 获取指定群成员信息。
+    ''' </summary>
+    ''' <param name="groupNumber">要获取信息的群成员的所在群的群号。</param>
+    ''' <param name="qq">要获取群成员的QQ。</param>
+    ''' <returns></returns>
+    Public Function GetGroupMemberInfo(groupNumber As Long, qq As Long, doNotUseCache As Boolean) As String
+        '参照Flexlive
+        Dim datastring As String = NativeMethods.CQ_getGroupMemberInfoV2(cqauthcode, groupNumber, qq, If(doNotUseCache, 1, 0))
+        Dim dataarray As Byte() = Convert.FromBase64String(datastring)
+        Dim gnarray(8) As Byte
+        dataarray.CopyTo(gnarray, 0)
+        Array.Reverse(gnarray)
+
+    End Function
 End Class

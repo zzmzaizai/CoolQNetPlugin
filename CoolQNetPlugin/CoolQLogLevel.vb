@@ -3,6 +3,10 @@
 ''' </summary>
 Public Enum CoolQLogLevel
     ''' <summary>
+    ''' 未指定等级。
+    ''' </summary>
+    None = 0
+    ''' <summary>
     ''' 表示酷Q日志等级为信息。
     ''' </summary>
     Info = 10
