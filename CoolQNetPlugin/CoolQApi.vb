@@ -222,10 +222,28 @@ Public Class CoolQApi
     Public Function GetGroupMemberInfo(groupId As Long, qq As Long) As GroupMemberInfo
         '参考Flexlive
         Dim ds As String = NativeMethods.CQ_getGroupMemberInfoV2(cqauthcode, groupId, qq, 0)
-        Dim originarray As Byte() = Convert.FromBase64String(ds)
-        Dim targetarray(7) As Byte '
-        originarray.CopyTo(targetarray, 0)
-        Array.Reverse(targetarray)
+        Dim infoarray() As Byte = Convert.FromBase64String(ds)
+
+        Dim gnarray(7) As Byte
+        Array.Copy(infoarray, 0, gnarray, 0, 8)
+        Dim res As New GroupMemberInfo
+        res.GroupId = BitConverter.ToInt64(gnarray, 0)
+
+        Dim qqarray(7) As Byte
+        Array.Copy(infoarray, 8, qqarray, 0, 8)
+        Array.Reverse(qqarray)
+        res.Id = BitConverter.ToInt64(qqarray, 0)
+
+        Dim nlengtharray(1) As Byte
+        Array.Copy(infoarray, 16, nlengtharray, 0, 2)
+        Array.Reverse(nlengtharray)
+        Dim nlength As Short = BitConverter.ToInt16(nlengtharray, 0)
+
+        Dim narray(nlength - 1) As Byte
+        Array.Copy(infoarray, 18, narray, 0, nlength)
+        res.NickName = Text.Encoding.Default.GetString(narray)
+
+        Dim cardlengtharray(1) As Byte
 
     End Function
 End Class
