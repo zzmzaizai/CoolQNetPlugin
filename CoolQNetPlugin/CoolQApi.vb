@@ -117,12 +117,10 @@ Public Class CoolQApi
     ''' <summary>
     ''' 向指定的QQ发送私聊消息。
     ''' </summary>
-    ''' <param name="QQ">接收此消息的QQ。</param>
+    ''' <param name="qq">接收此消息的QQ。</param>
     ''' <param name="message">私聊消息内容。</param>
-    <CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId:="QQ")>
-    Public Sub SendPrivateMessage(QQ As Long, message As String)
-        NativeMethods.CQ_sendPrivateMsg(cqauthcode, QQ, message)
-
+    Public Sub SendPrivateMessage(qq As Long, message As String)
+        NativeMethods.CQ_sendPrivateMsg(cqauthcode, qq, message)
     End Sub
     ''' <summary>
     ''' 向指定的群发送群消息。
@@ -203,4 +201,23 @@ Public Class CoolQApi
     Public Sub Log(level As CoolQLogLevel, message As String, category As String)
         NativeMethods.CQ_addLog(cqauthcode, level, category, message)
     End Sub
+    ''' <summary>
+    ''' 获取酷Q当前登录账户的昵称。
+    ''' </summary>
+    ''' <returns><see cref="String"/> </returns>
+    Public ReadOnly Property NickName As String
+        Get
+            Return NativeMethods.CQ_getLoginNick(cqauthcode)
+        End Get
+    End Property
+    ''' <summary>
+    ''' 获取酷Q当前登录账户的QQ号码。
+    ''' </summary>
+    ''' <returns><see cref="Long"/> </returns>
+    Public ReadOnly Property Number As Long
+        Get
+            Return NativeMethods.CQ_getLoginQQ(cqauthcode)
+        End Get
+    End Property
+
 End Class
