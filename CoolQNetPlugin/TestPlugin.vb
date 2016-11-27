@@ -29,7 +29,7 @@ Public NotInheritable Class TestPlugin
     ''' 向酷Q提供插件信息。
     ''' </summary>
     ''' <returns><see cref="String"/> 一个固定格式字符串。</returns>
-    <DllExport("AppInfo")>
+    <DllExport("AppInfo", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function AppInfo() As String
         '请勿修改此函数
         Return (ApiVersion.ToString + "," + AppId)
@@ -39,7 +39,7 @@ Public NotInheritable Class TestPlugin
     ''' </summary>
     ''' <param name="authcode">由酷Q提供的AuthCode。</param>
     ''' <returns><see cref="Integer"/> </returns>
-    <DllExport("Initialize")>
+    <DllExport("Initialize", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function Initialize(authcode As Integer) As Integer
         '请勿更改此函数
         CQ.SetAuthCode(authcode)

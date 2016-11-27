@@ -232,7 +232,7 @@ Public Class CoolQApi
         Dim qqarray(7) As Byte
         Array.Copy(infoarray, 8, qqarray, 0, 8)
         Array.Reverse(qqarray)
-        res.Id = BitConverter.ToInt64(qqarray, 0)
+        res.Number = BitConverter.ToInt64(qqarray, 0)
 
         Dim nlengtharray(1) As Byte
         Array.Copy(infoarray, 16, nlengtharray, 0, 2)
