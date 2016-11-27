@@ -51,17 +51,33 @@ Public MustInherit Class CoolQCode
     Public Shared Function ShareMusic(id As Integer) As String
         Return "[CQ:music,id" + id.ToString + "]"
     End Function
+    '''' <summary>
+    '''' 获取用于分享自定义音乐的代码。
+    '''' </summary>
+    '''' <param name="descriptionUrl">描述自定义音乐的Url。</param>
+    '''' <param name="audioUrl">音乐文件的Url</param>
+    '''' <param name="title">分享标题，建议12字以内。</param>
+    '''' <param name="content">分享内容，建议30字以内。</param>
+    '''' <param name="imageUrl">分享链接的图片的Url。</param>
+    '''' <returns><see cref="String"/> </returns>
+    'Public Shared Function ShareMusic(descriptionUrl As String, audioUrl As String, title As String, content As String, imageUrl As String) As String
+    '    Return "[CQ:music,type=custom,url=" + descriptionUrl + ",audio=" + audioUrl + ",title=" + title + ",content=" + content + ",image=" + imageUrl + "]"
+    'End Function
     ''' <summary>
     ''' 获取用于分享自定义音乐的代码。
     ''' </summary>
-    ''' <param name="descriptionUrl">描述自定义音乐的Url。</param>
-    ''' <param name="audioUrl">音乐文件的Url</param>
+    ''' <param name="descriptionUri">描述自定义音乐的Url。</param>
+    ''' <param name="audioUri">音乐文件的Url</param>
     ''' <param name="title">分享标题，建议12字以内。</param>
     ''' <param name="content">分享内容，建议30字以内。</param>
-    ''' <param name="imageUrl">分享链接的图片的Url。</param>
+    ''' <param name="imageUri">分享链接的图片的Url。</param>
     ''' <returns><see cref="String"/> </returns>
-    Public Shared Function ShareMusic(descriptionUrl As String, audioUrl As String, title As String, content As String, imageUrl As String) As String
-        Return "[CQ:music,type=custom,url=" + descriptionUrl + ",audio=" + audioUrl + ",title=" + title + ",content=" + content + ",image=" + imageUrl + "]"
+    Public Shared Function ShareMusic(descriptionUri As Uri, audioUri As Uri, title As String, content As String, imageUri As Uri) As String
+        If descriptionUri Is Nothing OrElse audioUri Is Nothing OrElse imageUri Is Nothing Then
+            CQ.Log(CoolQLogLevel.Error, "分享的链接不是绝对链接。", "分享")
+            Return ""
+        End If
+        Return "[CQ:music,type=custom,url=" + descriptionUri.ToString + ",audio=" + audioUri.ToString + ",title=" + title + ",content=" + content + ",image=" + imageUri.ToString + "]"
     End Function
     ''' <summary>
     ''' 获取用于分享本地音频文件的代码。
@@ -78,15 +94,31 @@ Public MustInherit Class CoolQCode
     Public Shared Function Shake() As String
         Return "[CQ:shake]"
     End Function
+    '''' <summary>
+    '''' 获取分享自定义链接的代码。
+    '''' </summary>
+    '''' <param name="url">自定义链接的Url。</param>
+    '''' <param name="title">分享内容标题，建议12字以内。</param>
+    '''' <param name="content">分享内容，建议30字以内。</param>
+    '''' <param name="imageUrl">分享内容的附带图片。</param>
+    '''' <returns><see cref="String"/> </returns>
+    'Public Shared Function ShareLink(url As String, title As String, content As String, imageUrl As String) As String
+    '    Return "[CQ:share,url=" + url + ",title=" + title + ",content=" + content + ",image=" + imageUrl + "]"
+    'End Function
     ''' <summary>
     ''' 获取分享自定义链接的代码。
     ''' </summary>
-    ''' <param name="url">自定义链接的Url。</param>
+    ''' <param name="uri">自定义链接的Url。</param>
     ''' <param name="title">分享内容标题，建议12字以内。</param>
     ''' <param name="content">分享内容，建议30字以内。</param>
-    ''' <param name="imageUrl">分享内容的附带图片。</param>
+    ''' <param name="imageUri">分享内容的附带图片。</param>
     ''' <returns><see cref="String"/> </returns>
-    Public Shared Function ShareLink(url As String, title As String, content As String, imageUrl As String) As String
-        Return "[CQ:share,url=" + url + ",title=" + title + ",content=" + content + ",image=" + imageUrl + "]"
+    Public Shared Function ShareLink(uri As Uri, title As String, content As String, imageUri As Uri) As String
+        If uri Is Nothing OrElse imageUri Is Nothing Then
+            CQ.Log(CoolQLogLevel.Error, "分享的链接不是绝对链接。", "分享")
+            Return ""
+        End If
+        Return "[CQ:share,url=" + uri.ToString + ",title=" + title + ",content=" + content + ",image=" + imageUri.ToString + "]"
     End Function
+
 End Class

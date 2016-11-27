@@ -219,32 +219,118 @@ Public Class CoolQApi
             Return NativeMethods.CQ_getLoginQQ(cqauthcode)
         End Get
     End Property
+    ''' <summary>
+    ''' 获取缓存的群成员信息。
+    ''' </summary>
+    ''' <param name="groupId">要获取信息的群成员的所在群。</param>
+    ''' <param name="qq">要获取信息的群成员QQ。</param>
+    ''' <returns><see cref="GroupMemberInfo"/></returns>
+    ''' <remarks>此函数采用Flexlive的处理方法。</remarks>
     Public Function GetGroupMemberInfo(groupId As Long, qq As Long) As GroupMemberInfo
-        '参考Flexlive
-        Dim ds As String = NativeMethods.CQ_getGroupMemberInfoV2(cqauthcode, groupId, qq, 0)
-        Dim infoarray() As Byte = Convert.FromBase64String(ds)
+        On Error GoTo errhandle
+        Dim data As String = NativeMethods.CQ_getGroupMemberInfoV2(cqauthcode, groupId, qq, 0)
+        Dim memberBytes As Byte() = Convert.FromBase64String(data)
+        Dim info As New GroupMemberInfo
+        Dim groupNumberBytes As Byte() = New Byte(7) {}
 
-        Dim gnarray(7) As Byte
-        Array.Copy(infoarray, 0, gnarray, 0, 8)
-        Dim res As New GroupMemberInfo
-        res.GroupId = BitConverter.ToInt64(gnarray, 0)
+        Array.Copy(memberBytes, 0, groupNumberBytes, 0, 8)
+        Array.Reverse(groupNumberBytes)
+        info.GroupId = BitConverter.ToInt64(groupNumberBytes, 0)
 
-        Dim qqarray(7) As Byte
-        Array.Copy(infoarray, 8, qqarray, 0, 8)
-        Array.Reverse(qqarray)
-        res.Number = BitConverter.ToInt64(qqarray, 0)
+        Dim qqNumberBytes As Byte() = New Byte(7) {}
+        Array.Copy(memberBytes, 8, qqNumberBytes, 0, 8)
+        Array.Reverse(qqNumberBytes)
+        info.Number = BitConverter.ToInt64(qqNumberBytes, 0)
 
-        Dim nlengtharray(1) As Byte
-        Array.Copy(infoarray, 16, nlengtharray, 0, 2)
-        Array.Reverse(nlengtharray)
-        Dim nlength As Short = BitConverter.ToInt16(nlengtharray, 0)
+        Dim nameLengthBytes As Byte() = New Byte(1) {}
+        Array.Copy(memberBytes, 16, nameLengthBytes, 0, 2)
+        Array.Reverse(nameLengthBytes)
+        Dim nameLength As Short = BitConverter.ToInt16(nameLengthBytes, 0)
 
-        Dim narray(nlength - 1) As Byte
-        Array.Copy(infoarray, 18, narray, 0, nlength)
-        res.NickName = Text.Encoding.Default.GetString(narray)
+        Dim nameBytes As Byte() = New Byte(nameLength - 1) {}
+        Array.Copy(memberBytes, 18, nameBytes, 0, nameLength)
+        info.NickName = Text.Encoding.[Default].GetString(nameBytes)
 
-        Dim cardlengtharray(1) As Byte
+        Dim cardLengthBytes As Byte() = New Byte(1) {}
+        Array.Copy(memberBytes, 18 + nameLength, cardLengthBytes, 0, 2)
+        Array.Reverse(cardLengthBytes)
+        Dim cardLength As Short = BitConverter.ToInt16(cardLengthBytes, 0)
 
+        Dim cardBytes As Byte() = New Byte(cardLength - 1) {}
+        Array.Copy(memberBytes, 20 + nameLength, cardBytes, 0, cardLength)
+        info.InGroupName = Text.Encoding.[Default].GetString(cardBytes)
+
+        Dim genderBytes As Byte() = New Byte(3) {}
+        Array.Copy(memberBytes, 20 + nameLength + cardLength, genderBytes, 0, 4)
+        Array.Reverse(genderBytes)
+        info.Gender = If(BitConverter.ToInt32(genderBytes, 0) = 0, "男", " 女")
+
+        Dim ageBytes As Byte() = New Byte(3) {}
+        Array.Copy(memberBytes, 24 + nameLength + cardLength, ageBytes, 0, 4)
+        Array.Reverse(ageBytes)
+        info.Age = BitConverter.ToInt32(ageBytes, 0)
+
+        Dim areaLengthBytes As Byte() = New Byte(1) {}
+        Array.Copy(memberBytes, 28 + nameLength + cardLength, areaLengthBytes, 0, 2)
+        Array.Reverse(areaLengthBytes)
+        Dim areaLength As Short = BitConverter.ToInt16(areaLengthBytes, 0)
+
+        Dim areaBytes As Byte() = New Byte(areaLength - 1) {}
+        Array.Copy(memberBytes, 30 + nameLength + cardLength, areaBytes, 0, areaLength)
+        info.Area = Text.Encoding.[Default].GetString(areaBytes)
+
+        Dim addGroupTimesBytes As Byte() = New Byte(3) {}
+        Array.Copy(memberBytes, 30 + nameLength + cardLength + areaLength, addGroupTimesBytes, 0, 4)
+        Array.Reverse(addGroupTimesBytes)
+        info.JoinTime = New DateTime(1970, 1, 1, 0, 0, 0).ToLocalTime().AddSeconds(BitConverter.ToInt32(addGroupTimesBytes, 0))
+
+        Dim lastSpeakTimesBytes As Byte() = New Byte(3) {}
+        Array.Copy(memberBytes, 34 + nameLength + cardLength + areaLength, lastSpeakTimesBytes, 0, 4)
+        Array.Reverse(lastSpeakTimesBytes)
+        info.LastSpeakingTime = New DateTime(1970, 1, 1, 0, 0, 0).ToLocalTime().AddSeconds(BitConverter.ToInt32(lastSpeakTimesBytes, 0))
+
+        Dim levelNameLengthBytes As Byte() = New Byte(1) {}
+        Array.Copy(memberBytes, 38 + nameLength + cardLength + areaLength, levelNameLengthBytes, 0, 2)
+        Array.Reverse(levelNameLengthBytes)
+        Dim levelNameLength As Short = BitConverter.ToInt16(levelNameLengthBytes, 0)
+
+        Dim levelNameBytes As Byte() = New Byte(levelNameLength - 1) {}
+        Array.Copy(memberBytes, 40 + nameLength + cardLength + areaLength, levelNameBytes, 0, levelNameLength)
+        info.Level = Text.Encoding.[Default].GetString(levelNameBytes)
+
+        Dim authorBytes As Byte() = New Byte(3) {}
+        Array.Copy(memberBytes, 40 + nameLength + cardLength + areaLength + levelNameLength, authorBytes, 0, 4)
+        Array.Reverse(authorBytes)
+        Dim authority As Integer = BitConverter.ToInt32(authorBytes, 0)
+        info.Authority = If(authority = 3, "群主", (If(authority = 2, "管理员", "成员")))
+
+        Dim badBytes As Byte() = New Byte(3) {}
+        Array.Copy(memberBytes, 44 + nameLength + cardLength + areaLength + levelNameLength, badBytes, 0, 4)
+        Array.Reverse(badBytes)
+        info.HasBadRecord = BitConverter.ToInt32(badBytes, 0) = 1
+
+        Dim titleLengthBytes As Byte() = New Byte(1) {}
+        Array.Copy(memberBytes, 48 + nameLength + cardLength + areaLength + levelNameLength, titleLengthBytes, 0, 2)
+        Array.Reverse(titleLengthBytes)
+        Dim titleLength As Short = BitConverter.ToInt16(titleLengthBytes, 0)
+
+        Dim titleBytes As Byte() = New Byte(titleLength - 1) {}
+        Array.Copy(memberBytes, 50 + nameLength + cardLength + areaLength + levelNameLength, titleBytes, 0, titleLength)
+        info.Title = Text.Encoding.[Default].GetString(titleBytes)
+
+        Dim titleExpireBytes As Byte() = New Byte(3) {}
+        Array.Copy(memberBytes, 50 + nameLength + cardLength + areaLength + levelNameLength + titleLength, titleExpireBytes, 0, 4)
+        Array.Reverse(titleExpireBytes)
+        info.TitleExpirationTime = BitConverter.ToInt32(titleExpireBytes, 0)
+
+        Dim modifyCardBytes As Byte() = New Byte(3) {}
+        Array.Copy(memberBytes, 54 + nameLength + cardLength + areaLength + levelNameLength + titleLength, titleExpireBytes, 0, 4)
+        Array.Reverse(titleExpireBytes)
+        info.CanModifyInGroupName = BitConverter.ToInt32(titleExpireBytes, 0) = 1
+        Return info
+errhandle:
+        Log(CoolQLogLevel.Error, Err.Description, "获取群成员信息")
+        Err.Clear()
     End Function
 
 End Class
