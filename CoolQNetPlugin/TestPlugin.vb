@@ -64,7 +64,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="font">消息所使用的字体。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
     <DllExport("_eventPrivateMsg")>
-    Public Shared Function ProcessPrivateMessage(subType As Integer, sendTime As Integer, fromQQ As String, msg As String, font As Integer) As Integer
+    Public Shared Function ProcessPrivateMessage(subType As Integer, sendTime As Integer, fromQQ As Long, msg As String, font As Integer) As Integer
         '0为忽略 1为拦截
 
         Return 0
