@@ -185,5 +185,21 @@ Public Class CoolQApi
             Return NativeMethods.CQ_getAppDirectory(cqauthcode)
         End Get
     End Property
-
+    ''' <summary>
+    ''' 把日志写入到酷Q运行日志中。
+    ''' </summary>
+    ''' <param name="level">日志等级。</param>
+    ''' <param name="message">日志内容。</param>
+    Public Sub Log(level As CoolQLogLevel, message As String)
+        NativeMethods.CQ_addLog(cqauthcode, level, level.ToString, message)
+    End Sub
+    ''' <summary>
+    ''' 把日志写入到酷Q运行日志中。
+    ''' </summary>
+    ''' <param name="level">日志等级。</param>
+    ''' <param name="message">日志内容。</param>
+    ''' <param name="category">日志类别。</param>
+    Public Sub Log(level As CoolQLogLevel, message As String, category As String)
+        NativeMethods.CQ_addLog(cqauthcode, level, category, message)
+    End Sub
 End Class
