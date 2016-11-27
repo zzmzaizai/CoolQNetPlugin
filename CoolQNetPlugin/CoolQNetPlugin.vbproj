@@ -139,7 +139,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "F:\酷Q Air\app" /Y
+    <PostBuildEvent>copy "$(TargetDir)x86\$(TargetFileName)" "F:\酷Q Air\app" /Y
 del "F:\酷Q Air\app\com.net.hotplug.test.dll"
 ren "F:\酷Q Air\app\$(TargetFileName)" "com.net.hotplug.test.dll"</PostBuildEvent>
   </PropertyGroup>
