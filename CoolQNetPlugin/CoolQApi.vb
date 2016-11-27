@@ -39,7 +39,7 @@ Public Class CoolQApi
         End Function
         <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setGroupBan(authCode As Integer, groupId As Long, QQid As Long, duration As Long) As Integer
-
+            '
         End Function
         <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setGroupAdmin(authCode As Integer, groupId As Long, QQid As Long, setAdmin As Integer) As Integer
@@ -219,5 +219,13 @@ Public Class CoolQApi
             Return NativeMethods.CQ_getLoginQQ(cqauthcode)
         End Get
     End Property
+    Public Function GetGroupMemberInfo(groupId As Long, qq As Long) As GroupMemberInfo
+        '参考Flexlive
+        Dim ds As String = NativeMethods.CQ_getGroupMemberInfoV2(cqauthcode, groupId, qq, 0)
+        Dim originarray As Byte() = Convert.FromBase64String(ds)
+        Dim targetarray(7) As Byte '
+        originarray.CopyTo(targetarray, 0)
+        Array.Reverse(targetarray)
 
+    End Function
 End Class
