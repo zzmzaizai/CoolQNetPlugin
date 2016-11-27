@@ -74,7 +74,6 @@ Public MustInherit Class CoolQCode
     ''' <returns><see cref="String"/> </returns>
     Public Shared Function ShareMusic(descriptionUri As Uri, audioUri As Uri, title As String, content As String, imageUri As Uri) As String
         If descriptionUri Is Nothing OrElse audioUri Is Nothing OrElse imageUri Is Nothing Then
-            CQ.Log(CoolQLogLevel.Error, "分享的链接不是绝对链接。", "分享")
             Return ""
         End If
         Return "[CQ:music,type=custom,url=" + descriptionUri.ToString + ",audio=" + audioUri.ToString + ",title=" + title + ",content=" + content + ",image=" + imageUri.ToString + "]"
@@ -115,7 +114,6 @@ Public MustInherit Class CoolQCode
     ''' <returns><see cref="String"/> </returns>
     Public Shared Function ShareLink(uri As Uri, title As String, content As String, imageUri As Uri) As String
         If uri Is Nothing OrElse imageUri Is Nothing Then
-            CQ.Log(CoolQLogLevel.Error, "分享的链接不是绝对链接。", "分享")
             Return ""
         End If
         Return "[CQ:share,url=" + uri.ToString + ",title=" + title + ",content=" + content + ",image=" + imageUri.ToString + "]"
