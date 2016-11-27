@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoolQApi.vb" />
+    <Compile Include="CoolQCode.vb" />
     <Compile Include="CoolQLogLevel.vb" />
     <Compile Include="GroupMemberInfo.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
