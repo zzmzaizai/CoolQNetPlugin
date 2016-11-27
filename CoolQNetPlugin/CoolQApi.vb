@@ -246,4 +246,5 @@ Public Class CoolQApi
         Dim cardlengtharray(1) As Byte
 
     End Function
+
 End Class

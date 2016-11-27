@@ -29,7 +29,7 @@ Public NotInheritable Class TestPlugin
     ''' 向酷Q提供插件信息。
     ''' </summary>
     ''' <returns><see cref="String"/> 一个固定格式字符串。</returns>
-    <DllExport("AppInfo", Runtime.InteropServices.CallingConvention.StdCall)>
+    <DllExport("AppInfo")>
     Public Shared Function AppInfo() As String
         '请勿修改此函数
         Return (ApiVersion.ToString + "," + AppId)
