@@ -357,4 +357,13 @@ errhandle:
     Public Sub ProcessAddFriendRequest(responseMark As String, result As CoolQRequestResult, remark As String)
         NativeMethods.CQ_setFriendAddRequest(cqauthcode, responseMark, result, remark)
     End Sub
+    ''' <summary>
+    ''' 把指定QQ从指定群中踢出。
+    ''' </summary>
+    ''' <param name="groupId">要踢出QQ的群。</param>
+    ''' <param name="qq">要踢出的QQ。</param>
+    ''' <param name="rejectAddGroupRequest">指示是否不再处理此人的加群申请。</param>
+    Public Sub KickFromGroup(groupId As Long, qq As Long, rejectAddGroupRequest As Boolean)
+        NativeMethods.CQ_setGroupKick(cqauthcode, groupId, qq, rejectAddGroupRequest)
+    End Sub
 End Class
