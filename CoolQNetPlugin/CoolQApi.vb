@@ -340,4 +340,21 @@ errhandle:
     Public Sub SendLike(qq As Long)
         NativeMethods.CQ_sendLike(cqauthcode, qq)
     End Sub
+    ''' <summary>
+    ''' 处理好友请求。
+    ''' </summary>
+    ''' <param name="responseMark">用于处理此好友请求的反馈标识。</param>
+    ''' <param name="result">是否通过此请求。</param>
+    Public Sub ProcessAddFriendRequest(responseMark As String, result As CoolQRequestResult)
+        NativeMethods.CQ_setFriendAddRequest(cqauthcode, responseMark, result, "")
+    End Sub
+    ''' <summary>
+    ''' 处理好友请求。
+    ''' </summary>
+    ''' <param name="responseMark">用于处理此好友请求的反馈标识。</param>
+    ''' <param name="result">是否通过此请求。</param>
+    ''' <param name="remark">对此好友的备注名。</param>
+    Public Sub ProcessAddFriendRequest(responseMark As String, result As CoolQRequestResult, remark As String)
+        NativeMethods.CQ_setFriendAddRequest(cqauthcode, responseMark, result, remark)
+    End Sub
 End Class

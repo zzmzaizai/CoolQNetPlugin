@@ -11,14 +11,6 @@ Module PluginHelper
     ''' </summary>
     Public Const Event_Block As Integer = 1
     ''' <summary>
-    ''' 表示通过请求的值。
-    ''' </summary>
-    Public Const Request_Pass As Integer = 1
-    ''' <summary>
-    ''' 表示拒绝请求的值。
-    ''' </summary>
-    Public Const Request_Deny As Integer = 2
-    ''' <summary>
     ''' 表示请求类型为加群请求。
     ''' </summary>
     Public Const RequestType_GroupJoin As Integer = 1
