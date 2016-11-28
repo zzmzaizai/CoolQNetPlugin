@@ -113,6 +113,7 @@ Public Class CoolQApi
         Public Shared Function CQ_getAppDirectory(authCode As Integer) As String
 
         End Function
+
     End Class
     ''' <summary>
     ''' 向指定的QQ发送私聊消息。
@@ -332,5 +333,11 @@ errhandle:
         Log(CoolQLogLevel.Error, Err.Description, "获取群成员信息")
         Err.Clear()
     End Function
-
+    ''' <summary>
+    ''' 给指定QQ点赞。
+    ''' </summary>
+    ''' <param name="qq">要点赞的QQ的号码。</param>
+    Public Sub SendLike(qq As Long)
+        NativeMethods.CQ_sendLike(cqauthcode, qq)
+    End Sub
 End Class
