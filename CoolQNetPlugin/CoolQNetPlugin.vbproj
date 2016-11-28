@@ -141,9 +141,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "F:\酷Q Air\app" /Y
-del "F:\酷Q Air\app\com.net.hotplug.test.dll"
-ren "F:\酷Q Air\app\$(TargetFileName)" "com.net.hotplug.test.dll"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)x86\$(TargetFileName)" "F:\酷Q Pro\app" /Y
+del "F:\酷Q Pro\app\com.net.hotplug.test.dll"
+ren "F:\酷Q Pro\app\$(TargetFileName)" "com.net.hotplug.test.dll"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="../packages/DllExport.1.5.1/tools/net.r_eg.DllExport.targets" Condition="Exists('../packages/DllExport.1.5.1/tools/net.r_eg.DllExport.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
