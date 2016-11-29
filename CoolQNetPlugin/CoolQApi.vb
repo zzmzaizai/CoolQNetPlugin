@@ -328,7 +328,7 @@ Public Class CoolQApi
         Dim modifyCardBytes As Byte() = New Byte(3) {}
         Array.Copy(memberBytes, 54 + nameLength + cardLength + areaLength + levelNameLength + titleLength, titleExpireBytes, 0, 4)
         Array.Reverse(titleExpireBytes)
-        info.CanModifyInGroupName = BitConverter.ToInt32(titleExpireBytes, 0) = 1
+        info.CanModifyInGroupName = BitConverter.ToInt32(modifyCardBytes, 0) = 1
         Return info
 errhandle:
         Log(CoolQLogLevel.Error, Err.Description, "获取群成员信息")
@@ -367,5 +367,5 @@ errhandle:
     Public Sub KickFromGroup(groupId As Long, qq As Long, rejectAddGroupRequest As Boolean)
         NativeMethods.CQ_setGroupKick(cqauthcode, groupId, qq, rejectAddGroupRequest)
     End Sub
-    
+
 End Class
