@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Runtime.InteropServices
 Imports System.Security
+Imports System.Text
 
 <Assembly: CLSCompliant(True)>
 ''' <summary>
@@ -250,7 +251,7 @@ Public Class CoolQApi
 
         Dim nameBytes As Byte() = New Byte(nameLength - 1) {}
         Array.Copy(memberBytes, 18, nameBytes, 0, nameLength)
-        info.NickName = Text.Encoding.[Default].GetString(nameBytes)
+        info.NickName = Encoding.[Default].GetString(nameBytes)
 
         Dim cardLengthBytes As Byte() = New Byte(1) {}
         Array.Copy(memberBytes, 18 + nameLength, cardLengthBytes, 0, 2)
@@ -259,7 +260,7 @@ Public Class CoolQApi
 
         Dim cardBytes As Byte() = New Byte(cardLength - 1) {}
         Array.Copy(memberBytes, 20 + nameLength, cardBytes, 0, cardLength)
-        info.InGroupName = Text.Encoding.[Default].GetString(cardBytes)
+        info.InGroupName = Encoding.[Default].GetString(cardBytes)
 
         Dim genderBytes As Byte() = New Byte(3) {}
         Array.Copy(memberBytes, 20 + nameLength + cardLength, genderBytes, 0, 4)
@@ -278,7 +279,7 @@ Public Class CoolQApi
 
         Dim areaBytes As Byte() = New Byte(areaLength - 1) {}
         Array.Copy(memberBytes, 30 + nameLength + cardLength, areaBytes, 0, areaLength)
-        info.Area = Text.Encoding.[Default].GetString(areaBytes)
+        info.Area = Encoding.[Default].GetString(areaBytes)
 
         Dim addGroupTimesBytes As Byte() = New Byte(3) {}
         Array.Copy(memberBytes, 30 + nameLength + cardLength + areaLength, addGroupTimesBytes, 0, 4)
@@ -297,7 +298,7 @@ Public Class CoolQApi
 
         Dim levelNameBytes As Byte() = New Byte(levelNameLength - 1) {}
         Array.Copy(memberBytes, 40 + nameLength + cardLength + areaLength, levelNameBytes, 0, levelNameLength)
-        info.Level = Text.Encoding.[Default].GetString(levelNameBytes)
+        info.Level = Encoding.[Default].GetString(levelNameBytes)
 
         Dim authorBytes As Byte() = New Byte(3) {}
         Array.Copy(memberBytes, 40 + nameLength + cardLength + areaLength + levelNameLength, authorBytes, 0, 4)
@@ -317,7 +318,7 @@ Public Class CoolQApi
 
         Dim titleBytes As Byte() = New Byte(titleLength - 1) {}
         Array.Copy(memberBytes, 50 + nameLength + cardLength + areaLength + levelNameLength, titleBytes, 0, titleLength)
-        info.Title = Text.Encoding.[Default].GetString(titleBytes)
+        info.Title = Encoding.[Default].GetString(titleBytes)
 
         Dim titleExpireBytes As Byte() = New Byte(3) {}
         Array.Copy(memberBytes, 50 + nameLength + cardLength + areaLength + levelNameLength + titleLength, titleExpireBytes, 0, 4)
@@ -366,4 +367,5 @@ errhandle:
     Public Sub KickFromGroup(groupId As Long, qq As Long, rejectAddGroupRequest As Boolean)
         NativeMethods.CQ_setGroupKick(cqauthcode, groupId, qq, rejectAddGroupRequest)
     End Sub
+    
 End Class
