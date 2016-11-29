@@ -338,7 +338,7 @@ errhandle:
     ''' 给指定QQ点赞。
     ''' </summary>
     ''' <param name="qq">要点赞的QQ的号码。</param>
-    Public Sub SendLike(qq As Long)
+    Public Sub SendGood(qq As Long)
         NativeMethods.CQ_sendLike(cqauthcode, qq)
     End Sub
     ''' <summary>
