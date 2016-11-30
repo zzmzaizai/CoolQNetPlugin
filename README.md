@@ -11,10 +11,15 @@
 - [ ] 公测
 
 ## 用法
-1. 下载[DllExport](https://github.com/3F/DllExport)，并把它放到一个容易找的地方
-2. 使用Visual Studio 2012或更高版本打开SDK
-3. 引用下载的DllExport
-4. 开始编写插件代码
+1. 使用Visual Studio 2012或更高版本打开SDK
+2. 通过Visual Studio里的Nuget获取DllExport
+3. 获取后，会弹出一个窗口，在这个窗口里有Configure按钮，点击它
+4. 开始编写测试代码
+5. 生成Dll
+6. 在生成位置找到x86文件夹，把里面的文件复制到酷Q app目录下
+7. 运行酷Q
+8. 开启插件
+9. 插件生效
 
 ## 测试截图
 本SDK内附了一个示例插件，其名为*com.net.hotplug.test*。下列测试代码并不存在于此示例插件当中。 
