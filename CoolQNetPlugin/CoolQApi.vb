@@ -87,10 +87,6 @@ Public Class CoolQApi
 
         End Function
         <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
-        Public Shared Function CQ_getStrangerInfo(authCode As Integer, QQid As Long, nocache As Integer) As String
-
-        End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_addLog(authCode As Integer, priority As Integer, <MarshalAs(UnmanagedType.LPStr), [In]> category As String, <MarshalAs(UnmanagedType.LPStr), [In]> content As String) As Integer
 
         End Function
