@@ -46,7 +46,7 @@
     <OptionExplicit>On</OptionExplicit>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionCompare>Binary</OptionCompare>
+    <OptionCompare>Text</OptionCompare>
   </PropertyGroup>
   <PropertyGroup>
     <OptionStrict>Off</OptionStrict>
@@ -91,7 +91,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoolQApi.vb" />
+    <Compile Include="CoolQCode.vb" />
     <Compile Include="CoolQLogLevel.vb" />
+    <Compile Include="CoolQRequestResult.vb" />
+    <Compile Include="CoolQAddRequestType.vb" />
     <Compile Include="GroupMemberInfo.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -138,6 +141,11 @@
     <None Include="docs\Plugin_Test_2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)x86\$(TargetFileName)" "F:\酷Q Pro\app" /Y
+del "F:\酷Q Pro\app\com.net.hotplug.test.dll"
+ren "F:\酷Q Pro\app\$(TargetFileName)" "com.net.hotplug.test.dll"</PostBuildEvent>
+  </PropertyGroup>
   <Import Project="../packages/DllExport.1.5.1/tools/net.r_eg.DllExport.targets" Condition="Exists('../packages/DllExport.1.5.1/tools/net.r_eg.DllExport.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

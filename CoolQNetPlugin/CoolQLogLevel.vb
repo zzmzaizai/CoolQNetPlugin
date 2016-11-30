@@ -3,6 +3,14 @@
 ''' </summary>
 Public Enum CoolQLogLevel
     ''' <summary>
+    ''' 表示没有指定等级。
+    ''' </summary>
+    None = 0
+    ''' <summary>
+    ''' 表示酷Q日志等级为调试。
+    ''' </summary>
+    Debug = 0
+    ''' <summary>
     ''' 表示酷Q日志等级为信息。
     ''' </summary>
     Info = 10
@@ -22,4 +30,12 @@ Public Enum CoolQLogLevel
     ''' 表示酷Q日志等级为警告。
     ''' </summary>
     Warning = 20
+    ''' <summary>
+    ''' 表示酷Q日志等级为错误。
+    ''' </summary>
+    [Error] = 30
+    ''' <summary>
+    ''' 表示酷Q日志等级为致命错误。
+    ''' </summary>
+    Fatal = 40
 End Enum

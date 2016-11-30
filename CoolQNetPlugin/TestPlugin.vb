@@ -39,7 +39,7 @@ Public NotInheritable Class TestPlugin
     ''' </summary>
     ''' <param name="authcode">由酷Q提供的AuthCode。</param>
     ''' <returns><see cref="Integer"/> </returns>
-    <DllExport("Initialize")>
+    <DllExport("Initialize", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function Initialize(authcode As Integer) As Integer
         '请勿更改此函数
         CQ.SetAuthCode(authcode)
@@ -49,7 +49,7 @@ Public NotInheritable Class TestPlugin
     ''' 此函数会在酷Q退出时被调用。
     ''' </summary>
     ''' <returns><see cref="Integer"/> </returns>
-    <DllExport("_eventExit")>
+    <DllExport("_eventExit", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function CoolQExited() As Integer
 
         Return 0 '固定返回0
@@ -63,8 +63,8 @@ Public NotInheritable Class TestPlugin
     ''' <param name="msg">消息的内容。</param>
     ''' <param name="font">消息所使用的字体。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventPrivateMsg")>
-    Public Shared Function ProcessPrivateMessage(subType As Integer, sendTime As Integer, fromQQ As String, msg As String, font As Integer) As Integer
+    <DllExport("_eventPrivateMsg", Runtime.InteropServices.CallingConvention.StdCall)>
+    Public Shared Function ProcessPrivateMessage(subType As Integer, sendTime As Integer, fromQQ As Long, msg As String, font As Integer) As Integer
         '0为忽略 1为拦截
 
         Return 0
@@ -80,7 +80,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="msg">消息内容。</param>
     ''' <param name="font">消息所使用字体。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventGroupMsg")>
+    <DllExport("_eventGroupMsg", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessGroupMessage(subType As Integer, sendTime As Integer, fromGroup As Long, fromQQ As Long, fromAnonymous As String,
                                                msg As String, font As Integer) As Integer
         '0为忽略 1为拦截
@@ -97,7 +97,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="msg">消息内容。</param>
     ''' <param name="font">消息所使用字体。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventDiscussMsg")>
+    <DllExport("_eventDiscussMsg", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessDiscussGroupMessage(subType As Integer, sendTime As Integer, fromDiscuss As Long, fromQQ As Long, msg As String, font As Integer) As Integer
         '0为忽略 1为拦截
 
@@ -112,7 +112,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="fromQQ">上传此文件的QQ号码。</param>
     ''' <param name="file">上传的文件的信息。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventGroupUpload")>
+    <DllExport("_eventGroupUpload", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessGroupUpload(subType As Integer, sendTime As Integer, fromGroup As Long, fromQQ As Long, file As String) As Integer
         Return 0
     End Function
@@ -124,7 +124,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="fromGroup">事件来源群号。</param>
     ''' <param name="target">被操作的QQ。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventSystem_GroupAdmin")>
+    <DllExport("_eventSystem_GroupAdmin", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessGroupAdminChange(subType As Integer, sendTime As Integer, fromGroup As Long, target As Long) As Integer
         Return 0
     End Function
@@ -137,7 +137,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="fromQQ">事件来源QQ。</param>
     ''' <param name="target">被操作的QQ。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventSystem_GroupMemberDecrease")>
+    <DllExport("_eventSystem_GroupMemberDecrease", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessGroupMemberDecrease(subType As Integer, sendTime As Integer, fromGroup As Long, fromQQ As Long, target As Long) As Integer
         Return 0
     End Function
@@ -150,7 +150,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="fromQQ">事件来源QQ。</param>
     ''' <param name="target">被操作的QQ。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventSystem_GroupMemberIncrease")>
+    <DllExport("_eventSystem_GroupMemberIncrease", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessGroupMemberIncrease(subType As Integer, sendTime As Integer, fromGroup As Long, fromQQ As Long, target As Long) As Integer
         Return 0
     End Function
@@ -161,7 +161,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="sendTime">事件发生时间的时间戳。</param>
     ''' <param name="fromQQ">事件来源QQ。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventFriend_Add")>
+    <DllExport("_eventFriend_Add", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessFriendsAdded(subType As Integer, sendTime As Integer, fromQQ As Long) As Integer
         Return 0
     End Function
@@ -174,7 +174,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="msg">附言内容。</param>
     ''' <param name="font">消息所使用字体。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
-    <DllExport("_eventRequest_AddFriend")>
+    <DllExport("_eventRequest_AddFriend", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessAddFriendRequest(subType As Integer, sendTime As Integer, fromQQ As Long, msg As String, font As Integer) As Integer
         Return 0
     End Function
@@ -188,6 +188,7 @@ Public NotInheritable Class TestPlugin
     ''' <param name="msg">附言内容。</param>
     ''' <param name="responseMark">用于处理请求的标识。</param>
     ''' <returns><see cref="Integer"/> 是否拦截消息的值，0为忽略消息，1为拦截消息。</returns>
+    <DllExport("_eventRequest_AddGroup", Runtime.InteropServices.CallingConvention.StdCall)>
     Public Shared Function ProcessJoinGroupRequest(subType As Integer, sendTime As Integer, fromGroup As Long, fromQQ As Long, msg As String, responseMark As String) As Integer
         Return 0
     End Function
