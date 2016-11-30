@@ -2,12 +2,6 @@
 ''' 表示一个群成员的信息。
 ''' </summary>
 Public NotInheritable Class GroupMemberInfo
-    Private info_age As Integer, info_area As String, info_authority As String
-    Private p_canmodifycard As Boolean, info_gender As String, info_card As String
-    Private info_title As String, info_groupnumber As Long, info_hasbadrecord As Boolean
-    Private info_titleexpirationtime As Integer, info_joingroupdate As Date, info_lastspeaktime As Date
-    Private info_level As String, info_nickname As String, info_qqnumber As Long
-    Private Sub New()
 
     End Sub
     Friend Sub New(age As Integer, area As String, authority As String, canmodifycard As Boolean,
@@ -26,8 +20,6 @@ Public NotInheritable Class GroupMemberInfo
         info_titleexpirationtime = titleexpirationtime
         info_joingroupdate = joingroupdate
         info_level = level
-        info_nickname = nickname
-        info_qqnumber = qqnumber
-    End Sub
 
+    End Sub
 End Class

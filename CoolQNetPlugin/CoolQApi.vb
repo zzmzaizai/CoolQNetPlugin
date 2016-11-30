@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Runtime.InteropServices
 Imports System.Security
+Imports System.Text
 
 <Assembly: CLSCompliant(True)>
 ''' <summary>
@@ -17,102 +18,99 @@ Public Class CoolQApi
         cqauthcode = authCode
     End Sub
     Private MustInherit Class NativeMethods
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_sendPrivateMsg(authCode As Integer, QQid As Long, message As String) As Integer
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_sendPrivateMsg(authCode As Integer, QQid As Long, <MarshalAs(UnmanagedType.LPStr), [In]> message As String) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_sendGroupMsg(authCode As Integer, groupId As Long, message As String) As Integer
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_sendGroupMsg(authCode As Integer, groupId As Long, <MarshalAs(UnmanagedType.LPStr), [In]> message As String) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_sendDiscussMsg(authCode As Integer, discussId As Long, message As String) As Integer
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_sendDiscussMsg(authCode As Integer, discussId As Long, <MarshalAs(UnmanagedType.LPStr), [In]> message As String) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_sendLike(authCode As Integer, QQid As Long) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setGroupKick(authCode As Integer, groupId As Long, QQid As Long, rejectAddRequest As Integer) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setGroupBan(authCode As Integer, groupId As Long, QQid As Long, duration As Long) As Integer
-
+            '
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setGroupAdmin(authCode As Integer, groupId As Long, QQid As Long, setAdmin As Integer) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setGroupWholeBan(authCode As Integer, groupId As Long, enableban As Integer) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_setGroupAnonymousBan(authCode As Integer, groupId As Long, anonymous As String, duration As Long) As Integer
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_setGroupAnonymousBan(authCode As Integer, groupId As Long, <MarshalAs(UnmanagedType.LPStr), [In]> anonymous As String, duration As Long) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setGroupAnonymous(authCode As Integer, groupId As Long, enableAnomymous As Integer) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_setGroupCard(authCode As Integer, groupId As Long, QQid As Long, newCard As String) As Integer
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_setGroupCard(authCode As Integer, groupId As Long, QQid As Long, <MarshalAs(UnmanagedType.LPStr), [In]> newCard As String) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setGroupLeave(authCode As Integer, groupId As Long, isdismissed As Integer) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_setGroupSpecialTitle(authCode As Integer, groupId As Long, QQid As Long, newTitle As String, duration As Long) As Integer
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_setGroupSpecialTitle(authCode As Integer, groupId As Long, QQid As Long, <MarshalAs(UnmanagedType.LPStr), [In]> newTitle As String, duration As Long) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_setDiscussLeave(authCode As Integer, discussGroupId As Long) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_setFriendAddRequest(authCode As Integer, responseFlag As String, responseOperation As Integer, remark As String) As Integer
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_setFriendAddRequest(authCode As Integer, <MarshalAs(UnmanagedType.LPStr), [In]> responseFlag As String, responseOperation As Integer, <MarshalAs(UnmanagedType.LPStr), [In]> remark As String) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_setGroupAddRequestV2(authCode As Integer, responseFlag As String, requestType As Integer, responseOperation As Integer, reason As String) As Integer
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_setGroupAddRequestV2(authCode As Integer, <MarshalAs(UnmanagedType.LPStr), [In]> responseFlag As String, requestType As Integer, responseOperation As Integer, <MarshalAs(UnmanagedType.LPStr), [In]> reason As String) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_getGroupMemberInfoV2(authCode As Integer, groupId As Long, QQid As Long, nocache As Integer) As String
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_getStrangerInfo(authCode As Integer, QQid As Long, nocache As Integer) As String
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
+        Public Shared Function CQ_addLog(authCode As Integer, priority As Integer, <MarshalAs(UnmanagedType.LPStr), [In]> category As String, <MarshalAs(UnmanagedType.LPStr), [In]> content As String) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
-        Public Shared Function CQ_addLog(authCode As Integer, priority As Integer, category As String, content As String) As Integer
-
-        End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_getCookies(authCode As Integer) As String
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_getCsrfToken(authCode As Integer) As Integer
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_getLoginQQ(authCode As Integer) As Long
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_getLoginNick(authCode As Integer) As String
 
         End Function
-        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, CharSet:=CharSet.Unicode)>
+        <DllImport("CQP.dll", CallingConvention:=CallingConvention.StdCall, BestFitMapping:=False)>
         Public Shared Function CQ_getAppDirectory(authCode As Integer) As String
 
         End Function
+
     End Class
     ''' <summary>
     ''' 向指定的QQ发送私聊消息。
@@ -184,40 +182,5 @@ Public Class CoolQApi
             Return NativeMethods.CQ_getAppDirectory(cqauthcode)
         End Get
     End Property
-    ''' <summary>
-    ''' 把日志写入到酷Q运行日志。
-    ''' </summary>
-    ''' <param name="level">日志等级。</param>
-    ''' <param name="message">日志消息。</param>
-    Public Sub Log(level As CoolQLogLevel, message As String)
-        If level = CoolQLogLevel.None Then Return
-        Dim levelint As Integer = level
-        NativeMethods.CQ_addLog(cqauthcode, levelint, level.ToString, message)
-    End Sub
-    ''' <summary>
-    ''' 把日志写入到酷Q运行日志。
-    ''' </summary>
-    ''' <param name="level">日志等级。</param>
-    ''' <param name="message">日志消息。</param>
-    ''' <param name="category">日志分类。</param>
-    Public Sub Log(level As CoolQLogLevel, message As String, category As String)
-        If level = CoolQLogLevel.None Then Return
-        Dim levelint As Integer = level
-        NativeMethods.CQ_addLog(cqauthcode, levelint, category, message)
-    End Sub
-    ''' <summary>
-    ''' 获取指定群成员信息。
-    ''' </summary>
-    ''' <param name="groupNumber">要获取信息的群成员的所在群的群号。</param>
-    ''' <param name="qq">要获取群成员的QQ。</param>
-    ''' <returns></returns>
-    Public Function GetGroupMemberInfo(groupNumber As Long, qq As Long, doNotUseCache As Boolean) As String
-        '参照Flexlive
-        Dim datastring As String = NativeMethods.CQ_getGroupMemberInfoV2(cqauthcode, groupNumber, qq, If(doNotUseCache, 1, 0))
-        Dim dataarray As Byte() = Convert.FromBase64String(datastring)
-        Dim gnarray(8) As Byte
-        dataarray.CopyTo(gnarray, 0)
-        Array.Reverse(gnarray)
 
-    End Function
 End Class
