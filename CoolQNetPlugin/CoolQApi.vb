@@ -363,5 +363,152 @@ errhandle:
     Public Sub KickFromGroup(groupId As Long, qq As Long, rejectAddGroupRequest As Boolean)
         NativeMethods.CQ_setGroupKick(cqauthcode, groupId, qq, rejectAddGroupRequest)
     End Sub
-
+    ''' <summary>
+    ''' 对在指定群里的指定QQ进行禁言。
+    ''' </summary>
+    ''' <param name="groupId">要进行禁言操作的群。</param>
+    ''' <param name="qq">要禁言的QQ。</param>
+    ''' <param name="duration">禁言持续时长。</param>
+    Public Sub Ban(groupId As Long, qq As Long, duration As TimeSpan)
+        Dim totalsec As Long = Math.Floor(duration.TotalSeconds)
+        NativeMethods.CQ_setGroupBan(cqauthcode, groupId, qq, totalsec)
+    End Sub
+    ''' <summary>
+    ''' 对在指定群里的指定QQ进行禁言。
+    ''' </summary>
+    ''' <param name="groupId">要进行禁言操作的群。</param>
+    ''' <param name="qq">要禁言的QQ。</param>
+    ''' <param name="duration">禁言持续秒数。</param>
+    Public Sub Ban(groupId As Long, qq As Long, duration As Integer)
+        NativeMethods.CQ_setGroupBan(cqauthcode, groupId, qq, duration)
+    End Sub
+    ''' <summary>
+    ''' 在指定群内对被禁言的QQ执行解除禁言操作。
+    ''' </summary>
+    ''' <param name="groupId">要进行解除禁言操作的群。</param>
+    ''' <param name="qq">要解除禁言的QQ。</param>
+    Public Sub RemoveBanned(groupId As Long, qq As Long)
+        Ban(groupId, qq, 0)
+    End Sub
+    ''' <summary>
+    ''' 把指定QQ设定为指定群的管理员。
+    ''' </summary>
+    ''' <param name="groupId">要进行操作的群。</param>
+    ''' <param name="qq">要被提升为管理员的QQ。</param>
+    Public Sub SetAsAdmin(groupId As Long, qq As Long)
+        NativeMethods.CQ_setGroupAdmin(cqauthcode, groupId, qq, 1)
+    End Sub
+    ''' <summary>
+    ''' 把指定群指定QQ的群管理员身份取消。
+    ''' </summary>
+    ''' <param name="groupId">要执行操作的群。</param>
+    ''' <param name="qq">要取消管理员的QQ。</param>
+    Public Sub RevokeAdmin(groupId As Long, qq As Long)
+        NativeMethods.CQ_setGroupAdmin(cqauthcode, groupId, qq, 0)
+    End Sub
+    ''' <summary>
+    ''' 对指定群执行全体禁言操作。
+    ''' </summary>
+    ''' <param name="groupId">要进行全体禁言的群。</param>
+    Public Sub BanAll(groupId As Long)
+        NativeMethods.CQ_setGroupWholeBan(cqauthcode, groupId, 1)
+    End Sub
+    ''' <summary>
+    ''' 解除指定群的全体禁言状态。
+    ''' </summary>
+    ''' <param name="groupId">要解除全体禁言状态的群。</param>
+    Public Sub RemoveBannedAll(groupId As Long)
+        NativeMethods.CQ_setGroupWholeBan(cqauthcode, groupId, 0)
+    End Sub
+    ''' <summary>
+    ''' 对在指定群里的指定匿名用户进行禁言。在对指定的匿名用户进行禁言后，不能解除匿名用户的禁言状态。
+    ''' </summary>
+    ''' <param name="groupId">要进行禁言操作的群。</param>
+    ''' <param name="anonymous">要禁言的匿名用户。</param>
+    ''' <param name="duration">禁言持续时长。</param>
+    Public Sub BanAnonymous(groupId As Long, anonymous As String, duration As TimeSpan)
+        NativeMethods.CQ_setGroupAnonymousBan(cqauthcode, groupId, anonymous, Math.Floor(duration.TotalSeconds))
+    End Sub
+    ''' <summary>
+    ''' 对在指定群里的指定匿名用户进行禁言。在对指定的匿名用户进行禁言后，不能解除匿名用户的禁言状态。
+    ''' </summary>
+    ''' <param name="groupId">要进行禁言操作的群。</param>
+    ''' <param name="anonymous">要禁言的匿名用户。</param>
+    ''' <param name="duration">禁言持续秒数。</param>
+    Public Sub BanAnonymous(groupId As Long, anonymous As String, duration As Long)
+        NativeMethods.CQ_setGroupAnonymousBan(cqauthcode, groupId, anonymous, duration)
+    End Sub
+    ''' <summary>
+    ''' 打开指定的群的匿名聊天。
+    ''' </summary>
+    ''' <param name="groupId">要打开匿名聊天的群。</param>
+    Public Sub EnableAnonymousChat(groupId As Long)
+        NativeMethods.CQ_setGroupAnonymous(cqauthcode, groupId, 1)
+    End Sub
+    ''' <summary>
+    ''' 关闭指定的群的匿名聊天。
+    ''' </summary>
+    ''' <param name="groupId">要关闭匿名聊天的群。</param>
+    Public Sub DisableAnonymousChat(groupId As Long)
+        NativeMethods.CQ_setGroupAnonymous(cqauthcode, groupId, 0)
+    End Sub
+    ''' <summary>
+    ''' 修改在指定群内指定QQ的群名片。
+    ''' </summary>
+    ''' <param name="groupId">要执行操作的群。</param>
+    ''' <param name="qq">要修改名片的QQ。</param>
+    ''' <param name="newCard">新名片内容。</param>
+    Public Sub SetGroupCard(groupId As Long, qq As Long, newCard As String)
+        NativeMethods.CQ_setGroupCard(cqauthcode, groupId, qq, newCard)
+    End Sub
+    ''' <summary>
+    ''' 退出指定群。
+    ''' </summary>
+    ''' <param name="groupId">要退出的群的群号。</param>
+    Public Sub QuitTheGroup(groupId As Long)
+        NativeMethods.CQ_setGroupLeave(cqauthcode, groupId, 0)
+    End Sub
+    ''' <summary>
+    ''' 退出并解散指定群。
+    ''' </summary>
+    ''' <param name="groupId">要退出并解散的群的群号。</param>
+    Public Sub QuitAndDismissTheGroup(groupId As Long)
+        NativeMethods.CQ_setGroupLeave(cqauthcode, groupId, 1)
+    End Sub
+    ''' <summary>
+    ''' 赋予指定群内指定成员永久群成员专属头衔。
+    ''' </summary>
+    ''' <param name="groupId">要执行操作的群。</param>
+    ''' <param name="qq">要赋予头衔的QQ。</param>
+    ''' <param name="newTitle">头衔内容。</param>
+    Public Sub SetGroupTitle(groupId As Long, qq As Long, newTitle As String)
+        NativeMethods.CQ_setGroupSpecialTitle(cqauthcode, groupId, qq, newTitle, -1)
+    End Sub
+    ''' <summary>
+    ''' 赋予指定群内指定成员会过期的群成员专属头衔。
+    ''' </summary>
+    ''' <param name="groupId">要执行操作的群。</param>
+    ''' <param name="qq">要赋予头衔的QQ。</param>
+    ''' <param name="newTitle">头衔内容。</param>
+    ''' <param name="duration">头衔生效时间。（单位：秒）</param>
+    Public Sub SetGroupTitle(groupId As Long, qq As Long, newTitle As Long, duration As Long)
+        NativeMethods.CQ_setGroupSpecialTitle(cqauthcode, groupId, qq, newTitle, duration)
+    End Sub
+    ''' <summary>
+    ''' 退出指定的讨论组。
+    ''' </summary>
+    ''' <param name="discussGroupId">要退出的讨论组的ID。</param>
+    Public Sub QuitTheDiscussGroup(discussGroupId As Long)
+        NativeMethods.CQ_setDiscussLeave(cqauthcode, discussGroupId)
+    End Sub
+    ''' <summary>
+    ''' 处理加群请求。
+    ''' </summary>
+    ''' <param name="responseMark">用于处理请求的反馈标识。</param>
+    ''' <param name="resquestType">请求类型。</param>
+    ''' <param name="operation">请求处理结果。</param>
+    ''' <param name="reason">附言。</param>
+    Public Sub ProcessAddGroupRequest(responseMark As String, resquestType As CoolQAddGroupRequestType, operation As CoolQRequestResult, reason As String)
+        NativeMethods.CQ_setGroupAddRequestV2(cqauthcode, responseMark, resquestType, operation, reason)
+    End Sub
 End Class

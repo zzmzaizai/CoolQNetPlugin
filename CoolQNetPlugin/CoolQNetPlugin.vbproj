@@ -94,6 +94,7 @@
     <Compile Include="CoolQCode.vb" />
     <Compile Include="CoolQLogLevel.vb" />
     <Compile Include="CoolQRequestResult.vb" />
+    <Compile Include="CoolQAddRequestType.vb" />
     <Compile Include="GroupMemberInfo.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
