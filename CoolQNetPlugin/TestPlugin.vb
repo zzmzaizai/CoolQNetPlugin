@@ -23,6 +23,7 @@ Public NotInheritable Class TestPlugin
     ''' <returns><see cref="Integer"/> 返回处理过程是否成功的值。</returns>
     <DllExport("_eventDisable")>
     Public Shared Function Disabled() As Integer
+
         Return 0
     End Function
     ''' <summary>
@@ -200,7 +201,7 @@ Public NotInheritable Class TestPlugin
     '}
     '则
     '<DllExport("菜单对应函数")>
-    'Public Shared Function <执行过程名称，可与菜单对应函数不同>() As Integer
+    'Public Shared Function <执行过程名称>() As Integer
     '    Return 0 '固定返回0
     'End Function
 End Class
